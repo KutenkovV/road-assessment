@@ -1,0 +1,19 @@
+.upload-content {
+
+  background-color: #7a2c9e;
+  padding: 25px;
+  border-radius: 1rem;
+  box-shadow: 6px 6px 2px 1px rgba(0, 0, 255, .2);
+}
+
+.upload-content input {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.upload-content input:hover {
+  background-color: #c265ee;
+  transition: all 0.2s;
+}
