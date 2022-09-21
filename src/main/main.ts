@@ -14,6 +14,7 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
+import bindIPC from './ipc_handlers';
 
 class AppUpdater {
   constructor() {
@@ -75,7 +76,8 @@ const createWindow = async () => {
     height: 728,
     icon: getAssetPath('icon.png'),
     webPreferences: {
-      sandbox: false,
+      //sandbox: false,
+      contextIsolation: true,
       preload: app.isPackaged
         ? path.join(__dirname, 'preload.js')
         : path.join(__dirname, '../../.erb/dll/preload.js'),
@@ -128,6 +130,7 @@ app.on('window-all-closed', () => {
 app
   .whenReady()
   .then(() => {
+    bindIPC();
     createWindow();
     app.on('activate', () => {
       // On macOS it's common to re-create a window in the app when the

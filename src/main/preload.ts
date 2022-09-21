@@ -18,4 +18,16 @@ contextBridge.exposeInMainWorld('electron', {
       ipcRenderer.once(channel, (_event, ...args) => func(...args));
     },
   },
+  openFile(options: any) {
+    return ipcRenderer.invoke('dialog:openFile', options)
+  },
+  saveFile(options: any) {
+    return ipcRenderer.invoke('dialog:saveFile', options)
+  },
+  userRead() {
+    return ipcRenderer.invoke("user:read")
+  },
+  userWrite(config: any) {
+    return ipcRenderer.invoke("user:write", config)
+  }
 });
