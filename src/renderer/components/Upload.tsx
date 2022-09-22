@@ -1,13 +1,27 @@
-import {observer} from "mobx-react-lite";
+import { observer } from 'mobx-react-lite';
 import './Upload.css';
 import './Table/Tabledata.css';
 import Tabledata from './Table/Tabledata';
+import { toJS } from 'mobx';
 import { useState } from 'react';
 
 const Upload = observer(() => {
-  const [file, setfile] = useState("");
+  const [file, setfile] = useState('');
+
+  // const store = useNagruzkaStore();
+  // const navigate = useNavigate();
+
+  // function onClick() {
+  //   store.setConfig({
+  //     ...toJS(store.config),
+  //     file
+  //   });
+  //   store.loadSemesters();
+  //   navigate('/main');
+  // }
 
   async function selectFile(defaultPath: string, setFunc: any) {
+    //открываем окно загрзуки файл
     const file = await window.electron.openFile({
       defaultPath,
       filters: [{ name: '*.xlsx', extensions: ['xlsx'] }],
@@ -25,7 +39,7 @@ const Upload = observer(() => {
       <div className="upload-content">
         <p>Загрузите файл</p>
         <input
-          type="file"
+          type="text"
           value={file}
           onChange={(e) => setfile(e.target.value)}
         />
@@ -36,6 +50,6 @@ const Upload = observer(() => {
       <Tabledata />
     </>
   );
-})
+});
 
 export default Upload;

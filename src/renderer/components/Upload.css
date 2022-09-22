@@ -1,5 +1,4 @@
 .upload-content {
-
   background-color: #7a2c9e;
   padding: 25px;
   border-radius: 1rem;
@@ -7,10 +6,12 @@
 }
 
 .upload-content input {
+  width: 450px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  padding: 6px 12px;
+  padding: 6px 2px;
   cursor: pointer;
+  margin-right: 5px;
 }
 
 .upload-content input:hover {

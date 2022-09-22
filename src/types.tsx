@@ -1,3 +1,5 @@
+import { round } from 'lodash';
+
 export enum AssessmentCellType {
   All = 'All',
   Lect = 'Lect',
@@ -42,4 +44,35 @@ export interface NagruzkaLine {
   hMag: number;
   teacher: string;
   sem: number;
+}
+
+export interface NagruzkaConfig {
+  filenameSem1: string;
+  filenameSem2: string;
+  lastTeacher: string;
+  weeksCount: number;
+  changes: Array<any>;
+}
+
+export function getNagruzkaLineTotal(x: NagruzkaLine) {
+  return round(
+    x.hLect +
+      x.hPrac +
+      x.hLab +
+      x.hCons +
+      x.hExam +
+      x.hZach +
+      x.hKursR +
+      x.hKursP +
+      x.hDip +
+      x.hUchPr +
+      x.hPrPr +
+      x.hGEK +
+      x.hRGR +
+      x.hZachOc +
+      x.hKontr +
+      x.hAsp +
+      x.hMag,
+    2
+  );
 }
