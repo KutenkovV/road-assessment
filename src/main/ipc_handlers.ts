@@ -2,7 +2,7 @@ import {app, dialog, ipcMain} from "electron";
 import fs from "fs";
 import {toJS} from "mobx";
 import path from "path";
-import {NagruzkaLine} from "../types";
+import { loadXls } from "./xlsx_processing";
 
 export default function bindIPC() {
   ipcMain.handle('dialog:openFile', async (_event, options) => {
@@ -35,12 +35,17 @@ export default function bindIPC() {
     await fs.promises.writeFile(pth, JSON.stringify(toJS(data)));
   })
 
-  ipcMain.handle("nagruzka:save", async (_event, f: string, nagruzkaLines: Array<NagruzkaLine>) => {
-    await fs.promises.writeFile(f, JSON.stringify(nagruzkaLines));
-  })
+  // ipcMain.handle("nagruzka:save", async (_event, f: string, nagruzkaLines: Array<NagruzkaLine>) => {
+  //   await fs.promises.writeFile(f, JSON.stringify(nagruzkaLines));
+  // })
 
   ipcMain.handle("nagruzka:load", async (_event, f) => {
     const data = await fs.promises.readFile(f);
     return JSON.parse(data.toString());
+  })
+
+  ipcMain.handle("roaddata:load", async (_event, f) => {
+    let data = await loadXls(f);
+    return data;
   })
 }

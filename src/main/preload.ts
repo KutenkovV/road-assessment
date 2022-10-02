@@ -29,5 +29,8 @@ contextBridge.exposeInMainWorld('electron', {
   },
   userWrite(config: any) {
     return ipcRenderer.invoke("user:write", config)
+  },
+  loadXls(path: string) {
+    return ipcRenderer.invoke("roaddata:load", path)
   }
 });

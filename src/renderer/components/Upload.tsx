@@ -26,9 +26,11 @@ const Upload = observer(() => {
       defaultPath,
       filters: [{ name: '*.xlsx', extensions: ['xlsx'] }],
     });
-    if (file) {
-      setFunc(file);
-    }
+    let data = await window.electron.loadXls(file);
+    console.log(data)
+    // if (file) {
+    //   setFunc(file);
+    // }
   }
 
   console.log('файл в стейте');
