@@ -1,5 +1,5 @@
 import React from 'react';
-import NagruzkaStore from './nagruzka_store';
+import NagruzkaStore from './road_store';
 
 // @ts-ignore
 export const NagruzkaContext = React.createContext<NagruzkaStore>();

@@ -35,16 +35,20 @@ export async function loadXls(filename: string): Promise<Array<Road_line>> {
   let items: Array<Road_line> = [];
   let rows: Array<Row> = [];
 
-  for (let i = 0; i < worksheet.rowCount; i++) {
+  for (let i = 0; i < worksheet.rowCount; i += 1) {
+
     const row = worksheet.getRow(i);
-    const firstCell = row.getCell(1);
-    console.log(row)
-    rows.push(row);
+    const firstCell = row.getCell(2);
+
+    if (typeof firstCell.value === 'number') {
+      //console.log(row.values)
+      console.log("iteration: " + i);
+      items = rows.map(processRowWrapperFunc());
+      rows.push(row);
+    }
   }
 
-
-  
   return new Promise((resolve) => {
-    return resolve(items);
+    return resolve(items);    
   });
 }

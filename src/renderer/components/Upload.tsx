@@ -19,22 +19,22 @@ const Upload = observer(() => {
   //   store.loadSemesters();
   //   navigate('/main');
   // }
+  const [items, setItems] = useState([]);
 
   async function selectFile(defaultPath: string, setFunc: any) {
-    //открываем окно загрзуки файл
+    //открываем окно загрзуки
     const file = await window.electron.openFile({
       defaultPath,
       filters: [{ name: '*.xlsx', extensions: ['xlsx'] }],
     });
     let data = await window.electron.loadXls(file);
-    console.log(data)
-    // if (file) {
-    //   setFunc(file);
-    // }
+    console.log(data);
+    setItems(data);
   }
 
   console.log('файл в стейте');
   console.log(file);
+
 
   return (
     <>
@@ -49,7 +49,7 @@ const Upload = observer(() => {
           Загрузить
         </button>
       </div>
-      <Tabledata />
+      <Tabledata data={items}/>
     </>
   );
 });

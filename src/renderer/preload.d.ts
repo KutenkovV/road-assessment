@@ -1,5 +1,5 @@
 import { Channels } from 'main/preload';
-import { AssessmentCellType } from '../types';
+import { Road_line } from '../types';
 
 declare global {
   interface Window {
@@ -13,7 +13,7 @@ declare global {
         once(channel: string, func: (...args: unknown[]) => void): void;
       };
       openFile(options: any): any;
-      loadXls(filename: string): Promise<Array<AssessmentCellType>>;
+      loadXls(filename: string): Promise<Array<Road_line>>;
     };
   }
 }
