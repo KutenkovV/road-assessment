@@ -2,26 +2,15 @@ import { observer } from 'mobx-react-lite';
 import './Upload.css';
 import './Table/Tabledata.css';
 import Tabledata from './Table/Tabledata';
-import { toJS } from 'mobx';
 import { useState } from 'react';
 
 const Upload = observer(() => {
   const [file, setfile] = useState('');
 
-  // const store = useNagruzkaStore();
-  // const navigate = useNavigate();
-
-  // function onClick() {
-  //   store.setConfig({
-  //     ...toJS(store.config),
-  //     file
-  //   });
-  //   store.loadSemesters();
-  //   navigate('/main');
-  // }
   const [items, setItems] = useState([]);
 
-  async function selectFile(defaultPath: string, setFunc: any) {
+  async function selectFile(defaultPath: string, setfile: any) {
+
     //открываем окно загрзуки
     const file = await window.electron.openFile({
       defaultPath,
