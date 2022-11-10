@@ -1,10 +1,60 @@
 import './main.css';
 import ReactECharts from 'echarts-for-react';
 import data_chart from './flare.json';
+import { useState } from 'react';
 
 // Пока непонятная конструкция "Main: React.FC"
 const Main: React.FC = () => {
-  
+  let data: Map<number, any>[] = [];
+
+  var road_2 = {
+    flatness_road_lane_1: 5,
+    road_defects_1: 4.5,
+    road_grip_1: 4.5,
+    current_year: 5,
+    future_year: 3,
+  };
+
+  function road_degradation(param: any) {
+    let IRI = road_2.flatness_road_lane_1;
+    let J = road_2.road_defects_1;
+    let C = road_2.road_grip_1;
+
+    let Tc = road_2.current_year;
+    let Tf = road_2.future_year;
+
+    type Data = {
+      name: string;
+      children: [{
+        IRI: number;
+        J: number;
+        C: number;
+      }];
+    };
+
+    let array = new Map<number, Data>();
+
+    for (let i = 1; i <= Tf; i++) {
+      IRI **= 0.9;
+      J **= 0.9;
+      C **= 0.9;
+
+      array.set(i, {
+        name: ""+i,
+        children: [{
+          IRI,
+          J,
+          C,
+        }]
+      });
+    }
+
+    console.log(array);
+
+    data.push(array);
+    console.log(data);
+  }
+
   // ~Настройки Chart
   const options = {
     tooltip: {
@@ -15,7 +65,7 @@ const Main: React.FC = () => {
       {
         type: 'tree',
 
-        data: [data_chart],
+        data: [data],
 
         top: '1%',
         left: '7%',
@@ -76,7 +126,7 @@ const Main: React.FC = () => {
 
         {/* Кнопочка */}
         <div className="form-input">
-          <button>Рассчитать</button>
+          <button onClick={road_degradation}>Рассчитать</button>
         </div>
       </div>
       <div className="card">
