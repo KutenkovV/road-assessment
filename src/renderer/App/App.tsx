@@ -1,14 +1,11 @@
-import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
-import Upload from '../components/Upload';
+import Main from '../Main';
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Upload />} />
-      </Routes>
-    </Router>
+    <div className='container'>
+      <Main />
+    </div>
   );
 }
 

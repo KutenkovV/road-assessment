@@ -1,0 +1,139 @@
+.card {
+  padding: 1rem;
+  height: auto;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+}
+
+.card-form {
+  height: auto;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.form-input {
+  width: 180px;
+  padding-top: 0.5rem;
+  padding-right: 1rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 5px;
+  /* border: 2px solid red; */
+}
+
+.form-input > input {
+  border-radius: 5px;
+}
+
+.form-input > button {
+  height: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* App base
+.mainApp {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border: 1px solid #343b4b;
+  -webkit-box-sizing: none;
+}
+
+.mainApp>.titlebar {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 40px;
+  border-bottom: 3px solid #343b48;
+  background-color: #1b1d23;
+  -webkit-user-select: none;
+}
+
+.topbar>.titlebar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.topbar>.titlebar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
+
+.titlebar>.toggleButton {
+  width: 45px;
+  height: 40px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  /* background-image: url('../icons/icon_menu.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.titlebar>.toggleButton:hover {
+  background-color: #272C36;
+}
+
+.titlebar>.toggleButton:active {
+  background-color: #4f9fee;
+}
+
+/* .titlebarBtns > .minimizeBtn{
+  background-image: url('../icons/icon_minimize.png');
+} 
+
+.titlebarBtns>.maximizeBtn {
+  background-image: url('../icons/icon_maximize.png');
+}
+
+/* .titlebarBtns > .restoreBtn{
+  background-image: url('../icons/icon_restore.png');
+}
+
+.titlebarBtns > .closeBtn{
+  background-image: url('../icons/icon_close.png');
+}
+
+.mainApp>.contentArea {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+}
+
+.contentArea>.leftMenu {
+  width: 200px;
+  height: 100%;
+  background-color: #272c36;
+  transition: 0.4s;
+}
+
+.contentArea>.contentPages {
+  width: 100%;
+  height: 100%;
+  -webkit-box-align: center;
+  -webkit-box-pack: center;
+  display: -webkit-box;
+} */

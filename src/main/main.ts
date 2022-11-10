@@ -1,13 +1,3 @@
-/* eslint global-require: off, no-console: off, promise/always-return: off */
-
-/**
- * This module executes inside of electron's main process. You can start
- * electron renderer process from here and communicate with the other processes
- * through IPC.
- *
- * When running `npm run build` or `npm run build:main`, this file is compiled to
- * `./src/main.js` using webpack. This gives us some performance wins.
- */
 import path from 'path';
 import { app, BrowserWindow, shell, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
@@ -72,11 +62,19 @@ const createWindow = async () => {
 
   mainWindow = new BrowserWindow({
     show: false,
-    width: 1800,
-    height: 728,
+    width: 800,
+    height: 700,
+    //resizable: true, // Изтменять размер окна
+    //transparent: true, // Убирает вообще все границы экрана
+    //titleBarStyle: 'hidden', // Скрывает тайтлбар
+    //titleBarOverlay: { // Как понял это три кнопки которые (закрать, свернуть и т.д.)
+      //color: '#2f3241',
+      //symbolColor: '#74b1be',
+      //height: 60,
+   // },
     icon: getAssetPath('icon.png'),
     webPreferences: {
-      //sandbox: false,
+      sandbox: false,
       contextIsolation: true,
       preload: app.isPackaged
         ? path.join(__dirname, 'preload.js')

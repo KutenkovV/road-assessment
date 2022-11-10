@@ -2,18 +2,12 @@ import _ from 'lodash';
 import { useEffect, useState } from 'react';
 
 const Tabledata = ({ data }) => {
-  console.log('Данные в таблице!');
-  console.log(data);
-
   const [slicedData, setSlicedData] = useState([...data]);
 
   useEffect(() => {
     setSlicedData(data);
   }),
     [];
-
-  console.log('Данные в slicedData!');
-  console.log(slicedData);
 
   return (
     <>
