@@ -5,7 +5,8 @@ import { useState } from 'react';
 
 // Пока непонятная конструкция "Main: React.FC"
 const Main: React.FC = () => {
-  let data: Map<number, any>[] = [];
+  let data: { name: string; children: Map<any, any>[]; }[]=[];
+  console.log(data_chart);
 
   var road_2 = {
     flatness_road_lane_1: 5,
@@ -25,34 +26,43 @@ const Main: React.FC = () => {
 
     type Data = {
       name: string;
-      children: [{
-        IRI: number;
-        J: number;
-        C: number;
-      }];
+      children: [
+        {
+          IRI: number;
+          J: number;
+          C: number;
+        }
+      ];
     };
 
-    let array = new Map<number, Data>();
+    let array = new Map<any, any>();
+    let array3 = {};
+
 
     for (let i = 1; i <= Tf; i++) {
       IRI **= 0.9;
       J **= 0.9;
       C **= 0.9;
 
-      array.set(i, {
-        name: ""+i,
-        children: [{
-          IRI,
-          J,
-          C,
-        }]
-      });
+      array3 = [{
+        name: "IRI", value: IRI
+      }, {
+        name: "J", value: J
+      }, {
+        name: "C", value: C
+      }]
     }
 
-    console.log(array);
+    let arr2 = {
+      name: 'Ничего не делаем', 
+      children: array3
+    }
 
-    data.push(array);
-    console.log(data);
+    console.log('See there');
+    console.log(arr2);
+    // data.push(array3);
+    
+    return arr2;
   }
 
   // ~Настройки Chart
@@ -65,7 +75,7 @@ const Main: React.FC = () => {
       {
         type: 'tree',
 
-        data: [data],
+        data: [road_degradation(road_2)],
 
         top: '1%',
         left: '7%',
