@@ -1,17 +1,15 @@
 import './main.css';
 import ReactECharts from 'echarts-for-react';
 import data_chart from './flare.json';
-import { useState } from 'react';
 
 // Пока непонятная конструкция "Main: React.FC"
 const Main: React.FC = () => {
-  let data: { name: string; children: Map<any, any>[]; }[]=[];
   console.log(data_chart);
 
   var road_2 = {
     flatness_road_lane_1: 5,
     road_defects_1: 4.5,
-    road_grip_1: 4.5,
+    road_grip_1: 4.3,
     current_year: 5,
     future_year: 3,
   };
@@ -24,45 +22,145 @@ const Main: React.FC = () => {
     let Tc = road_2.current_year;
     let Tf = road_2.future_year;
 
-    type Data = {
-      name: string;
-      children: [
-        {
-          IRI: number;
-          J: number;
-          C: number;
-        }
-      ];
-    };
+    let array1;
+    let array2;
+    let array3;
 
-    let array = new Map<any, any>();
-    let array3 = {};
-
+    let e1 = 0.7;
+    let e2 = 0.9;
+    let e3 = 0.8;
 
     for (let i = 1; i <= Tf; i++) {
-      IRI **= 0.9;
-      J **= 0.9;
-      C **= 0.9;
+      // array1 = inaction(IRI, J, C);
+      // array2 = work_1(IRI, J, C);
+      // array3 = work_2(IRI, J, C);
 
-      array3 = [{
-        name: "IRI", value: IRI
-      }, {
-        name: "J", value: J
-      }, {
-        name: "C", value: C
-      }]
+      array1 = [
+        {
+          name: 'IRI',
+          value: (IRI **= e1),
+        },
+        {
+          name: 'J',
+          value: (J **= e1),
+        },
+        {
+          name: 'C',
+          value: (C **= e1),
+        },
+      ];
+
+      console.log(array1);
+      
+
+      array2 = [
+        {
+          name: 'IRI',
+          value: (IRI **= e2),
+        },
+        {
+          name: 'J',
+          value: (J **= e2),
+        },
+        {
+          name: 'C',
+          value: (C **= e3),
+        },
+      ];
+
+      array3 = [
+        {
+          name: 'IRI',
+          value: (IRI **= e3),
+        },
+        {
+          name: 'J',
+          value: (J **= e3),
+        },
+        {
+          name: 'C',
+          value: (C **= e3),
+        },
+      ];
     }
 
-    let arr2 = {
-      name: 'Ничего не делаем', 
-      children: array3
-    }
+    let data = {
+      name: 'Прогноз',
+      children: [
+        { name: 'Ничего не делаем', children: array1 },
+        { name: 'Вид работ 1', children: array2 },
+        { name: 'Вид работ 2', children: array3 },
+      ],
+    };
 
     console.log('See there');
-    console.log(arr2);
-    // data.push(array3);
-    
-    return arr2;
+    console.log(data);
+
+    return data;
+  }
+
+  // Вариант бездействия
+  function inaction(IRI: any, J: any, C: any) {
+    const e = 0.7;
+
+    let array = [
+      {
+        name: 'IRI',
+        value: (IRI **= e),
+      },
+      {
+        name: 'J',
+        value: (J **= e),
+      },
+      {
+        name: 'C',
+        value: (C **= e),
+      },
+    ];
+
+    return array;
+  }
+
+  function work_1(IRI: any, J: any, C: any) {
+    const e = 0.9;
+
+    let array = [
+      {
+        name: 'IRI',
+        value: (IRI **= e),
+      },
+      {
+        name: 'J',
+        value: (J **= e),
+      },
+      {
+        name: 'C',
+        value: (C **= e),
+      },
+    ];
+
+    return array;
+  }
+
+  function work_2(IRI: any, J: any, C: any) {
+    const e = 0.8;
+
+    let array = [
+      {
+        name: 'IRI',
+        value: (IRI **= e),
+      },
+      {
+        name: 'J',
+        value: (J **= e),
+      },
+      {
+        name: 'C',
+        value: (C **= e),
+      },
+    ];
+
+    return array;
   }
 
   // ~Настройки Chart
@@ -115,23 +213,23 @@ const Main: React.FC = () => {
       <div className="card-form">
         <div className="form-input">
           <label>Введите оценку IRI (Ровность)</label>
-          <input type="number" />
+          <input placeholder='Оценка IRI' type="number" />
         </div>
         <div className="form-input">
           <label>Введите оценку J (Дефектность)</label>
-          <input type="number" />
+          <input placeholder='Оценка J' type="number" />
         </div>
         <div className="form-input">
           <label>Введите оценку С (Сцепление)</label>
-          <input type="number" />
+          <input placeholder='Оценка C' type="number" />
         </div>
         <div className="form-input">
           <label>Введите текущий период эксплуатации</label>
-          <input type="number" />
+          <input placeholder='Год' type="number" />
         </div>
         <div className="form-input">
           <label>Введите на сколько лет делать прогноз</label>
-          <input type="number" />
+          <input placeholder='Год' type="number" />
         </div>
 
         {/* Кнопочка */}
