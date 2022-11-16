@@ -1,10 +1,26 @@
 import './main.css';
 import ReactECharts from 'echarts-for-react';
 import data_chart from './flare.json';
+import { useState } from 'react';
+import { number } from 'echarts';
+import Dropdown from './components/dropdown/Dropdown';
 
 // Пока непонятная конструкция "Main: React.FC"
 const Main: React.FC = () => {
   console.log(data_chart);
+
+  const [selected, setSelected] = useState('IA');
+  const [item, setItem] = useState({});
+
+  interface IRoad {
+    flatness_road_lane: number;
+    road_defects: number;
+    road_grip: number;
+    current_year: number;
+    future_year: number;
+    // road_class: string;
+    // road_type: boolean;
+  }
 
   var road_2 = {
     flatness_road_lane_1: 2.2,
@@ -21,6 +37,25 @@ const Main: React.FC = () => {
   // типа: "1А, 1Б, 1В, 2, 3 и т.д"
 
   iri_score(road_2);
+
+  const onSubmit = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+
+    const road: IRoad = {
+      flatness_road_lane: document.getElementById('IRI').value,
+      road_defects: document.getElementById('J').value,
+      road_grip: document.getElementById('C').value,
+      current_year: document.getElementById('year_current').value,
+      future_year: document.getElementById('future_year').value
+      // road_class: document.getElementById('year_current').value,
+      // road_type: document.getElementById('year_current').value
+    }
+
+    console.log('see there now!');
+    console.log(road);
+    console.log('That is function');
+    setItem(road_degradation(road));
+  };
 
   function iri_score(param: any) {
     let IRI = 4.5;
@@ -85,10 +120,13 @@ const Main: React.FC = () => {
   }
 
   function road_degradation(param: any) {
-    let IRI = road_2.flatness_road_lane_1;
-    let J = road_2.road_defects_1;
-    let C = road_2.road_grip_1;
+    let IRI = param.flatness_road_lane;
+    let J = param.road_defects;
+    let C = param.road_grip;
 
+    console.log('Param in function');
+    console.log(param);
+    
     let Tc = road_2.current_year;
     let Tf = road_2.future_year;
 
@@ -242,7 +280,7 @@ const Main: React.FC = () => {
       {
         type: 'tree',
 
-        data: [road_degradation(road_2)],
+        data: [item],
 
         top: '1%',
         left: '7%',
@@ -279,33 +317,38 @@ const Main: React.FC = () => {
 
   return (
     <>
-      <div className="card-form">
-        <div className="form-input">
-          <label>Введите оценку IRI (Ровность)</label>
-          <input placeholder="Оценка IRI" type="number" />
-        </div>
-        <div className="form-input">
-          <label>Введите оценку J (Дефектность)</label>
-          <input placeholder="Оценка J" type="number" />
-        </div>
-        <div className="form-input">
-          <label>Введите оценку С (Сцепление)</label>
-          <input placeholder="Оценка C" type="number" />
-        </div>
-        <div className="form-input">
-          <label>Введите текущий период эксплуатации</label>
-          <input placeholder="Год" type="number" />
-        </div>
-        <div className="form-input">
-          <label>Введите на сколько лет делать прогноз</label>
-          <input placeholder="Год" type="number" />
-        </div>
+      <form onSubmit={onSubmit}>
+        <div className="card-form">
+          <div className="form-input">
+            <label>Выберите класс дороги</label>
+          </div>
+          <div className="form-input">
+            <label>Введите оценку IRI (Ровность)</label>
+            <input id="IRI" placeholder="Оценка IRI" type="number" />
+          </div>
+          <div className="form-input">
+            <label>Введите оценку J (Дефектность)</label>
+            <input id="J" placeholder="Оценка J" type="number" />
+          </div>
+          <div className="form-input">
+            <label>Введите оценку С (Сцепление)</label>
+            <input id="C" placeholder="Оценка C" type="number" />
+          </div>
+          <div className="form-input">
+            <label>Введите текущий период эксплуатации</label>
+            <input id="year_current" placeholder="Год" type="number" />
+          </div>
+          <div className="form-input">
+            <label>Введите на сколько лет делать прогноз</label>
+            <input id="future_year" placeholder="Год" type="number" />
+          </div>
 
-        {/* Кнопочка */}
-        <div className="form-input">
-          <button onClick={road_degradation}>Рассчитать</button>
+          {/* Кнопочка */}
+          <div className="form-input">
+            <button onClick={road_degradation}>Рассчитать</button>
+          </div>
         </div>
-      </div>
+      </form>
       <div className="card">
         <ReactECharts style={{ height: '400px' }} option={options} />
       </div>

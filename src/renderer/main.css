@@ -9,7 +9,6 @@
 .card-form {
   height: auto;
   margin-bottom: 2rem;
-  display: flex;
   flex-flow: row wrap;
 }
 
