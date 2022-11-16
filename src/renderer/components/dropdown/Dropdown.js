@@ -1,6 +1,4 @@
 import "./Dropdown.css";
-import { FontAwesomeIcon } from "@fortawesome/fontawesome-free";
-import { faAngleDown } from "@fortawesome/fontawesome-free";
 import { useState, useRef, useEffect } from "react";
 
 function Dropdown({selected, setSelected}) {
@@ -12,14 +10,11 @@ function Dropdown({selected, setSelected}) {
   // https://www.youtube.com/watch?v=pE4bwPykUF4
 
   const options = [
-    "НАУЧНАЯ ДЕЯТЕЛЬНОСТЬ",
-    "УЧЕБНАЯ ДЕЯТЕЛЬНОСТЬ",
-    "ОБЩЕСТВЕННАЯ ДЕЯТЕЛЬНОСТЬ",
-    "СПОРТИВНАЯ ДЕЯТЕЛЬНОСТЬ",
-    "КУЛЬТУРНО-ТВОРЧЕСКАЯ ДЕЯТЕЛЬНОСТЬ",
-    "СПИСОК ГАС",
-    "СВОБОДНЫЙ ГРАФИК",
-    "КАНИКУЛЫ"
+    "IA, IБ",
+    "IB, II",
+    "III",
+    "IV",
+    "V"
   ];
 
   //обработка мисклилка для скрытия дроплиста
@@ -38,7 +33,6 @@ function Dropdown({selected, setSelected}) {
     <div className="dropdown">
       <div className="dropdown-btn" ref={btnRef} onClick={() => setIsActive(!isActive)}>
         <b className="me-2">{selected}</b>
-        <FontAwesomeIcon icon={faAngleDown} />
       </div>
 
       {isActive && (

@@ -46,10 +46,10 @@ const Main: React.FC = () => {
       road_defects: document.getElementById('J').value,
       road_grip: document.getElementById('C').value,
       current_year: document.getElementById('year_current').value,
-      future_year: document.getElementById('future_year').value
+      future_year: document.getElementById('future_year').value,
       // road_class: document.getElementById('year_current').value,
       // road_type: document.getElementById('year_current').value
-    }
+    };
 
     console.log('see there now!');
     console.log(road);
@@ -126,7 +126,7 @@ const Main: React.FC = () => {
 
     console.log('Param in function');
     console.log(param);
-    
+
     let Tc = road_2.current_year;
     let Tf = road_2.future_year;
 
@@ -290,9 +290,9 @@ const Main: React.FC = () => {
         symbolSize: 12,
 
         label: {
-          position: 'left',
+          position: 'right',
           verticalAlign: 'middle',
-          align: 'right',
+          align: 'left',
           fontSize: 16,
         },
 
@@ -317,40 +317,43 @@ const Main: React.FC = () => {
 
   return (
     <>
-      <form onSubmit={onSubmit}>
-        <div className="card-form">
-          <div className="form-input">
-            <label>Выберите класс дороги</label>
-          </div>
-          <div className="form-input">
-            <label>Введите оценку IRI (Ровность)</label>
-            <input id="IRI" placeholder="Оценка IRI" type="number" />
-          </div>
-          <div className="form-input">
-            <label>Введите оценку J (Дефектность)</label>
-            <input id="J" placeholder="Оценка J" type="number" />
-          </div>
-          <div className="form-input">
-            <label>Введите оценку С (Сцепление)</label>
-            <input id="C" placeholder="Оценка C" type="number" />
-          </div>
-          <div className="form-input">
-            <label>Введите текущий период эксплуатации</label>
-            <input id="year_current" placeholder="Год" type="number" />
-          </div>
-          <div className="form-input">
-            <label>Введите на сколько лет делать прогноз</label>
-            <input id="future_year" placeholder="Год" type="number" />
-          </div>
+      <form className="card-form" onSubmit={onSubmit}>
+        <div className="form-input">
+          <label>Выберите класс дороги</label>
+          <Dropdown selected={selected} setSelected={setSelected} />
+        </div>
+        <div className="form-input">
+          <label>Введите оценку IRI (Ровность)</label>
+          <input id="IRI" placeholder="Оценка IRI" type="number" />
+        </div>
+        <div className="form-input">
+          <label>Введите оценку J (Дефектность)</label>
+          <input id="J" placeholder="Оценка J" type="number" />
+        </div>
+        <div className="form-input">
+          <label>Введите оценку С (Сцепление)</label>
+          <input id="C" placeholder="Оценка C" type="number" />
+        </div>
+        <div className="form-input">
+          <label>Введите текущий период эксплуатации</label>
+          <input id="year_current" placeholder="Год" type="number" />
+        </div>
+        <div className="form-input">
+          <label>Введите на сколько лет делать прогноз</label>
+          <input id="future_year" placeholder="Год" type="number" />
+        </div>
 
-          {/* Кнопочка */}
-          <div className="form-input">
-            <button onClick={road_degradation}>Рассчитать</button>
-          </div>
+        {/* Кнопочка */}
+        <div className="form-input">
+          <button onClick={road_degradation}>Рассчитать</button>
         </div>
       </form>
       <div className="card">
-        <ReactECharts style={{ height: '400px' }} option={options} />
+        <ReactECharts
+          className="card-chart"
+          style={{ height: '600px' }}
+          option={options}
+        />
       </div>
     </>
   );
