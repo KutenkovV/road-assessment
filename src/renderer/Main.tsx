@@ -19,56 +19,56 @@ const Main: React.FC = () => {
       current_year: document.getElementById('year_current').value,
       future_year: document.getElementById('future_year').value,
       road_class: selected,
-      road_type: document.querySelector('input[name="radio"]:checked').value
+      road_type: document.querySelector('input[name="radio"]:checked').value,
     };
 
     setItem(road_degradation(road));
   };
 
   // ~Настройки Chart
-  // const options = {
-  //   tooltip: {
-  //     trigger: 'item',
-  //     triggerOn: 'mousemove',
-  //   },
-  //   series: [
-  //     {
-  //       type: 'tree',
+  const options = {
+    tooltip: {
+      trigger: 'item',
+      triggerOn: 'mousemove',
+    },
+    series: [
+      {
+        type: 'tree',
 
-  //       data: [item],
+        data: [item],
 
-  //       top: '1%',
-  //       left: '7%',
-  //       bottom: '1%',
-  //       right: '20%',
+        top: '1%',
+        left: '7%',
+        bottom: '1%',
+        right: '20%',
 
-  //       symbolSize: 12,
+        symbolSize: 12,
 
-  //       label: {
-  //         position: 'right',
-  //         verticalAlign: 'middle',
-  //         align: 'left',
-  //         fontSize: 16,
-  //       },
+        label: {
+          position: 'right',
+          verticalAlign: 'middle',
+          align: 'left',
+          fontSize: 16,
+        },
 
-  //       leaves: {
-  //         label: {
-  //           position: 'right',
-  //           verticalAlign: 'middle',
-  //           align: 'left',
-  //         },
-  //       },
+        leaves: {
+          label: {
+            position: 'right',
+            verticalAlign: 'middle',
+            align: 'left',
+          },
+        },
 
-  //       emphasis: {
-  //         focus: 'descendant',
-  //       },
+        emphasis: {
+          focus: 'descendant',
+        },
 
-  //       expandAndCollapse: true,
-  //       animationDuration: 550,
-  //       animationDurationUpdate: 750,
-  //     },
-  //   ],
-  // };
+        expandAndCollapse: true,
+        animationDuration: 550,
+        animationDurationUpdate: 750,
+      },
+    ],
+  };
 
   return (
     <>
@@ -82,11 +82,17 @@ const Main: React.FC = () => {
         <div className="form-radio">
           <label>Выберите тип дорожной одежды</label>
           <div>
-            <input id="r-1" type="radio" name="radio" value="true" checked/>
+            <input
+              id="r-1"
+              type="radio"
+              name="radio"
+              value="true"
+              defaultChecked
+            />
             <label>Капитальный</label>
           </div>
           <div>
-            <input id="r-1" type="radio" name="radio" value="false"/>
+            <input id="r-1" type="radio" name="radio" value="false" />
             <label>Облегченный</label>
           </div>
         </div>
@@ -94,15 +100,15 @@ const Main: React.FC = () => {
         {/* Инпуты */}
         <div className="form-input">
           <label>Введите оценку IRI (Ровность)</label>
-          <input id="IRI" placeholder="Оценка IRI" type="number" />
+          <input id="IRI" step={0.1} placeholder="Оценка IRI" type="number" />
         </div>
         <div className="form-input">
           <label>Введите оценку J (Дефектность)</label>
-          <input id="J" placeholder="Оценка J" type="number" />
+          <input id="J" step={0.1} placeholder="Оценка J" type="number" />
         </div>
         <div className="form-input">
           <label>Введите оценку С (Сцепление)</label>
-          <input id="C" placeholder="Оценка C" type="number" />
+          <input id="C" step={0.1} placeholder="Оценка C" type="number" />
         </div>
         <div className="form-input">
           <label>Введите текущий период эксплуатации</label>
@@ -118,13 +124,13 @@ const Main: React.FC = () => {
           <button onClick={onSubmit}>Рассчитать</button>
         </div>
       </div>
-      {/* <div className="card">
+      <div className="card">
         <ReactECharts
           className="card-chart"
           style={{ height: '600px' }}
           option={options}
         />
-      </div> */}
+      </div>
     </>
   );
 };

@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { useEffect, useState } from 'react';
 
-const Tabledata = ({ data }) => {
+const Tabledata = () => {
   const [slicedData, setSlicedData] = useState([...data]);
 
   useEffect(() => {

@@ -1,3 +1,4 @@
+// Интерфейс дороги
 export interface IRoad {
   flatness_road_lane: number;
   road_defects: number;
@@ -5,106 +6,122 @@ export interface IRoad {
   current_year: number;
   future_year: number;
   road_class: string;
-  road_type: boolean;
+  road_type: string;
 }
 
 export function road_degradation(param: any) {
-
   console.log('IRI see there:');
-  let IRI = iri_score(param)
+
+  // Оцениваем IRI & C
+  let IRI = iri_score(param);
+  let C =  c_score(param);
+  let J = param.road_defects; // J уже идёт с оценкой
+
   console.log(IRI);
-  
-  // let J = param.road_defects;
-  // let C = param.road_grip;
+  console.log(C);
 
-  // console.log('Param in function');
-  // console.log(param);
+  let Tc = param.current_year;
+  let Tf = param.future_year;
 
-  // let Tf = 3;
+  console.log('Param in function');
+  console.log(param);
 
-  // let array1;
-  // let array2;
-  // let array3;
+  let array1;
+  let array2;
+  let array3;
 
-  // let e1 = 0.7;
-  // let e2 = 0.9;
-  // let e3 = 0.8;
+  let e1 = 0.7;
+  let e2 = 0.9;
+  let e3 = 0.8;
 
-  // for (let i = 1; i <= Tf; i++) {
-  //   // array1 = inaction(IRI, J, C);
-  //   // array2 = work_1(IRI, J, C);
-  //   // array3 = work_2(IRI, J, C);
+  for (let i = 1; i <= Tf; i++) {
+    // array1 = inaction(IRI, J, C);
+    // array2 = work_1(IRI, J, C);
+    // array3 = work_2(IRI, J, C);
 
-  //   array1 = [
-  //     {
-  //       name: 'IRI',
-  //       value: (IRI **= e1),
-  //     },
-  //     {
-  //       name: 'J',
-  //       value: (J **= e1),
-  //     },
-  //     {
-  //       name: 'C',
-  //       value: (C **= e1),
-  //     },
-  //   ];
+    array1 = [
+      {
+        name: 'IRI',
+        value: (IRI **= e1),
+      },
+      {
+        name: 'J',
+        value: (J **= e1),
+      },
+      {
+        name: 'C',
+        value: (C **= e1),
+      },
+    ];
 
-  //   array2 = [
-  //     {
-  //       name: 'IRI',
-  //       value: (IRI **= e2),
-  //     },
-  //     {
-  //       name: 'J',
-  //       value: (J **= e2),
-  //     },
-  //     {
-  //       name: 'C',
-  //       value: (C **= e3),
-  //     },
-  //   ];
+    array2 = [
+      {
+        name: 'IRI',
+        value: (IRI **= e2),
+      },
+      {
+        name: 'J',
+        value: (J **= e2),
+      },
+      {
+        name: 'C',
+        value: (C **= e3),
+      },
+    ];
 
-  //   array3 = [
-  //     {
-  //       name: 'IRI',
-  //       value: (IRI **= e3),
-  //     },
-  //     {
-  //       name: 'J',
-  //       value: (J **= e3),
-  //     },
-  //     {
-  //       name: 'C',
-  //       value: (C **= e3),
-  //     },
-  //   ];
+    array3 = [
+      {
+        name: 'IRI',
+        value: (IRI **= e3),
+      },
+      {
+        name: 'J',
+        value: (J **= e3),
+      },
+      {
+        name: 'C',
+        value: (C **= e3),
+      },
+    ];
 
-  //   console.log(array2);
-  // }
+    console.log(array2);
+  }
 
-  // let data = {
-  //   name: 'Прогноз',
-  //   children: [
-  //     { name: 'Ничего не делаем', children: array1 },
-  //     { name: 'Вид работ 1', children: array2 },
-  //     { name: 'Вид работ 2', children: array3 },
-  //   ],
-  // };
+  let data = {
+    name: 'Прогноз',
+    children: [
+      { name: 'Ничего не делаем', children: array1 },
+      { name: 'Вид работ 1', children: array2 },
+      { name: 'Вид работ 2', children: array3 },
+    ],
+  };
 
-  // console.log('See there');
-  // console.log(data);
+  console.log('See there');
+  console.log(data);
 
-  // return data;
+  return data;
 }
 
+// Оценка C
+function c_score(param: any) {
+  let C = param.road_grip;
+
+  if(C <= 0.1) C = 5;
+  else if(C <= 0.2) C = 4;
+  else if(C <= 0.3) C = 3;
+  else C = 2;
+
+  return C;
+}
+
+// Оценка IRI
 function iri_score(param: any) {
   let IRI = param.flatness_road_lane;
-  let r_class = param.road_class
+  let r_class = param.road_class;
   let r_type = param.road_type; // true - Капитальный false - Облегченный
 
   console.log(IRI + ' ' + r_class + ' ' + r_type);
-  
+
   let iri_score;
 
   // Оцениваю без округлений, строго по табличным значениям
@@ -135,6 +152,7 @@ function iri_score(param: any) {
       if (IRI <= 5) iri_score = 3;
       else iri_score = 2;
     }
+
     // ОБЛЕГЧЕННЫЙ
   } else {
     if (r_class === 'III') {

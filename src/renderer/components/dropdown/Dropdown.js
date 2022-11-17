@@ -38,7 +38,7 @@ function Dropdown({selected, setSelected}) {
       {isActive && (
         <div className="dropdown-content">
           {options.map((option) => (
-            <div
+            <div key={option}
               onClick={() => {
                 setSelected(option);
                 setIsActive(false);
