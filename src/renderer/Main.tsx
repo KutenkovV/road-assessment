@@ -22,56 +22,53 @@ const Main: React.FC = () => {
       road_type: document.querySelector('input[name="radio"]:checked').value
     };
 
-    console.log('see there now!');
-    console.log(road);
-    console.log('That is function');
     setItem(road_degradation(road));
   };
 
   // ~Настройки Chart
-  const options = {
-    tooltip: {
-      trigger: 'item',
-      triggerOn: 'mousemove',
-    },
-    series: [
-      {
-        type: 'tree',
+  // const options = {
+  //   tooltip: {
+  //     trigger: 'item',
+  //     triggerOn: 'mousemove',
+  //   },
+  //   series: [
+  //     {
+  //       type: 'tree',
 
-        data: [item],
+  //       data: [item],
 
-        top: '1%',
-        left: '7%',
-        bottom: '1%',
-        right: '20%',
+  //       top: '1%',
+  //       left: '7%',
+  //       bottom: '1%',
+  //       right: '20%',
 
-        symbolSize: 12,
+  //       symbolSize: 12,
 
-        label: {
-          position: 'right',
-          verticalAlign: 'middle',
-          align: 'left',
-          fontSize: 16,
-        },
+  //       label: {
+  //         position: 'right',
+  //         verticalAlign: 'middle',
+  //         align: 'left',
+  //         fontSize: 16,
+  //       },
 
-        leaves: {
-          label: {
-            position: 'right',
-            verticalAlign: 'middle',
-            align: 'left',
-          },
-        },
+  //       leaves: {
+  //         label: {
+  //           position: 'right',
+  //           verticalAlign: 'middle',
+  //           align: 'left',
+  //         },
+  //       },
 
-        emphasis: {
-          focus: 'descendant',
-        },
+  //       emphasis: {
+  //         focus: 'descendant',
+  //       },
 
-        expandAndCollapse: true,
-        animationDuration: 550,
-        animationDurationUpdate: 750,
-      },
-    ],
-  };
+  //       expandAndCollapse: true,
+  //       animationDuration: 550,
+  //       animationDurationUpdate: 750,
+  //     },
+  //   ],
+  // };
 
   return (
     <>
@@ -85,7 +82,7 @@ const Main: React.FC = () => {
         <div className="form-radio">
           <label>Выберите тип дорожной одежды</label>
           <div>
-            <input id="r-1" type="radio" name="radio" value="true"/>
+            <input id="r-1" type="radio" name="radio" value="true" checked/>
             <label>Капитальный</label>
           </div>
           <div>
@@ -121,13 +118,13 @@ const Main: React.FC = () => {
           <button onClick={onSubmit}>Рассчитать</button>
         </div>
       </div>
-      <div className="card">
+      {/* <div className="card">
         <ReactECharts
           className="card-chart"
           style={{ height: '600px' }}
           option={options}
         />
-      </div>
+      </div> */}
     </>
   );
 };
