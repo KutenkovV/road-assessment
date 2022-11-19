@@ -1,5 +1,3 @@
-import { Children } from 'react';
-
 // Интерфейс дороги
 export interface IRoad {
   flatness_road_lane: number;
@@ -33,7 +31,7 @@ export function road_degradation(param: any) {
   let e3 = 0.8;
 
   let items = {
-    name: 'Абоба',
+    name: 'Прогноз',
     children: [
       { name: 'Ничего не делаем', children: [] },
       { name: 'Сценарий 1', children: [] },
@@ -41,17 +39,29 @@ export function road_degradation(param: any) {
     ],
   };
 
+  for (let i = 1; i <= Tf; i++) {
+    let new_item = {name: 'iteration', children: [
+      { name: 'Ничего не делаем', children: [] },
+      { name: 'Сценарий 1', children: [] },
+      { name: 'Сценарий 2', children: [] }
+    ]};
+    
+    // new_item.forEach((node) => {
+    //   node.children = node.children.concat(new_item);
+    // });
+
+    items.children.forEach((node) => {
+      node.children.push(new_item);
+    });
+
+    console.log(items);
+    
+  }
+
   let data = items;
 
-  // for (let i = 1; i <= Tf; i++) {
-  //   let node = [];
-  //   for (node of data) {
-  //     road_degradation(node);
-  //   }
-  // }
-
-  console.log('See there');
-  console.log(data);
+  // console.log('See there');
+  // console.log(data);
 
   return data;
 }
