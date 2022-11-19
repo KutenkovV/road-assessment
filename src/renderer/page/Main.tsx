@@ -1,17 +1,19 @@
 import './main.css';
 import ReactECharts from 'echarts-for-react';
 import { useState } from 'react';
-import Dropdown from './components/dropdown/Dropdown';
-import './logic';
-import { road_degradation, IRoad } from './logic';
+import Dropdown from '../components/dropdown/Dropdown';
+import '../logic';
+import { road_degradation, IRoad } from '../logic';
 
 // Пока непонятная конструкция "Main: React.FC"
 const Main: React.FC = () => {
-  const [selected, setSelected] = useState('IA');
+  const [selected, setSelected] = useState('IA, IБ');
   const [item, setItem] = useState({});
 
   const onSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
+
+      
     const road: IRoad = {
       flatness_road_lane: document.getElementById('IRI').value,
       road_defects: document.getElementById('J').value,

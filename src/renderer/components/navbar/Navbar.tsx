@@ -5,17 +5,17 @@ function Navbar() {
 
   const location = useLocation();
   const isActive = location.pathname;
-
+  
   return (
     <header>
       <div className="navbar">
-        <div className="navbar__item">
-          <Link to="/load">
+        <div className="navbar__item" id={isActive == "/load" ? "active" : ""}>
+          <Link className='navbar__item-link' to="/load">
             <label>Загрузка списков</label>
           </Link>
         </div>
-        <div className="navbar__item">
-          <Link to="/">
+        <div className="navbar__item" id={isActive == "/" ? "active" : ""}>
+          <Link className='navbar__item-link' to="/">
             <label>Ручной расчет</label>
           </Link>
         </div>

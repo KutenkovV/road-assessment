@@ -1,7 +1,7 @@
-import _ from 'lodash';
 import { useEffect, useState } from 'react';
+import './Tabledata.css';
 
-const Tabledata = () => {
+function Tabledata({ data }: { data: any }) {
   const [slicedData, setSlicedData] = useState([...data]);
 
   useEffect(() => {
@@ -9,9 +9,16 @@ const Tabledata = () => {
   }),
     [];
 
+  if (slicedData.length === 0)
+    return (
+      <div className='table-empty'>
+        <h1>Загрузите список</h1>
+      </div>
+    );
+
   return (
     <>
-      <table>
+      <table className="table">
         <thead>
           <tr>
             <th rowSpan={2}>Начало участка</th>
@@ -48,6 +55,6 @@ const Tabledata = () => {
       </table>
     </>
   );
-};
+}
 
 export default Tabledata;

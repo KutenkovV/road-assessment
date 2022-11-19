@@ -10,6 +10,10 @@
     padding: 1rem;
 }
 
+.navbar__item-link{
+    text-decoration: none;
+}
+
 .navbar__item label {
     color: #fff;
     text-decoration: none;
@@ -19,5 +23,12 @@
 
 .navbar__item label:hover {
     background-color: #4274d0;
+    border-radius: 0.5rem;
+    transition: 0.4s;
+}
+
+#active label {
+    background-color: #4274d0;
+    padding: 0.5rem;
     border-radius: 0.5rem;
 }

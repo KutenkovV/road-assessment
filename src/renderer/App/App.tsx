@@ -1,8 +1,8 @@
 import './App.css';
-import Main from '../Main';
+import Main from '../page/Main';
 import Navbar from 'renderer/components/navbar/Navbar';
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
-import WIP from 'renderer/components/WIP';
+import Upload from 'renderer/page/Upload';
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
         <div className="container">
           <Routes>
             <Route path='/' element={<Main />} />
-            <Route path='/load' element={<WIP />} />
+            <Route path='/load' element={<Upload />} />
           </Routes>
         </div>
       </Router>
