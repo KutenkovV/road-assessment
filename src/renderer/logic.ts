@@ -17,53 +17,47 @@ export function road_degradation(param: any) {
   let C = c_score(param);
   let J = param.road_defects; // J уже идёт с оценкой
 
-  console.log(IRI);
-  console.log(C);
+  console.log('Оценка ровность: '+ IRI);
+  console.log('Оценка сцепление: '+ C);
+  console.log('Оценка дефектность: '+ J);
+
+  console.log(param);
+  
+
 
   let Tc = param.current_year;
   let Tf = param.future_year;
 
-  console.log('Param in function');
-  console.log(param);
-
-  let e1 = 0.7;
-  let e2 = 0.9;
-  let e3 = 0.8;
-
-  let items = {
+  let f_item = {
     name: 'Прогноз',
-    children: [
-      { name: 'Ничего не делаем', children: [] },
-      { name: 'Сценарий 1', children: [] },
-      { name: 'Сценарий 2', children: [] },
-    ],
+    children: [],
   };
 
-  for (let i = 1; i <= Tf; i++) {
-    let new_item = {name: 'iteration', children: [
-      { name: 'Ничего не делаем', children: [] },
-      { name: 'Сценарий 1', children: [] },
-      { name: 'Сценарий 2', children: [] }
-    ]};
-    
-    // new_item.forEach((node) => {
-    //   node.children = node.children.concat(new_item);
-    // });
+  let nodes = [f_item];
+  let jobs = ['Ничего не делаем', 'Сценарий 1', 'Сценарий 2'];
 
-    items.children.forEach((node) => {
-      node.children.push(new_item);
+  for (let i = 1; i <= Tf; i++) {
+    let newNodes = [];
+
+    nodes.forEach((node) => {
+      node.children = [];
+      jobs.forEach((j) => {
+        let new_item = {
+          name: j,
+          children: [],
+        };
+        node.children.push(new_item);
+        newNodes.push(new_item);
+      });
     });
 
-    console.log(items);
+    nodes = newNodes;
+    console.log(f_item);
     
+    console.log(nodes);
   }
 
-  let data = items;
-
-  // console.log('See there');
-  // console.log(data);
-
-  return data;
+  return f_item;
 }
 
 // Оценка C
