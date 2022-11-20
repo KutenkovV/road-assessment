@@ -24,6 +24,11 @@
   width: 100%;
 }
 
+.dropdown b:focus {
+  box-shadow: 0 0 0 0.35rem rgba(248, 251, 255, 0.25);
+  outline: 0;
+}
+
 .dropdown .dropdown-content {
   position: absolute;
   top: 120%;

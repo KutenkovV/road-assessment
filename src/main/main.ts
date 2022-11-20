@@ -62,16 +62,16 @@ const createWindow = async () => {
 
   mainWindow = new BrowserWindow({
     show: false,
-    width: 800,
-    height: 700,
-    //resizable: true, // Изтменять размер окна
-    //transparent: true, // Убирает вообще все границы экрана
-    //titleBarStyle: 'hidden', // Скрывает тайтлбар
-    //titleBarOverlay: { // Как понял это три кнопки которые (закрать, свернуть и т.д.)
-      //color: '#2f3241',
-      //symbolColor: '#74b1be',
-      //height: 60,
-   // },
+    width: 1200,
+    height: 900,
+    resizable: true, // Изтменять размер окна
+    transparent: true, // Убирает вообще все границы экрана
+    titleBarStyle: 'hidden', // Скрывает тайтлбар
+  //   titleBarOverlay: { // Как понял это три кнопки которые (закрать, свернуть и т.д.)
+  //     color: '#2f3241',
+  //     symbolColor: '#74b1be',
+  //     height: 60,
+  //  },
     icon: getAssetPath('icon.png'),
     webPreferences: {
       sandbox: false,

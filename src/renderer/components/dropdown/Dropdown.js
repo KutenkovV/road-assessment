@@ -32,7 +32,7 @@ function Dropdown({selected, setSelected}) {
   return (
     <div className="dropdown">
       <div className="dropdown-btn" ref={btnRef} onClick={() => setIsActive(!isActive)}>
-        <b>{selected}</b>
+        <b tabIndex={0}>{selected}</b>
       </div>
 
       {isActive && (

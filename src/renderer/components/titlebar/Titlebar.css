@@ -1,0 +1,51 @@
+.titlebar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 30px;
+    background-color: #254685;
+    -webkit-app-region: drag;
+    padding-left: 2rem;
+    color: #fff;
+}
+
+.titlebar__controls {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.titlebar__controls span {
+    height: 100%;
+    width: 2.5rem;
+    transition: 0.3s;
+    border: 0;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: transparent;
+    -webkit-app-region: no-drag;
+}
+
+.titlebar__controls-close {
+    background-image: url('../../../icons/close.png');
+}
+
+.titlebar__controls-close:hover {
+    background-color: rgb(255, 0, 0);
+}
+
+.titlebar__controls-minimize {
+    background-image: url('../../../icons/maximize.png');
+}
+
+.titlebar__controls-minimize:hover {
+    background-color: rgb(141, 176, 247);
+}
+
+.titlebar__controls-maximize {
+    background-image: url('../../../icons/minus.png');
+}
+
+.titlebar__controls-maximize:hover {
+    background-color: rgb(141, 176, 247);
+}
