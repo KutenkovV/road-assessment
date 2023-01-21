@@ -30,9 +30,9 @@ export function road_degradation1(param: any) {
   let C = c_score(param);
   let J = param.road_defects; // J уже идёт с оценкой
 
-  console.log('Оценка ровность: ' + IRI);
-  console.log('Оценка сцепление: ' + C);
-  console.log('Оценка дефектность: ' + J);
+  // console.log('Оценка ровность: ' + IRI);
+  // console.log('Оценка сцепление: ' + C);
+  // console.log('Оценка дефектность: ' + J);
 
   console.log(param);
 
@@ -92,7 +92,7 @@ function iri_score(param: any, item: any) {
   let r_class = param.road_class;
   let r_type = param.road_type; // true - Капитальный false - Облегченный
 
-  console.log(IRI + ' ' + r_class + ' ' + r_type);
+  // console.log(IRI + ' ' + r_class + ' ' + r_type);
 
   let iri_score;
 

@@ -10,7 +10,14 @@ html {
     /* background-color: #2c313c; */
     background-color: #fff;
 
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+    }
+
     .container {
+      padding-top: 2rem;
     }
   }
 }
