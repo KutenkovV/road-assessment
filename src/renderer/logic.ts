@@ -10,16 +10,24 @@ export interface IRoad {
 export function road_assessment(param: any) {
   console.log('it is work!');
 
-  let data_score = [];
+  let data_score: {
+    name: any;
+    value: any
+  }[] = [];
   console.log(param);
   param.road_array.forEach((item) => {
     data_score.push({
-      IRI: iri_score(param, item.flatness_road_lane_1),
-      J: item.road_defects_1,
-      C: c_score(item.road_grip_1)
+      value: 200,
+      // {
+      //   IRI: iri_score(param, item.flatness_road_lane_1),
+      //   J: item.road_defects_1,
+      //   C: c_score(item.road_grip_1),
+      // },
+      name: 'baba'
     });
   });
-  console.log(data_score);
+
+  return data_score;
 }
 
 export function road_degradation1(param: any) {
@@ -75,11 +83,10 @@ export function road_degradation1(param: any) {
 function c_score(param: any) {
   let C = param;
   console.log(param);
-  
 
   if (C >= 0.3) C = 5;
   else if (C < 0.1) C = 1;
-  else if (C = 0.1) C = 2;
+  else if ((C = 0.1)) C = 2;
   else if (C <= 0.2) C = 3;
   else if (C <= 0.3) C = 4;
 

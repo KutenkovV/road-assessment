@@ -36,7 +36,7 @@ const Main: React.FC = () => {
       {
         type: 'tree',
 
-        data: [item],
+        data: [data],
 
         top: '1%',
         left: '7%',

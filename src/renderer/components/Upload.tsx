@@ -1,12 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './global.scss';
 import Dropdown from './dropdown/Dropdown';
 import Tabledata from './Table/Tabledata';
 import { Link } from 'react-router-dom';
+import ReactECharts from 'echarts-for-react';
 import { road_assessment, IRoad } from '../logic';
 
 function Upload() {
-  const [items, setItems] = useState<any>([]);
+  const [items, setItems] = useState({});
   const [selected, setSelected] = useState('IA, IБ');
   const [filename, setFilename] = useState('');
 
@@ -20,8 +21,11 @@ function Upload() {
       road_array: items,
     };
 
-    road_assessment(road);
+    setItems(road_assessment(road));
   };
+
+
+
 
   // функция выбирает и загружает файл
   async function selectFile(defaultPath: string, loadXls: any) {
@@ -36,6 +40,38 @@ function Upload() {
       setItems(data);
     }
   }
+
+  // ~Настройки Chart
+  let option = {
+    title: {
+      text: 'Состояние дорог',
+      left: 'center'
+    },
+    tooltip: {
+      trigger: 'item'
+    },
+    legend: {
+      orient: 'vertical',
+      left: 'left'
+    },
+    series: [
+      {
+        name: 'Access From',
+        type: 'pie',
+        radius: '50%',
+        data: [
+          items
+        ],
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)'
+          }
+        }
+      }
+    ]
+  };
 
   return (
     <>
@@ -88,14 +124,18 @@ function Upload() {
           <path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224c0-17.7-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32s32-14.3 32-32z" />
         </svg>
       </div>
+
       <div className="form__input">
-        <Tabledata data={items} />
-      </div>
-      {/* <ReactECharts
+        <ReactECharts
           className="card-chart"
-          style={{ height: '600px' }}
-          option={options}
-        /> */}
+          style={{ height: '300px' }}
+          option={option}
+        />
+      </div>
+
+      <div className="form__input">
+        {/* <Tabledata data={items} /> */}
+      </div>
     </>
   );
 }
