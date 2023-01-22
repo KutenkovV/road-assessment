@@ -7,7 +7,7 @@ import ReactECharts from 'echarts-for-react';
 import { road_assessment, IRoad } from '../logic';
 
 function Upload() {
-  const [items, setItems] = useState({});
+  const [items, setItems] = useState([]);
   const [selected, setSelected] = useState('IA, IБ');
   const [filename, setFilename] = useState('');
 
@@ -24,9 +24,6 @@ function Upload() {
     setItems(road_assessment(road));
   };
 
-
-
-
   // функция выбирает и загружает файл
   async function selectFile(defaultPath: string, loadXls: any) {
     const file = await window.electron.openFile({
@@ -42,35 +39,33 @@ function Upload() {
   }
 
   // ~Настройки Chart
-  let option = {
+  const option = {
     title: {
       text: 'Состояние дорог',
-      left: 'center'
+      left: 'center',
     },
     tooltip: {
-      trigger: 'item'
+      trigger: 'item',
     },
     legend: {
       orient: 'vertical',
-      left: 'left'
+      left: 'left',
     },
     series: [
       {
         name: 'Access From',
         type: 'pie',
         radius: '50%',
-        data: [
-          items
-        ],
+        data: items,
         emphasis: {
           itemStyle: {
             shadowBlur: 10,
             shadowOffsetX: 0,
-            shadowColor: 'rgba(0, 0, 0, 0.5)'
-          }
-        }
-      }
-    ]
+            shadowColor: 'rgba(0, 0, 0, 0.5)',
+          },
+        },
+      },
+    ],
   };
 
   return (
@@ -133,9 +128,7 @@ function Upload() {
         />
       </div>
 
-      <div className="form__input">
-        {/* <Tabledata data={items} /> */}
-      </div>
+      <div className="form__input">{/* <Tabledata data={items} /> */}</div>
     </>
   );
 }

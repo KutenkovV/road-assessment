@@ -11,22 +11,27 @@ export function road_assessment(param: any) {
   console.log('it is work!');
 
   let data_score: {
+    value: number | undefined;
+    // {
+    //   IRI: iri_score(param, item.flatness_road_lane_1),
+    //   J: item.road_defects_1,
+    //   C: c_score(item.road_grip_1),
+    // },
     name: any;
-    value: any
-  }[] = [];
-  console.log(param);
-  param.road_array.forEach((item) => {
+  }[] = []
+  param.road_array.forEach((item:any) => {
     data_score.push({
-      value: 200,
+      value: item.start_road,
       // {
       //   IRI: iri_score(param, item.flatness_road_lane_1),
       //   J: item.road_defects_1,
       //   C: c_score(item.road_grip_1),
       // },
-      name: 'baba'
+      name: c_score(item.road_grip_1)
     });
   });
 
+  console.log(data_score);
   return data_score;
 }
 

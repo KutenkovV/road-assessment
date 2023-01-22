@@ -13,6 +13,7 @@ const Main: React.FC = () => {
   const onSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
+      
     const road: IRoad = {
       flatness_road_lane: document.getElementById('IRI').value,
       road_defects: document.getElementById('J').value,
@@ -36,7 +37,7 @@ const Main: React.FC = () => {
       {
         type: 'tree',
 
-        data: [data],
+        data: [item],
 
         top: '1%',
         left: '7%',
@@ -73,16 +74,13 @@ const Main: React.FC = () => {
 
   return (
     <>
-    text here
-    </>
-    /*
-    <>
       <div className="card-form">
         <div className="form-input">
           <label>Выберите класс дороги</label>
           <Dropdown selected={selected} setSelected={setSelected} />
         </div>
 
+        {/* Радиобаттоны */}
         <div className="form-radio">
           <label>Выберите тип дорожной одежды</label>
           <div>
@@ -101,6 +99,7 @@ const Main: React.FC = () => {
           </div>
         </div>
 
+        {/* Инпуты */}
         <div className="form-input">
           <label>Введите оценку IRI (Ровность)</label>
           <input id="IRI" step={0.1} placeholder="Оценка IRI" type="number" />
@@ -122,6 +121,7 @@ const Main: React.FC = () => {
           <input id="future_year" placeholder="Год" type="number" />
         </div>
 
+        {/* Кнопочка */}
         <div className="form-input">
           <button onClick={onSubmit}>Рассчитать</button>
         </div>
@@ -134,7 +134,6 @@ const Main: React.FC = () => {
         />
       </div>
     </>
-    */
   );
 };
 
