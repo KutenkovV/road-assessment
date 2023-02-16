@@ -8,7 +8,14 @@ export interface IRoad {
 }
 
 export function road_assessment(param: any) {
-  console.log('it is work!');
+
+  let data: {
+    value: {
+      IRI: number | undefined
+      // Интерфейс дороги
+      ; J: any; C: any;
+    }; name: any;
+  }[] = [];
 
   let data_score: {
     value: number | undefined;
@@ -19,6 +26,7 @@ export function road_assessment(param: any) {
     // },
     name: any;
   }[] = []
+
   param.road_array.forEach((item:any) => {
     data_score.push({
       value: item.start_road,
@@ -27,12 +35,24 @@ export function road_assessment(param: any) {
       //   J: item.road_defects_1,
       //   C: c_score(item.road_grip_1),
       // },
+      name: iri_score(param, item.flatness_road_lane_1)
+    });
+
+    data.push({
+      value:
+      {
+        IRI: iri_score(param, item.flatness_road_lane_1),
+        J: item.road_defects_1,
+        C: c_score(item.road_grip_1),
+      },
       name: c_score(item.road_grip_1)
     });
   });
 
-  console.log(data_score);
-  return data_score;
+  console.log('Объекты со всеми оценками');
+  console.log(data);
+
+  return data;
 }
 
 export function road_degradation1(param: any) {
@@ -87,7 +107,6 @@ export function road_degradation1(param: any) {
 // Оценка C
 function c_score(param: any) {
   let C = param;
-  console.log(param);
 
   if (C >= 0.3) C = 5;
   else if (C < 0.1) C = 1;
