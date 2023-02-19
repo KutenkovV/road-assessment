@@ -1,16 +1,19 @@
-import { useEffect, useState } from 'react';
-import '../global.scss';
+import { useState } from 'react';
 import Dropdown from '../components/dropdown/Dropdown';
 import Tabledata from '../components/Table/Tabledata';
 import { useNavigate } from 'react-router-dom';
 import ReactECharts from 'echarts-for-react';
 import { road_assessment, IRoad } from '../logic';
 
+import { useDispatch } from 'react-redux';
+import { dataload } from '../store/data';
+
 function Upload() {
   const [items, setItems] = useState([]);
   const [selected, setSelected] = useState('IA, IБ');
   const [filename, setFilename] = useState('');
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   // обработка клика кнопки "Оценить"
@@ -26,7 +29,7 @@ function Upload() {
     setItems(road_assessment(road));
 
     // Переход на другой роут
-    navigate('/second')
+    navigate('/second');
   };
 
   // функция выбирает и загружает файл
@@ -86,7 +89,7 @@ function Upload() {
             onChange={(e) => setFilename(e.target.value)}
           />
         </div>
-        
+
         <div className="input-settings">
           <div className="settings__road-type">
             <label>Выберите тип дорожной одежды</label>
@@ -113,10 +116,15 @@ function Upload() {
           </div>
         </div>
         <div className="input-button">
-            <button onClick={onSubmit}>Оценить</button>
+          <button onClick={onSubmit}>Оценить</button>
         </div>
+        <button
+            onClick={() => dispatch(dataload(items))}
+          >
+            Загрузить дату
+          </button>
       </div>
-      
+
       {/* <div className="form__warning">
         <label>Чтобы продолжить, загрузите данные и определите параметры</label>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">

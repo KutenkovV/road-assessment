@@ -1,14 +1,33 @@
 import { useState } from 'react';
 import '../logic';
+import { useNavigate } from 'react-router-dom';
+import { dataGet } from '../store/data';
+import { useSelector, useDispatch } from 'react-redux';
 
-const Main: React.FC = () => {
-  const [item, setItem] = useState({});
+function Main() {
+  const navigate = useNavigate();
+
+  const dataCount = useSelector((state) => state.data.value);
+  const dispatch = useDispatch();
+
+
+  const Submit = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    dispatch(dataGet());
+    console.log(dataCount);
+  }
 
   return (
     <>
-      <p>Новая страничка</p>
+      <div className="form__input">
+        <p>Новая страничка</p>
+        <div className="input-button">
+          <button onClick={() => {navigate('/')}}>Изменить данные</button>
+          <button onClick={Submit}>Получить данные</button>
+        </div>
+      </div>
     </>
   );
-};
+}
 
 export default Main;

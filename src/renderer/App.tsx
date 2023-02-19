@@ -1,4 +1,6 @@
-import './App.scss';
+import '../styles/App.scss';
+import '../styles/global.scss';
+
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 import Titlebar from 'renderer/components/titlebar/Titlebar';
 import Upload from 'renderer/page/Upload';
