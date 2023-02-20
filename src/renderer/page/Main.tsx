@@ -9,20 +9,29 @@ function Main() {
 
   const dataCount = useSelector((state) => state.data.value);
   const dispatch = useDispatch();
-
+  const [items, setItems] = useState([]);
 
   const Submit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    dispatch(dataGet());
     console.log(dataCount);
-  }
+    setItems(dataCount);
+  };
 
   return (
     <>
       <div className="form__input">
-        <p>Новая страничка</p>
-        <div className="input-button">
-          <button onClick={() => {navigate('/')}}>Изменить данные</button>
+        <div className="form-view">{items.map((item) => (
+          <div id='rectangle'/>
+        ))}
+        </div>
+        <div>
+          <button
+            onClick={() => {
+              navigate('/');
+            }}
+          >
+            Изменить данные
+          </button>
           <button onClick={Submit}>Получить данные</button>
         </div>
       </div>

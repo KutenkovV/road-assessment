@@ -5,13 +5,13 @@ import { useNavigate } from 'react-router-dom';
 import ReactECharts from 'echarts-for-react';
 import { road_assessment, IRoad } from '../logic';
 
-import { useDispatch } from 'react-redux';
-import { dataload } from '../store/data';
+import { useDispatch, useSelector } from 'react-redux';
+import { dataload, setFile, fileGet } from '../store/data';
 
 function Upload() {
   const [items, setItems] = useState([]);
   const [selected, setSelected] = useState('IA, IБ');
-  const [filename, setFilename] = useState('');
+  const filename = useSelector((state) => state.data.file)
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -28,12 +28,14 @@ function Upload() {
 
     setItems(road_assessment(road));
 
-    // Переход на другой роут
+    // Загружаем в store наши данные
+    dispatch(dataload(items));
+    // Переходим на другую страницу 
     navigate('/second');
   };
 
   // функция выбирает и загружает файл
-  async function selectFile(defaultPath: string, loadXls: any) {
+  async function selectFile(defaultPath: string) {
     const file = await window.electron.openFile({
       defaultPath,
       filters: [{ name: '*.xlsx', extensions: ['xlsx'] }],
@@ -41,40 +43,10 @@ function Upload() {
     if (file) {
       let data = await window.electron.loadXls(file);
       console.log(data);
-      setFilename(file);
+      dispatch(setFile(file));
       setItems(data);
     }
   }
-
-  // ~ Настройки Chart
-  const option = {
-    title: {
-      text: 'Состояние дорог',
-      left: 'center',
-    },
-    tooltip: {
-      trigger: 'item',
-    },
-    legend: {
-      orient: 'vertical',
-      left: 'left',
-    },
-    series: [
-      {
-        name: 'Access From',
-        type: 'pie',
-        radius: '50%',
-        data: items,
-        emphasis: {
-          itemStyle: {
-            shadowBlur: 10,
-            shadowOffsetX: 0,
-            shadowColor: 'rgba(0, 0, 0, 0.5)',
-          },
-        },
-      },
-    ],
-  };
 
   return (
     <>
@@ -85,8 +57,7 @@ function Upload() {
             type="text"
             value={filename}
             placeholder="Нажмите, чтобы выбрать файл"
-            onClick={() => selectFile(filename, setFilename)}
-            onChange={(e) => setFilename(e.target.value)}
+            onClick={() => selectFile(filename)}
           />
         </div>
 
@@ -118,29 +89,7 @@ function Upload() {
         <div className="input-button">
           <button onClick={onSubmit}>Оценить</button>
         </div>
-        <button
-            onClick={() => dispatch(dataload(items))}
-          >
-            Загрузить дату
-          </button>
       </div>
-
-      {/* <div className="form__warning">
-        <label>Чтобы продолжить, загрузите данные и определите параметры</label>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-          <path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224c0-17.7-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32s32-14.3 32-32z" />
-        </svg>
-      </div> */}
-
-      {/* <div className="form__input">
-        <ReactECharts
-          className="card-chart"
-          style={{ height: '300px' }}
-          option={option}
-        />
-      </div> */}
-
-      {/* <div className="form__input">{ <Tabledata data={items} /> }</div> */}
     </>
   );
 }
