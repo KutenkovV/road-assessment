@@ -1,0 +1,109 @@
+label {
+  font-size: 16px;
+}
+
+button {
+  cursor: pointer;
+  appearance: none;
+  padding: 1rem 3rem;
+  border: 0;
+  border-radius: 0.5rem;
+  font-size: 16px;
+
+  &:hover {
+    background: #ebf3ff;
+    transition: 0.3s;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px #f2f6fd;
+  }
+  &:active {
+    background-color: #d1e6ff;
+  }
+}
+
+.form__warning {
+  display: flex;
+  flex-direction: row;
+  border-radius: 5px;
+  margin-inline: 1rem;
+  padding: 0.85rem;
+  background-color: #fff6a5;
+
+  svg {
+    width: 1.7rem;
+    transition: 0.3s;
+    padding-left: 1rem;
+  }
+}
+
+.form__input {
+  display: flex;
+  flex-direction: column;
+  height: 200px auto;
+  margin: 1rem;
+  padding: 1rem;
+  border-radius: 11px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
+    rgb(209, 213, 219) 0px 0px 0px 1px inset;
+
+  .input-file {
+    display: flex;
+    flex-direction: column;
+
+    input {
+      cursor: pointer;
+      padding: 0.35rem;
+      border: 1px solid #d1d1d1;
+      border-radius: 5px;
+      -webkit-app-region: no-click;
+    }
+  }
+
+  .input-settings {
+    padding-top: 1rem;
+    display: flex;
+
+    .settings__road-type {
+      width: 100%;
+
+      .road-type__radio {
+        display: flex;
+        flex-direction: row;
+
+        .radio-item {
+          display: flex;
+          align-items: center;
+          padding-right: 1rem;
+          padding-top: 0.5rem;
+        }
+      }
+    }
+
+    .settings__road-class {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+  }
+
+  .input-button {
+    display: flex;
+    justify-content: end;
+    padding-top: 1rem;
+  }
+
+  .form-view {
+    display: flex;
+    justify-content: center;
+
+    #rectangle {
+      width: 10px;
+      height: 20px;
+      border: 1px solid #d1d1d1;
+      background: red;
+    }
+  }
+}

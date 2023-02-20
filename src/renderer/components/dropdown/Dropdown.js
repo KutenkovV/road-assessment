@@ -6,9 +6,6 @@ function Dropdown({selected, setSelected}) {
   const btnRef = useRef();
   const [isActive, setIsActive] = useState(false);
 
-  // нужно сделать переключение активности при мисклике
-  // https://www.youtube.com/watch?v=pE4bwPykUF4
-
   const options = [
     "IA, IБ",
     "IB, II",

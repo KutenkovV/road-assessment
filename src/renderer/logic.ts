@@ -1,15 +1,61 @@
+import { number } from 'echarts';
+
 // Интерфейс дороги
 export interface IRoad {
-  flatness_road_lane: number;
-  road_defects: number;
-  road_grip: number;
-  current_year: number;
-  future_year: number;
   road_class: string;
   road_type: string;
+  road_array: [];
 }
 
-export function road_degradation(param: any) {
+export function road_assessment(param: any) {
+
+  let data: {
+    value: {
+      IRI: number | undefined
+      // Интерфейс дороги
+      ; J: any; C: any;
+    }; name: any;
+  }[] = [];
+
+  let data_score: {
+    value: number | undefined;
+    // {
+    //   IRI: iri_score(param, item.flatness_road_lane_1),
+    //   J: item.road_defects_1,
+    //   C: c_score(item.road_grip_1),
+    // },
+    name: any;
+  }[] = []
+
+  param.road_array.forEach((item:any) => {
+    data_score.push({
+      value: item.start_road,
+      // {
+      //   IRI: iri_score(param, item.flatness_road_lane_1),
+      //   J: item.road_defects_1,
+      //   C: c_score(item.road_grip_1),
+      // },
+      name: iri_score(param, item.flatness_road_lane_1)
+    });
+
+    data.push({
+      value:
+      {
+        IRI: iri_score(param, item.flatness_road_lane_1),
+        J: item.road_defects_1,
+        C: c_score(item.road_grip_1),
+      },
+      name: c_score(item.road_grip_1)
+    });
+  });
+
+  console.log('Объекты со всеми оценками');
+  console.log(data);
+
+  return data;
+}
+
+export function road_degradation1(param: any) {
   console.log('IRI see there:');
 
   // Оцениваем IRI & C
@@ -17,13 +63,11 @@ export function road_degradation(param: any) {
   let C = c_score(param);
   let J = param.road_defects; // J уже идёт с оценкой
 
-  console.log('Оценка ровность: '+ IRI);
-  console.log('Оценка сцепление: '+ C);
-  console.log('Оценка дефектность: '+ J);
+  // console.log('Оценка ровность: ' + IRI);
+  // console.log('Оценка сцепление: ' + C);
+  // console.log('Оценка дефектность: ' + J);
 
   console.log(param);
-  
-
 
   let Tc = param.current_year;
   let Tf = param.future_year;
@@ -53,7 +97,7 @@ export function road_degradation(param: any) {
 
     nodes = newNodes;
     console.log(f_item);
-    
+
     console.log(nodes);
   }
 
@@ -62,23 +106,24 @@ export function road_degradation(param: any) {
 
 // Оценка C
 function c_score(param: any) {
-  let C = param.road_grip;
+  let C = param;
 
-  if (C <= 0.1) C = 5;
-  else if (C <= 0.2) C = 4;
-  else if (C <= 0.3) C = 3;
-  else C = 2;
+  if (C >= 0.3) C = 5;
+  else if (C < 0.1) C = 1;
+  else if ((C = 0.1)) C = 2;
+  else if (C <= 0.2) C = 3;
+  else if (C <= 0.3) C = 4;
 
   return C;
 }
 
 // Оценка IRI
-function iri_score(param: any) {
-  let IRI = param.flatness_road_lane;
+function iri_score(param: any, item: any) {
+  let IRI = item;
   let r_class = param.road_class;
   let r_type = param.road_type; // true - Капитальный false - Облегченный
 
-  console.log(IRI + ' ' + r_class + ' ' + r_type);
+  // console.log(IRI + ' ' + r_class + ' ' + r_type);
 
   let iri_score;
 
