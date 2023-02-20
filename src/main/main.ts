@@ -67,11 +67,6 @@ const createWindow = async () => {
     resizable: true, // Изтменять размер окна
     transparent: true, // Убирает вообще все границы экрана
     titleBarStyle: 'hidden', // Скрывает тайтлбар
-  //   titleBarOverlay: { // Как понял это три кнопки которые (закрать, свернуть и т.д.)
-  //     color: '#2f3241',
-  //     symbolColor: '#74b1be',
-  //     height: 60,
-  //  },
     icon: getAssetPath('icon.png'),
     webPreferences: {
       sandbox: false,

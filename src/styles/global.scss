@@ -98,12 +98,26 @@ button {
   .form-view {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
+    padding: 4rem 4rem;
 
-    #rectangle {
-      width: 10px;
-      height: 20px;
+    #rectangle_best {
+      width: 20px;
+      height: 40px;
       border: 1px solid #d1d1d1;
-      background: red;
+      background: #7BF69D;
+    }
+    #rectangle_good {
+      width: 20px;
+      height: 40px;
+      border: 1px solid #d1d1d1;
+      background: #F3F67B;
+    }
+    #rectangle_bad {
+      width: 20px;
+      height: 40px;
+      border: 1px solid #d1d1d1;
+      background: #F67B7B;
     }
   }
 }

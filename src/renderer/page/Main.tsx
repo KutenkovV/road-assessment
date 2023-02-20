@@ -21,7 +21,7 @@ function Main() {
     <>
       <div className="form__input">
         <div className="form-view">{items.map((item) => (
-          <div id='rectangle'/>
+          <div id={roadStatus(item.value.IRI)}>{item.value.IRI}</div>
         ))}
         </div>
         <div>
@@ -37,6 +37,15 @@ function Main() {
       </div>
     </>
   );
+}
+
+function roadStatus(IRI: string) {
+  if (IRI === 5) {
+    return "rectangle_best"
+  }
+  if (IRI === 4) {
+    return "rectangle_good"
+  } else return "rectangle_bad"
 }
 
 export default Main;

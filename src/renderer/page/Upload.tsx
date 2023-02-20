@@ -29,7 +29,7 @@ function Upload() {
     setItems(road_assessment(road));
 
     // Загружаем в store наши данные
-    dispatch(dataload(items));
+    dispatch(dataload(road_assessment(road)));
     // Переходим на другую страницу 
     navigate('/second');
   };
