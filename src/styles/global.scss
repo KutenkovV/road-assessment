@@ -2,6 +2,14 @@ label {
   font-size: 16px;
 }
 
+.lbl-button {
+  cursor: pointer;
+
+  &:hover {
+    color: #3914B0;
+  }
+}
+
 button {
   cursor: pointer;
   appearance: none;
@@ -95,15 +103,42 @@ button {
     padding-top: 1rem;
   }
 
+  .form-marker {
+
+    .marker-item {
+      display: flex;
+      align-items: center;
+      padding-bottom: 1rem;
+
+      p {
+        margin-left: 1rem;
+      }
+    }
+  }
+
   .form-view {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
+    padding: 4rem 4rem;
+  }
 
-    #rectangle {
-      width: 10px;
-      height: 20px;
-      border: 1px solid #d1d1d1;
-      background: red;
-    }
+  #rectangle_best {
+    width: 20px;
+    height: 30px;
+    border: 1px solid #d1d1d1;
+    background: #7BF69D;
+  }
+  #rectangle_good {
+    width: 20px;
+    height: 30px;
+    border: 1px solid #d1d1d1;
+    background: #F3F67B;
+  }
+  #rectangle_bad {
+    width: 20px;
+    height: 30px;
+    border: 1px solid #d1d1d1;
+    background: #F67B7B;
   }
 }
