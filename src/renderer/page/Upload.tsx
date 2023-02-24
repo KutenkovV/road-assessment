@@ -2,16 +2,16 @@ import { useState } from 'react';
 import Dropdown from '../components/dropdown/Dropdown';
 import Tabledata from '../components/Table/Tabledata';
 import { useNavigate } from 'react-router-dom';
-import ReactECharts from 'echarts-for-react';
 import { road_assessment, IRoad } from '../logic';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { dataload, setFile, fileGet } from '../store/data';
+import { dataload, setFile, dataloadAfter, set_radio_type } from '../store/UploadStore';
 
-function Upload() {
-  const [items, setItems] = useState([]);
-  const [selected, setSelected] = useState('IA, IБ');
-  const filename = useSelector((state) => state.data.file)
+function Upload(this: any) {
+  const selected = useSelector((state: any) => state.data.road_class);
+  const filename = useSelector((state: any) => state.data.file);
+  const items = useSelector((state: any) => state.data.valueAfter);
+  const radio_selected = useSelector((state: any) => state.data.radio_type);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -22,15 +22,15 @@ function Upload() {
 
     const road: IRoad = {
       road_class: selected,
-      road_type: document.querySelector('input[name="radio"]:checked').value,
+      road_type: radio_selected,
       road_array: items,
     };
 
-    setItems(road_assessment(road));
-
     // Загружаем в store наши данные
     dispatch(dataload(road_assessment(road)));
-    // Переходим на другую страницу 
+    console.log(items);
+
+    // Переходим на другую страницу
     navigate('/second');
   };
 
@@ -40,12 +40,16 @@ function Upload() {
       defaultPath,
       filters: [{ name: '*.xlsx', extensions: ['xlsx'] }],
     });
+    console.log(file);
     if (file) {
       let data = await window.electron.loadXls(file);
-      console.log(data);
       dispatch(setFile(file));
-      setItems(data);
+      dispatch(dataloadAfter(data));
     }
+  }
+
+  function radio (event: any) {
+    dispatch(set_radio_type(event.target.value))
   }
 
   return (
@@ -56,6 +60,7 @@ function Upload() {
           <input
             type="text"
             value={filename}
+            readOnly
             placeholder="Нажмите, чтобы выбрать файл"
             onClick={() => selectFile(filename)}
           />
@@ -69,21 +74,22 @@ function Upload() {
                 <input
                   id="r-1"
                   type="radio"
-                  name="radio"
                   value="true"
-                  defaultChecked
+                  checked={radio_selected === 'true'}
+                  onChange={radio}
+                  name='name'
                 />
                 <label>Капитальный</label>
               </div>
               <div className="radio-item">
-                <input id="r-1" type="radio" name="radio" value="false" />
+                <input id="r-1" type="radio" value="false" checked={radio_selected === 'false'} onChange={radio} name='name'/>
                 <label>Облегченный</label>
               </div>
             </div>
           </div>
           <div className="settings__road-class">
             <label>Выберите класс дороги</label>
-            <Dropdown selected={selected} setSelected={setSelected} />
+            <Dropdown selected={selected} />
           </div>
         </div>
         <div className="input-button">
