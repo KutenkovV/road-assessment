@@ -2,6 +2,9 @@ import '../logic';
 import { useNavigate } from 'react-router-dom';
 import { dataGet } from '../store/UploadStore';
 import { useSelector, useDispatch } from 'react-redux';
+import StepProgressBar from 'renderer/components/StepProgressBar';
+import {  } from '../store/MainStore';
+import { useState } from 'react';
 
 function Main() {
   const navigate = useNavigate();
@@ -10,11 +13,15 @@ function Main() {
   // const dispatch = useDispatch();
   // const [items, setItems] = useState([]);
 
-  // const Submit = (e: { preventDefault: () => void }) => {
-  //   e.preventDefault();
-  //   console.log(dataCount);
-  //   // setItems(dataCount);
-  // };
+  const [yearForecast, setYearForecast] = useState<any>();
+
+  const Submit = () => {
+    // e.preventDefault();
+
+    // setYearForecast(inputRef.current.value);
+    console.log(yearForecast);
+    // setItems(dataCount);
+  };
 
   return (
     <>
@@ -40,7 +47,7 @@ function Main() {
             </div>
           ))}
         </div>
-        <div>
+        <div className="form-switch">
           <label
             className="lbl-button"
             onClick={() => {
@@ -49,7 +56,14 @@ function Main() {
           >
             Изменить данные
           </label>
+          <StepProgressBar />
           {/* <button onClick={Submit}>Получить данные</button> */}
+        </div>
+      </div>
+      <div className="form__input">
+        <div className="form-marker">
+          <input id="years" onChange={(e) => {setYearForecast(e.target.value)}} type="number" />
+          <button onClick={Submit}>Сделать прогноз</button>
         </div>
       </div>
     </>

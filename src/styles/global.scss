@@ -6,7 +6,21 @@ label {
   cursor: pointer;
 
   &:hover {
-    color: #3914B0;
+    color: #3914b0;
+  }
+}
+
+input {
+  background-color: #fff;
+  border: 1px solid hsl(210, 14%, 83%);
+  border-radius: 0.25rem;
+  line-height: 1.5;
+  // padding: 0.75rem;
+  transition: 0.3s;
+
+  &:focus {
+    box-shadow: 0 0 0 0.35rem rgba(187, 217, 255, 0.25);
+    outline: 0;
   }
 }
 
@@ -52,7 +66,7 @@ button {
   flex-direction: column;
   height: 200px auto;
   margin: 1rem;
-  padding: 1rem;
+  padding: 1rem 2.5rem;
   border-radius: 11px;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
     rgb(209, 213, 219) 0px 0px 0px 1px inset;
@@ -104,13 +118,32 @@ button {
   }
 
   .form-marker {
-
     .marker-item {
       display: flex;
       align-items: center;
-      padding-bottom: 1rem;
+      // padding-bottom: 1rem;
+
+      #rectangle_best {
+        width: 30px;
+        height: 12px;
+        border: 1px solid #d1d1d1;
+        background: #7bf69d;
+      }
+      #rectangle_good {
+        width: 30px;
+        height: 12px;
+        border: 1px solid #d1d1d1;
+        background: #f3f67b;
+      }
+      #rectangle_bad {
+        width: 30px;
+        height: 12px;
+        border: 1px solid #d1d1d1;
+        background: #f67b7b;
+      }
 
       p {
+        margin: 0.25rem;
         margin-left: 1rem;
       }
     }
@@ -120,25 +153,30 @@ button {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    padding: 4rem 4rem;
+    padding: 0.75rem 4rem;
+  }
+
+  .form-switch {
+    display: flex;
+    justify-content: space-between;
   }
 
   #rectangle_best {
     width: 20px;
     height: 30px;
     border: 1px solid #d1d1d1;
-    background: #7BF69D;
+    background: #7bf69d;
   }
   #rectangle_good {
     width: 20px;
     height: 30px;
     border: 1px solid #d1d1d1;
-    background: #F3F67B;
+    background: #f3f67b;
   }
   #rectangle_bad {
     width: 20px;
     height: 30px;
     border: 1px solid #d1d1d1;
-    background: #F67B7B;
+    background: #f67b7b;
   }
 }
