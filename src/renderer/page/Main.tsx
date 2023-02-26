@@ -3,24 +3,35 @@ import { useNavigate } from 'react-router-dom';
 import { dataGet } from '../store/UploadStore';
 import { useSelector, useDispatch } from 'react-redux';
 import StepProgressBar from 'renderer/components/StepProgressBar';
-import {  } from '../store/MainStore';
+import { set_progressBar } from '../store/MainStore';
 import { useState } from 'react';
 
-function Main() {
+function Main(this: any) {
   const navigate = useNavigate();
 
   const dataCount = useSelector((state: any) => state.data.value);
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   // const [items, setItems] = useState([]);
 
   const [yearForecast, setYearForecast] = useState<any>();
 
   const Submit = () => {
-    // e.preventDefault();
+    let data: {
+      index: number
+      value: any
+    }[] = [];
 
-    // setYearForecast(inputRef.current.value);
+    for (let i = 0; i < yearForecast; i++) {
+      console.log('i= ' + i);
+      data.push({
+        index: i,
+        value: i
+      })
+    }
+
+    console.log(data);
+    dispatch(set_progressBar(data));
     console.log(yearForecast);
-    // setItems(dataCount);
   };
 
   return (
@@ -62,7 +73,13 @@ function Main() {
       </div>
       <div className="form__input">
         <div className="form-marker">
-          <input id="years" onChange={(e) => {setYearForecast(e.target.value)}} type="number" />
+          <input
+            id="years"
+            onChange={(e) => {
+              setYearForecast(e.target.value);
+            }}
+            type="number"
+          />
           <button onClick={Submit}>Сделать прогноз</button>
         </div>
       </div>

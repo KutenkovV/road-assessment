@@ -1,15 +1,16 @@
 import { last } from 'lodash';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
+import { useSelector } from 'react-redux';
+import { set_progressBar } from '../store/MainStore';
 
 function StepProgressBar() {
+  const items = useSelector((state: any) => state.mainStore.value);
   const style = { width: 200, margin: 0 };
 
-  const marks = {
+  let marks = {
     0: 0,
-    1: 1,
-    2: 2,
-  };
+  }
 
   const markss = {
     '-10': '-10°C',
@@ -17,16 +18,12 @@ function StepProgressBar() {
     26: '26°C',
     37: '37°C',
     50: '50°C',
-    100: {
-      style: {
-        color: 'red',
-      },
-      label: <strong>100°C</strong>,
-    },
   };
 
   function log(value: any) {
-    console.log(value); //eslint-disable-line
+    console.log(value);
+    console.log(items);
+    console.log(markss);
   }
 
   return (
@@ -36,7 +33,7 @@ function StepProgressBar() {
           style={style}
           range
           max={2}
-          marks={marks}
+          marks={markss}
           onChange={log}
           step={null}
           included={false}

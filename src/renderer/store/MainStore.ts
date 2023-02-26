@@ -3,14 +3,14 @@ import { createSlice } from '@reduxjs/toolkit';
 export const mainStore = createSlice({
   name: 'mainStore',
   initialState: {
-    value: [], // Данные с оценкой
+    value: { 0: "0" }, // Данные с оценкой
   },
   reducers: {
-    setter: (state, action) => {
+    set_progressBar: (state, action) => {
       state.value = action.payload;
-    }
+    },
   },
 });
 
-export const {  } = mainStore.actions;
+export const { set_progressBar } = mainStore.actions;
 export default mainStore.reducer;
