@@ -5,25 +5,27 @@ import { useSelector } from 'react-redux';
 import { set_progressBar } from '../store/MainStore';
 
 function StepProgressBar() {
+  var _ = require('lodash');
   const items = useSelector((state: any) => state.mainStore.value);
+  const yearForecast = useSelector((state: any) => state.mainStore.yearForecast);
+
   const style = { width: 200, margin: 0 };
 
-  let marks = {
+
+
+  const marks = {
     0: 0,
+    50: 1,
+    100: 2,
   }
 
-  const markss = {
-    '-10': '-10°C',
-    0: <strong>0°C</strong>,
-    26: '26°C',
-    37: '37°C',
-    50: '50°C',
-  };
+  function log() {
 
-  function log(value: any) {
-    console.log(value);
+    
+    // console.log(value);
+    console.log(yearForecast);
     console.log(items);
-    console.log(markss);
+    // console.log(markss);
   }
 
   return (
@@ -32,14 +34,16 @@ function StepProgressBar() {
         <Slider
           style={style}
           range
-          max={2}
-          marks={markss}
+          min={0}
+          max={yearForecast}
+          marks={items}
           onChange={log}
           step={null}
           included={false}
           defaultValue={0}
           // allowCross={false}
         />
+        <button onClick={log}>Кнопка</button>
       </div>
     </>
   );

@@ -3,17 +3,18 @@ import { useNavigate } from 'react-router-dom';
 import { dataGet } from '../store/UploadStore';
 import { useSelector, useDispatch } from 'react-redux';
 import StepProgressBar from 'renderer/components/StepProgressBar';
-import { set_progressBar } from '../store/MainStore';
+import { set_progressBar, set_yearForecast } from '../store/MainStore';
 import { useState } from 'react';
 
 function Main(this: any) {
   const navigate = useNavigate();
+  var _ = require('lodash');
 
   const dataCount = useSelector((state: any) => state.data.value);
+  // const yearForecast = useSelector((state: any) => state.mainStore.yearForecast);
   const dispatch = useDispatch();
-  // const [items, setItems] = useState([]);
+  const [year, setYear] = useState<any>();
 
-  const [yearForecast, setYearForecast] = useState<any>();
 
   const Submit = () => {
     let data: {
@@ -21,17 +22,17 @@ function Main(this: any) {
       value: any
     }[] = [];
 
-    for (let i = 0; i < yearForecast; i++) {
-      console.log('i= ' + i);
+    for (let i = 0; i <= year; i++) {
       data.push({
         index: i,
         value: i
       })
     }
 
-    console.log(data);
-    dispatch(set_progressBar(data));
-    console.log(yearForecast);
+    dispatch(set_yearForecast(year));
+    dispatch(set_progressBar(_.mapValues(_.keyBy(data, 'index'), 'value')));
+    // dispatch(set_progressBar(data));
+    console.log(year);
   };
 
   return (
@@ -76,7 +77,7 @@ function Main(this: any) {
           <input
             id="years"
             onChange={(e) => {
-              setYearForecast(e.target.value);
+              setYear(e.target.value)
             }}
             type="number"
           />
