@@ -1,10 +1,11 @@
-import '../logic';
+import '../App/logic';
 import { useNavigate } from 'react-router-dom';
 import { dataGet } from '../store/UploadStore';
 import { useSelector, useDispatch } from 'react-redux';
 import StepProgressBar from 'renderer/components/StepProgressBar';
 import { set_progressBar, set_yearForecast } from '../store/MainStore';
 import { useState } from 'react';
+import { prognoz } from '../App/prognoz'
 
 function Main(this: any) {
   const navigate = useNavigate();
@@ -13,10 +14,13 @@ function Main(this: any) {
   const dataCount = useSelector((state: any) => state.data.value);
   // const yearForecast = useSelector((state: any) => state.mainStore.yearForecast);
   const dispatch = useDispatch();
-  const [year, setYear] = useState<any>();
+  const [year, setYear] = useState<any>(0);
 
 
   const Submit = () => {
+    console.log('абоба');
+    prognoz(year, dataCount);
+    
     let data: {
       index: number
       value: any
@@ -31,8 +35,6 @@ function Main(this: any) {
 
     dispatch(set_yearForecast(year));
     dispatch(set_progressBar(_.mapValues(_.keyBy(data, 'index'), 'value')));
-    // dispatch(set_progressBar(data));
-    console.log(year);
   };
 
   return (
@@ -69,7 +71,6 @@ function Main(this: any) {
             Изменить данные
           </label>
           <StepProgressBar />
-          {/* <button onClick={Submit}>Получить данные</button> */}
         </div>
       </div>
       <div className="form__input">
@@ -79,6 +80,7 @@ function Main(this: any) {
             onChange={(e) => {
               setYear(e.target.value)
             }}
+            value={year}
             type="number"
           />
           <button onClick={Submit}>Сделать прогноз</button>

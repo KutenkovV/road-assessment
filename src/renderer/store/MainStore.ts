@@ -4,7 +4,7 @@ export const mainStore = createSlice({
   name: 'mainStore',
   initialState: {
     value: { 0: 0 }, // Данные с оценкой
-    yearForecast: 0,
+    yearForecast: 0, // Кол-во лет на сколько делаем прогноз
   },
   reducers: {
     set_progressBar: (state, action) => {

@@ -8,24 +8,11 @@ function StepProgressBar() {
   var _ = require('lodash');
   const items = useSelector((state: any) => state.mainStore.value);
   const yearForecast = useSelector((state: any) => state.mainStore.yearForecast);
-
   const style = { width: 200, margin: 0 };
 
-
-
-  const marks = {
-    0: 0,
-    50: 1,
-    100: 2,
-  }
-
-  function log() {
-
-    
-    // console.log(value);
-    console.log(yearForecast);
-    console.log(items);
-    // console.log(markss);
+  // Тут получаем текущее значение в ProgressBar
+  function log(value: any) {
+    console.log(value);
   }
 
   return (
@@ -41,9 +28,7 @@ function StepProgressBar() {
           step={null}
           included={false}
           defaultValue={0}
-          // allowCross={false}
         />
-        <button onClick={log}>Кнопка</button>
       </div>
     </>
   );

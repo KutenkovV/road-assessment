@@ -1,5 +1,3 @@
-import { number } from 'echarts';
-
 // Интерфейс дороги
 export interface IRoad {
   road_class: string;
@@ -27,7 +25,7 @@ export function road_assessment(param: any) {
     name: any;
   }[] = []
 
-  param.road_array.forEach((item:any) => {
+  param.road_array.forEach((item: any) => {
     data_score.push({
       value: item.start_road,
       // {
