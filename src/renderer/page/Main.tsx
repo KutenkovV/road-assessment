@@ -105,7 +105,7 @@ function Main(this: any) {
             type="number"
           />
           <button onClick={Submit}>Сделать прогноз</button>
-          <button onClick={onOpa}>Понюхай хуй</button>
+          <button onClick={onOpa}>Тык</button>
         </div>
       </div>
     </>
