@@ -28,7 +28,7 @@ export function road_assessment(param: any) {
   param.road_array.forEach((item: any) => {
     data_score.push({
       value: item.start_road,
-      // {
+      // {d
       //   IRI: iri_score(param, item.flatness_road_lane_1),
       //   J: item.road_defects_1,
       //   C: c_score(item.road_grip_1),

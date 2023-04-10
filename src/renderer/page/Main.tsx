@@ -4,7 +4,7 @@ import { dataGet } from '../store/UploadStore';
 import { useSelector, useDispatch } from 'react-redux';
 import StepProgressBar from 'renderer/components/StepProgressBar';
 import { set_progressBar, set_yearForecast } from '../store/MainStore';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { prognoz } from '../App/prognoz'
 
 function Main(this: any) {
@@ -16,11 +16,23 @@ function Main(this: any) {
   const dispatch = useDispatch();
   const [year, setYear] = useState<any>(0);
 
+  const [items, setItems] = useState([]);
+  console.log(items);
+
+  // setItems(dataCount);
+  useEffect(() => {
+    console.log('опа');
+    setItems(dataCount);
+  }), [];
+
 
   const Submit = () => {
     console.log('абоба');
-    prognoz(year, dataCount);
-    
+    // let opa = prognoz(year, dataCount)
+    // setItems(prognoz(year, dataCount));
+
+    prognoz(year, dataCount)
+
     let data: {
       index: number
       value: any
@@ -55,7 +67,7 @@ function Main(this: any) {
           </div>
         </div>
         <div className="form-view">
-          {dataCount.map((item: any, index: number) => (
+          {items.map((item: any, index: number) => (
             <div id={roadStatus(item.value.IRI)} key={index}>
               {item.value.IRI}
             </div>
