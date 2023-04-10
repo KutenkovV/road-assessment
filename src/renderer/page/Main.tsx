@@ -23,7 +23,7 @@ function Main(this: any) {
   // setItems(dataCount);
   useEffect(() => {
     console.log('опа');
-    setItems(dataList)
+    // setItems(dataList)
   }), [];
 
   const onOpa = () => {
@@ -33,10 +33,7 @@ function Main(this: any) {
     console.log('абоба');
     // let opa = prognoz(year, dataCount)
     // setItems(prognoz(year, dataCount));
-    dispatch(dataloadMain(prognoz(year, dataCount)));
-    // dispatch(dataloadMain(dataC);
-    // prognoz(year, dataCount)
-
+    dispatch(dataload(prognoz(year, dataCount)));
 
     // Ниже магнум опус, его не трогаем!!!
     let data: {
@@ -73,12 +70,9 @@ function Main(this: any) {
           </div>
         </div>
         <div className="form-view">
-          {/* {dataList.map((item: any) => (
-            <div>1</div>
-          ))} */}
           {dataList.map((item: any, index: number) => (
-            <div id={roadStatus(item.value)} key={index}>
-              {item.value}
+            <div id={roadStatus(item.element)} key={index}>
+              {item.element}
             </div>
           ))}
         </div>
@@ -113,10 +107,10 @@ function Main(this: any) {
 }
 
 function roadStatus(IRI: number) {
-  if (IRI === 5) {
+  if (IRI >= 4.5) {
     return 'rectangle_best';
   }
-  if (IRI === 4) {
+  if (IRI >= 4) {
     return 'rectangle_good';
   } else return 'rectangle_bad';
 }

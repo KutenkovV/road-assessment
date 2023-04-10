@@ -11,28 +11,16 @@ export function prognoz(year: any, data: any): any {
     let final_items = []
 
     for (let i = 1; i <= year; i++) {
-        // data.name = data.name - (Math.E ** -((t0 / n_iri) ** B)) + (Math.E ** -((i / n_iri) ** B))
-        // items.push({
-        //     data.na
-        // })
         items = [];
         data.forEach((element: any) => {
-            // element.value.IRI = element.value.IRI - (Math.E ** -((t0 / n_iri) ** B)) + (Math.E ** -((i / n_iri) ** B))
-            // console.log('see there');
-            // console.log(element.value.IRI);
-
             items.push({
-                element: element.value.IRI = element.value.IRI - (Math.E ** -((t0 / n_iri) ** B)) + (Math.E ** -((i / n_iri) ** B))
+                element: (element.value.IRI = element.value.IRI - (Math.E ** -((t0 / n_iri) ** B)) + (Math.E ** -((i / n_iri) ** B))).toFixed(2)
             })
         });
 
         final_items.push({
             items
         })
-
-
-
-        // Degradation(data);
     }
 
     console.log('smotri suda');
