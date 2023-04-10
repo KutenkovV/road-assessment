@@ -1,9 +1,9 @@
 import '../App/logic';
 import { useNavigate } from 'react-router-dom';
-import { dataGet } from '../store/UploadStore';
+import { dataload } from '../store/UploadStore';
 import { useSelector, useDispatch } from 'react-redux';
 import StepProgressBar from 'renderer/components/StepProgressBar';
-import { set_progressBar, set_yearForecast } from '../store/MainStore';
+import { set_progressBar, set_yearForecast, dataloadMain } from '../store/MainStore';
 import { useEffect, useState } from 'react';
 import { prognoz } from '../App/prognoz'
 
@@ -12,27 +12,33 @@ function Main(this: any) {
   var _ = require('lodash');
 
   const dataCount = useSelector((state: any) => state.data.value);
-  // const yearForecast = useSelector((state: any) => state.mainStore.yearForecast);
+  const dataList = useSelector((state: any) => state.mainStore.data_list);
+  const yearForecast = useSelector((state: any) => state.mainStore.yearForecast);
   const dispatch = useDispatch();
   const [year, setYear] = useState<any>(0);
 
-  const [items, setItems] = useState([]);
-  console.log(items);
+  const [items, setItems] = useState();
+
 
   // setItems(dataCount);
   useEffect(() => {
     console.log('опа');
-    setItems(dataCount);
+    setItems(dataList)
   }), [];
 
-
+  const onOpa = () => {
+    console.log(dataList);
+  }
   const Submit = () => {
     console.log('абоба');
     // let opa = prognoz(year, dataCount)
     // setItems(prognoz(year, dataCount));
+    dispatch(dataloadMain(prognoz(year, dataCount)));
+    // dispatch(dataloadMain(dataC);
+    // prognoz(year, dataCount)
 
-    prognoz(year, dataCount)
 
+    // Ниже магнум опус, его не трогаем!!!
     let data: {
       index: number
       value: any
@@ -67,9 +73,12 @@ function Main(this: any) {
           </div>
         </div>
         <div className="form-view">
-          {items.map((item: any, index: number) => (
-            <div id={roadStatus(item.value.IRI)} key={index}>
-              {item.value.IRI}
+          {/* {dataList.map((item: any) => (
+            <div>1</div>
+          ))} */}
+          {dataList.map((item: any, index: number) => (
+            <div id={roadStatus(item.value)} key={index}>
+              {item.value}
             </div>
           ))}
         </div>
@@ -96,6 +105,7 @@ function Main(this: any) {
             type="number"
           />
           <button onClick={Submit}>Сделать прогноз</button>
+          <button onClick={onOpa}>Понюхай хуй</button>
         </div>
       </div>
     </>
