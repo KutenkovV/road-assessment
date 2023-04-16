@@ -2,8 +2,9 @@ import { last } from 'lodash';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { set_progressBar, dataloadMain } from '../store/MainStore';
+import { set_progressBar, dataloadMain, dataMain } from '../store/MainStore';
 import { dataGet } from 'renderer/store/UploadStore';
+import { useEffect } from 'react';
 
 function StepProgressBar(this: any) {
   var _ = require('lodash');
@@ -17,11 +18,11 @@ function StepProgressBar(this: any) {
 
   // Тут получаем текущее значение в ProgressBar
   function log(value: any) {
-    console.log('value of data');
-    console.log(data[value].items);
+    // console.log('value of data');
+    // console.log(data[value].items);
     // console.log(_.values(data_final[value]));
     // console.log(_.mapValues(_.keyBy(data_final, 'element')));
-    dispatch(dataloadMain(data[value].items));
+    dispatch(dataMain(data_final[value].items));
     console.log(data_final);
   }
 

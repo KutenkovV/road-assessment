@@ -5,16 +5,17 @@ export function prognoz(year: any, data: any): any {
     let iri = 4.5;
     const t0 = 1; // Текущий год эксплуатации
     const B = 1.87
-    const n_iri = 6; // Параметр ресурса
+    const n_iri = 2; // Параметр ресурса
 
     let items: { element: number; }[] = []
     let final_items = []
 
-    for (let i = 1; i <= year; i++) {
+    for (let i = 0; i <= year; i++) {
         items = [];
+        let N = i + 1;
         data.forEach((element: any) => {
             items.push({
-                element: (element.value.IRI = element.value.IRI - (Math.E ** -((t0 / n_iri) ** B)) + (Math.E ** -((i / n_iri) ** B))).toFixed(2)
+                element: (element.value.IRI = element.value.IRI - (Math.E ** -((t0 / n_iri) ** B)) + (Math.E ** -((N / n_iri) ** B))).toFixed(2)
             })
         });
 

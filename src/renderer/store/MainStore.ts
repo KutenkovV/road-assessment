@@ -4,6 +4,7 @@ export const mainStore = createSlice({
   name: 'mainStore',
   initialState: {
     data_list: [],
+    data: [],
     value: { 0: 0 }, // Данные с оценкой
     yearForecast: 0, // Кол-во лет на сколько делаем прогноз
   },
@@ -16,9 +17,13 @@ export const mainStore = createSlice({
     },
     dataloadMain: (state, action) => {
       state.data_list = action.payload;
+      state.data = action.payload[0].items;
+    },
+    dataMain: (state, action) => {
+      state.data = action.payload;
     },
   },
 });
 
-export const { set_progressBar, set_yearForecast, dataloadMain } = mainStore.actions;
+export const { set_progressBar, set_yearForecast, dataloadMain, dataMain } = mainStore.actions;
 export default mainStore.reducer;

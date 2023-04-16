@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { dataload } from '../store/UploadStore';
 import { useSelector, useDispatch } from 'react-redux';
 import StepProgressBar from 'renderer/components/StepProgressBar';
-import { set_progressBar, set_yearForecast, dataloadMain } from '../store/MainStore';
+import { set_progressBar, set_yearForecast, dataloadMain, dataMain } from '../store/MainStore';
 import { useEffect, useState } from 'react';
 import { prognoz } from '../App/prognoz'
 
@@ -13,27 +13,28 @@ function Main(this: any) {
 
   const dataCount = useSelector((state: any) => state.data.value);
   const dataList = useSelector((state: any) => state.mainStore.data_list);
+  const datares = useSelector((state: any) => state.mainStore.data);
   const yearForecast = useSelector((state: any) => state.mainStore.yearForecast);
   const dispatch = useDispatch();
   const [year, setYear] = useState<any>(0);
 
   const [items, setItems] = useState();
 
-
-  // setItems(dataCount);
   useEffect(() => {
     console.log('опа');
-    // setItems(dataList)
+    console.log(dataList);
   }), [];
 
-  const onOpa = () => {
-    console.log(dataList);
+  function onOpa() {
+    console.log(datares);
+    // dispatch(dataMain(dataList[0].items));
   }
-  const Submit = () => {
-    console.log('абоба');
-    // let opa = prognoz(year, dataCount)
-    // setItems(prognoz(year, dataCount));
-    dispatch(dataload(prognoz(year, dataCount)));
+
+  function Submit() {
+    dispatch(dataloadMain(prognoz(year, dataCount)));
+    // dispatch(dataloadMain(dataList[0].items));
+    console.log('see bl suda');
+    console.log(datares);
 
     // Ниже магнум опус, его не трогаем!!!
     let data: {
@@ -70,7 +71,7 @@ function Main(this: any) {
           </div>
         </div>
         <div className="form-view">
-          {dataList.map((item: any, index: number) => (
+          {datares.map((item: any, index: number) => (
             <div id={roadStatus(item.element)} key={index}>
               {item.element}
             </div>
