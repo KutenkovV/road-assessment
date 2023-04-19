@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 35px;
+    height: 30px;
     background-color: #254685;
     -webkit-app-region: drag;
     padding-left: 1rem;

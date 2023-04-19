@@ -2,10 +2,9 @@ export function prognoz(year: any, data: any): any {
     console.log('Функция из прогноза!');
     // console.log(data);
 
-    let iri = 4.5;
     const t0 = 1; // Текущий год эксплуатации
     const B = 1.87
-    const n_iri = 2; // Параметр ресурса
+    const n_iri = 4; // Параметр ресурса
 
     let items: { element: number; }[] = []
     let final_items = []
@@ -15,7 +14,7 @@ export function prognoz(year: any, data: any): any {
         let N = i + 1;
         data.forEach((element: any) => {
             items.push({
-                element: (element.value.IRI = element.value.IRI - (Math.E ** -((t0 / n_iri) ** B)) + (Math.E ** -((N / n_iri) ** B))).toFixed(2)
+                element: (element.value.IRI = element.value.IRI - (Math.E ** -((t0 / n_iri) ** B)) + (Math.E ** -((N / n_iri) ** B))).toFixed(2)                
             })
         });
 

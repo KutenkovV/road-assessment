@@ -14,8 +14,11 @@ declare global {
       };
       openFile(options: any): any;
       loadXls(filename: string): Promise<Array<Road_line>>;
+      closeApp(): any;
+      minimizeApp(): any;
+      maximizeApp(): any;
     };
   }
 }
 
-export {};
+export { };

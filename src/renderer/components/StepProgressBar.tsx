@@ -23,7 +23,7 @@ function StepProgressBar(this: any) {
     // console.log(_.values(data_final[value]));
     // console.log(_.mapValues(_.keyBy(data_final, 'element')));
     dispatch(dataMain(data_final[value].items));
-    console.log(data_final);
+    console.log(value);
   }
 
   return (

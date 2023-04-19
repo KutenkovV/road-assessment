@@ -17,7 +17,7 @@ class AppUpdater {
 let mainWindow: BrowserWindow | null = null;
 
 ipcMain.on('ipc-example', async (event, arg) => {
-  const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
+  const msgTemplate = (pingPong: string) => `IPC test: ${ pingPong }`;
   console.log(msgTemplate(arg));
   event.reply('ipc-example', msgTemplate('pong'));
 });
@@ -65,16 +65,18 @@ const createWindow = async () => {
     width: 1200,
     height: 900,
     resizable: true, // Изтменять размер окна
-    transparent: true, // Убирает вообще все границы экрана
+    transparent: false, // Убирает вообще все границы экрана
     titleBarStyle: 'hidden', // Скрывает тайтлбар
     icon: getAssetPath('icon.png'),
     webPreferences: {
       sandbox: false,
-      contextIsolation: true,
+      nodeIntegration: false,
+      // contextIsolation: false,
       preload: app.isPackaged
-        ? path.join(__dirname, 'preload.js')
+        ? path.join(__dirname, 'preload.ts')
         : path.join(__dirname, '../../.erb/dll/preload.js'),
     },
+
   });
 
   mainWindow.loadURL(resolveHtmlPath('index.html'));
@@ -89,6 +91,22 @@ const createWindow = async () => {
       mainWindow.show();
     }
   });
+
+  ipcMain.on('closeApp', () => {
+    mainWindow?.close();
+  })
+
+  ipcMain.on('minimizeApp', () => {
+    mainWindow?.minimize();
+  })
+
+  ipcMain.on('maximizeApp', () => {
+    mainWindow?.isMaximized() ? mainWindow.unmaximize() : mainWindow?.maximize()
+  })
+
+  ipcMain.on('closeApp', () => {
+    mainWindow?.close();
+  })
 
   mainWindow.on('closed', () => {
     mainWindow = null;
