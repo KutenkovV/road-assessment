@@ -1,11 +1,17 @@
 import '../App/logic';
 import { useNavigate } from 'react-router-dom';
-import { dataload } from '../store/UploadStore';
 import { useSelector, useDispatch } from 'react-redux';
 import StepProgressBar from 'renderer/components/StepProgressBar';
-import { set_progressBar, set_yearForecast, dataloadMain, dataMain } from '../store/MainStore';
+
+/// Для тултипов (https://react-tooltip.com/docs/getting-started)
+import 'react-tooltip/dist/react-tooltip.css'
+import { Tooltip } from 'react-tooltip'
+///
+
+import { set_progressBar, set_yearForecast, dataloadMain } from '../store/MainStore';
 import { useEffect, useState } from 'react';
 import { prognoz } from '../App/prognoz'
+// import ItemRoad from 'renderer/components/ItemRoadLine/itemRoad';
 
 function Main(this: any) {
   const navigate = useNavigate();
@@ -72,10 +78,25 @@ function Main(this: any) {
         </div>
         <div className="form-view">
           {datares.map((item: any, index: number) => (
-            <div id={roadStatus(item.element)} key={index}>
-              {item.element}
+            // <ItemRoad iri={item.element} key={index} />
+            <div
+              data-tooltip-id='my-tooltip'
+              data-tooltip-content={item.element}
+              data-some-relevant-attr={index + 1}
+              id={roadStatus(item.element)} key={index}>
+              <a>{item.element}</a>
             </div>
           ))}
+
+          <Tooltip
+            id="my-tooltip"
+            render={({ content, activeAnchor }) => (
+              <div>
+                <p>{content}</p>
+                <p>{activeAnchor?.getAttribute('data-some-relevant-attr') || 'not set'}</p>
+              </div>
+            )}
+          />
         </div>
         <div className="form-switch">
           <label

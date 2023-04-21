@@ -68,8 +68,7 @@ button {
   margin: 1rem;
   padding: 1rem 2.5rem;
   border-radius: 11px;
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
-    rgb(209, 213, 219) 0px 0px 0px 1px inset;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
 
   .input-file {
     display: flex;
@@ -162,18 +161,21 @@ button {
   }
 
   #rectangle_best {
+    cursor: pointer;
     width: 30px;
     height: 30px;
     border: 1px solid #d1d1d1;
     background: #7bf69d;
   }
   #rectangle_good {
+    cursor: pointer;
     width: 30px;
     height: 30px;
     border: 1px solid #d1d1d1;
     background: #f3f67b;
   }
   #rectangle_bad {
+    cursor: pointer;
     width: 30px;
     height: 30px;
     border: 1px solid #d1d1d1;
