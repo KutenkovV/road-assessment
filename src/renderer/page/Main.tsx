@@ -81,10 +81,12 @@ function Main(this: any) {
             // <ItemRoad iri={item.element} key={index} />
             <div
               data-tooltip-id='my-tooltip'
-              data-tooltip-content={item.element}
+              data-iri={item.IRI}
+              data-j={item.J}
+              data-c={item.C}
               data-some-relevant-attr={index + 1}
-              id={roadStatus(item.element)} key={index}>
-              <a>{item.element}</a>
+              id={roadStatus(item.AVG)} key={index}>
+              <a>{item.AVG}</a>
             </div>
           ))}
 
@@ -92,8 +94,10 @@ function Main(this: any) {
             id="my-tooltip"
             render={({ content, activeAnchor }) => (
               <div>
-                <p>{content}</p>
-                <p>{activeAnchor?.getAttribute('data-some-relevant-attr') || 'not set'}</p>
+                <p>ID участка: {activeAnchor?.getAttribute('data-some-relevant-attr') || 'not set'}</p>
+                <p>Оценка IRI: {activeAnchor?.getAttribute('data-iri') || 'not set'}</p>
+                <p>Оценка J: {activeAnchor?.getAttribute('data-j') || 'not set'}</p>
+                <p>Оценка C: {activeAnchor?.getAttribute('data-c') || 'not set'}</p>
               </div>
             )}
           />

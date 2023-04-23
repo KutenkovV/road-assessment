@@ -7,43 +7,21 @@ export interface IRoad {
 
 export function road_assessment(param: any) {
 
-  let data: {
-    value: {
-      IRI: number | undefined
-      // Интерфейс дороги
-      ; J: any; C: any;
-    }; name: any;
-  }[] = [];
-
-  let data_score: {
-    value: number | undefined;
-    // {
-    //   IRI: iri_score(param, item.flatness_road_lane_1),
-    //   J: item.road_defects_1,
-    //   C: c_score(item.road_grip_1),
-    // },
-    name: any;
-  }[] = []
+  let data: {}[] = [];
 
   param.road_array.forEach((item: any) => {
-    data_score.push({
-      value: item.start_road,
-      // {d
-      //   IRI: iri_score(param, item.flatness_road_lane_1),
-      //   J: item.road_defects_1,
-      //   C: c_score(item.road_grip_1),
-      // },
-      name: iri_score(param, item.flatness_road_lane_1)
-    });
-
     data.push({
-      value:
-      {
-        IRI: iri_score(param, item.flatness_road_lane_1),
-        J: item.road_defects_1,
-        C: c_score(item.road_grip_1),
-      },
-      name: c_score(item.road_grip_1)
+      // в AVG находим среднее оценок по дорогам (IRI+J+C / 3) на участок + округляем до сотых
+      AVG: (
+        (item.road_defects_1 + c_score(item.road_grip_1, item.road_grip_2) + iri_score(param, item.flatness_road_lane_1, item.flatness_road_lane_2)
+        ) / 3).toFixed(2),
+
+      // IRI(Ровность) берется среднее значение по двум полосам
+      IRI: iri_score(param, item.flatness_road_lane_1, item.flatness_road_lane_2),
+      // J(Дефектность) берется среднее значение по двум полосам
+      J: (item.road_defects_1 + item.road_defects_2) / 2,
+      // С(Сцепление) берется среднее значение по двум полосам
+      C: c_score(item.road_grip_1, item.road_grip_2),
     });
   });
 
@@ -53,6 +31,8 @@ export function road_assessment(param: any) {
   return data;
 }
 
+// Оставил мб пригодится
+// Функция для дерева
 export function road_degradation1(param: any) {
   console.log('IRI see there:');
 
@@ -103,8 +83,8 @@ export function road_degradation1(param: any) {
 }
 
 // Оценка C
-function c_score(param: any) {
-  let C = param;
+function c_score(road_grip_1: any, road_grip_2: any) {
+  let C = (road_grip_1 + road_grip_2) / 2;
 
   if (C >= 0.3) C = 5;
   else if (C < 0.1) C = 1;
@@ -116,12 +96,12 @@ function c_score(param: any) {
 }
 
 // Оценка IRI
-function iri_score(param: any, item: any) {
-  let IRI = item;
+function iri_score(param: any, road_line_1: any, road_line_2: any) {
+  // Берем среднее значение по двум полосам
+  let IRI = (road_line_1 + road_line_2) / 2;
+
   let r_class = param.road_class;
   let r_type = param.road_type; // true - Капитальный false - Облегченный
-
-  // console.log(IRI + ' ' + r_class + ' ' + r_type);
 
   let iri_score;
 
@@ -179,68 +159,4 @@ function iri_score(param: any, item: any) {
   }
 
   return iri_score;
-}
-
-// Вариант бездействия
-function inaction(IRI: any, J: any, C: any) {
-  const e = 0.7;
-
-  let array = [
-    {
-      name: 'IRI',
-      value: (IRI **= e),
-    },
-    {
-      name: 'J',
-      value: (J **= e),
-    },
-    {
-      name: 'C',
-      value: (C **= e),
-    },
-  ];
-
-  return array;
-}
-
-function work_1(IRI: any, J: any, C: any) {
-  const e = 0.9;
-
-  let array = [
-    {
-      name: 'IRI',
-      value: (IRI **= e),
-    },
-    {
-      name: 'J',
-      value: (J **= e),
-    },
-    {
-      name: 'C',
-      value: (C **= e),
-    },
-  ];
-
-  return array;
-}
-
-function work_2(IRI: any, J: any, C: any) {
-  const e = 0.8;
-
-  let array = [
-    {
-      name: 'IRI',
-      value: (IRI **= e),
-    },
-    {
-      name: 'J',
-      value: (J **= e),
-    },
-    {
-      name: 'C',
-      value: (C **= e),
-    },
-  ];
-
-  return array;
 }
