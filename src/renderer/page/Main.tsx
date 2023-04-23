@@ -11,7 +11,6 @@ import { Tooltip } from 'react-tooltip'
 import { set_progressBar, set_yearForecast, dataloadMain } from '../store/MainStore';
 import { useEffect, useState } from 'react';
 import { prognoz } from '../App/prognoz'
-// import ItemRoad from 'renderer/components/ItemRoadLine/itemRoad';
 
 function Main(this: any) {
   const navigate = useNavigate();
@@ -24,17 +23,9 @@ function Main(this: any) {
   const dispatch = useDispatch();
   const [year, setYear] = useState<any>(0);
 
-  const [items, setItems] = useState();
-
   useEffect(() => {
-    console.log('опа');
     console.log(dataList);
   }), [];
-
-  function onOpa() {
-    console.log(datares);
-    // dispatch(dataMain(dataList[0].items));
-  }
 
   function Submit() {
     dispatch(dataloadMain(prognoz(year, dataCount)));
@@ -82,6 +73,7 @@ function Main(this: any) {
             <div
               data-tooltip-id='my-tooltip'
               data-avg={item.AVG}
+              data-avg-color={roadStatus(item.AVG)}
               data-iri={item.IRI}
               data-j={item.J}
               data-c={item.C}
@@ -96,8 +88,10 @@ function Main(this: any) {
             id="my-tooltip"
             render={({ activeAnchor }) => (
               <div>
-                <p>ID участка: {activeAnchor?.getAttribute('data-some-relevant-attr') || 'not set'}</p>
-                <p>Состояние(среднее): {activeAnchor?.getAttribute('data-avg') || 'not set'}</p>
+                <p>Участок номер № - {activeAnchor?.getAttribute('data-some-relevant-attr') || 'not set'}</p>
+                <p className='tooltip-avg-status'>Состояние(среднее): {activeAnchor?.getAttribute('data-avg') || 'not set'}
+                  <div style={{ marginLeft: '0.45rem', width: '12px', height: '12px' }} id={activeAnchor?.getAttribute('data-avg-color') || 'not set'} />
+                </p>
                 <p>Оценка IRI: {activeAnchor?.getAttribute('data-iri') || 'not set'}</p>
                 <p>Оценка J: {activeAnchor?.getAttribute('data-j') || 'not set'}</p>
                 <p>Оценка C: {activeAnchor?.getAttribute('data-c') || 'not set'}</p>
@@ -118,18 +112,37 @@ function Main(this: any) {
         </div>
       </div>
       <div className="form__input">
-        <div className="form-marker">
-          <input
-            id="years"
-            onChange={(e) => {
-              setYear(e.target.value)
-            }}
-            value={year}
-            type="number"
-          />
-          <button onClick={Submit}>Сделать прогноз</button>
-          <button onClick={onOpa}>Тык</button>
+        <div className="prognoz-form">
+          <div className='prognoz-form-item'>
+            <p>На сколько лет делать прогноз</p>
+            <input
+              id="years"
+              onChange={(e) => {
+                setYear(e.target.value)
+              }}
+              value={year}
+              type="number"
+            />
+          </div>
+
+          <div className='prognoz-form-item'>
+            <p>Текущий год эксплуатации</p>
+            <input type="number" />
+          </div>
+
+          <div className='prognoz-form-item'>
+            <p>Интенсивность движения фактическая</p>
+            <input type="number" />
+
+          </div>
+
+          <div className='prognoz-form-item'>
+            <p>Интенсивность движения проектная</p>
+            <input type="number" />
+          </div>
+
         </div>
+        <button style={{ marginTop: '1rem' }} onClick={Submit}>Сделать прогноз</button>
       </div>
     </>
   );

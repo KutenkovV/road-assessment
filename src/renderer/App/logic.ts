@@ -12,6 +12,7 @@ export function road_assessment(param: any) {
   param.road_array.forEach((item: any) => {
     data.push({
       // в AVG находим среднее оценок по дорогам (IRI+J+C / 3) на участок + округляем до сотых
+      // Очень тупая строчка, нужно переписать
       AVG: (
         (item.road_defects_1 + c_score(item.road_grip_1, item.road_grip_2) + iri_score(param, item.flatness_road_lane_1, item.flatness_road_lane_2)
         ) / 3).toFixed(2),
