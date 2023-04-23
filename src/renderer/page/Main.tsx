@@ -81,6 +81,7 @@ function Main(this: any) {
             // <ItemRoad iri={item.element} key={index} />
             <div
               data-tooltip-id='my-tooltip'
+              data-avg={item.AVG}
               data-iri={item.IRI}
               data-j={item.J}
               data-c={item.C}
@@ -91,10 +92,12 @@ function Main(this: any) {
           ))}
 
           <Tooltip
+            className='tooltip-form'
             id="my-tooltip"
-            render={({ content, activeAnchor }) => (
+            render={({ activeAnchor }) => (
               <div>
                 <p>ID участка: {activeAnchor?.getAttribute('data-some-relevant-attr') || 'not set'}</p>
+                <p>Состояние(среднее): {activeAnchor?.getAttribute('data-avg') || 'not set'}</p>
                 <p>Оценка IRI: {activeAnchor?.getAttribute('data-iri') || 'not set'}</p>
                 <p>Оценка J: {activeAnchor?.getAttribute('data-j') || 'not set'}</p>
                 <p>Оценка C: {activeAnchor?.getAttribute('data-c') || 'not set'}</p>

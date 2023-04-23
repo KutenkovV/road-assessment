@@ -153,6 +153,14 @@ button {
     justify-content: center;
     flex-wrap: wrap;
     padding: 0.75rem 4rem;
+
+    .tooltip-form {
+      border-radius: 5px;
+      background-color: #fff;
+      color: #000;
+      font-size: 14px;
+      box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+    }
   }
 
   .form-switch {
