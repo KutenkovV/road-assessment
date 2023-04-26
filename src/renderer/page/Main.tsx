@@ -19,19 +19,20 @@ function Main(this: any) {
   const dataCount = useSelector((state: any) => state.data.value);
   const dataList = useSelector((state: any) => state.mainStore.data_list);
   const datares = useSelector((state: any) => state.mainStore.data);
-  const yearForecast = useSelector((state: any) => state.mainStore.yearForecast);
   const dispatch = useDispatch();
   const [year, setYear] = useState<any>(0);
+  const [currentYear, setCurrentYear] = useState<any>(0);
+  const [traffic_intensity_actual, setTraffic_intensity_actual] = useState<any>(0);
+  const [traffic_intensity_design, setTraffic_intensity_design] = useState<any>(0);
+
+
 
   useEffect(() => {
     console.log(dataList);
   }), [];
 
   function Submit() {
-    dispatch(dataloadMain(prognoz(year, dataCount)));
-    // dispatch(dataloadMain(dataList[0].items));
-    console.log('see bl suda');
-    console.log(datares);
+    dispatch(dataloadMain(prognoz(year, currentYear, traffic_intensity_actual, traffic_intensity_design, dataCount)));
 
     // Ниже магнум опус, его не трогаем!!!
     let data: {
@@ -92,9 +93,9 @@ function Main(this: any) {
                 <p className='tooltip-avg-status'>Состояние(среднее): {activeAnchor?.getAttribute('data-avg') || 'not set'}
                   <div style={{ marginLeft: '0.45rem', width: '12px', height: '12px' }} id={activeAnchor?.getAttribute('data-avg-color') || 'not set'} />
                 </p>
-                <p>Оценка IRI: {activeAnchor?.getAttribute('data-iri') || 'not set'}</p>
-                <p>Оценка J: {activeAnchor?.getAttribute('data-j') || 'not set'}</p>
-                <p>Оценка C: {activeAnchor?.getAttribute('data-c') || 'not set'}</p>
+                <p>IRI (Ровность): {activeAnchor?.getAttribute('data-iri') || 'not set'}</p>
+                <p>J (Дефектность): {activeAnchor?.getAttribute('data-j') || 'not set'}</p>
+                <p>C (Сцепление): {activeAnchor?.getAttribute('data-c') || 'not set'}</p>
               </div>
             )}
           />
@@ -127,20 +128,34 @@ function Main(this: any) {
 
           <div className='prognoz-form-item'>
             <p>Текущий год эксплуатации</p>
-            <input type="number" />
+            <input
+              onChange={(e) => {
+                setCurrentYear(e.target.value)
+              }}
+              value={currentYear}
+              type="number" />
           </div>
 
           <div className='prognoz-form-item'>
             <p>Интенсивность движения фактическая</p>
-            <input type="number" />
+            <input
+              onChange={(e) => {
+                setTraffic_intensity_actual(e.target.value)
+              }}
+              value={traffic_intensity_actual}
+              type="number" />
 
           </div>
 
           <div className='prognoz-form-item'>
             <p>Интенсивность движения проектная</p>
-            <input type="number" />
+            <input
+              onChange={(e) => {
+                setTraffic_intensity_design(e.target.value)
+              }}
+              value={traffic_intensity_design}
+              type="number" />
           </div>
-
         </div>
         <button style={{ marginTop: '1rem' }} onClick={Submit}>Сделать прогноз</button>
       </div>
