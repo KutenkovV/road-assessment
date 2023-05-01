@@ -8,7 +8,7 @@ import 'react-tooltip/dist/react-tooltip.css'
 import { Tooltip } from 'react-tooltip'
 ///
 
-import { set_progressBar, set_yearForecast, dataloadMain } from '../store/MainStore';
+import { set_progressBar, set_yearForecast, dataloadMain, recommendationsLoad } from '../store/MainStore';
 import { useEffect, useState } from 'react';
 import { prognoz } from '../App/prognoz'
 import { recommendations } from 'renderer/App/recommendations';
@@ -17,16 +17,16 @@ function Main(this: any) {
   const navigate = useNavigate();
   var _ = require('lodash');
 
+  const dispatch = useDispatch();
   const dataCount = useSelector((state: any) => state.data.value);
   const dataList = useSelector((state: any) => state.mainStore.data_list);
   const datares = useSelector((state: any) => state.mainStore.data);
-  const dispatch = useDispatch();
+  const rec_dat = useSelector((state: any) => state.mainStore.recommendation_data);
+
   const [year, setYear] = useState<any>(2);
   const [currentYear, setCurrentYear] = useState<any>(1);
   const [traffic_intensity_actual, setTraffic_intensity_actual] = useState<any>(12000);
   const [traffic_intensity_design, setTraffic_intensity_design] = useState<any>(14000);
-
-
 
   useEffect(() => {
     console.log(dataList);
@@ -34,6 +34,10 @@ function Main(this: any) {
 
   function Submit() {
     dispatch(dataloadMain(prognoz(year, currentYear, traffic_intensity_actual, traffic_intensity_design, dataCount)));
+    dispatch(recommendationsLoad(recommendations(dataList)));
+
+    console.log(rec_dat);
+
 
     // Ниже магнум опус, его не трогаем!!!
     let data: {
@@ -116,9 +120,12 @@ function Main(this: any) {
 
       <div className="form__input">
         <div>
-          {datares.map((item: any, index: number) => (
+          {rec_dat.map((el: any, index: number) => (
             <div>
-              <p>Индекс дороги {index}: + {item.IRI} + {item.recommendations}</p>
+              <p>Индекс дороги {index + 1}</p>
+              {el.item.map((node: any, i: number) => (
+                <div>{i+1} {node.recommendation}</div>
+              ))}
             </div>
           ))}
         </div>

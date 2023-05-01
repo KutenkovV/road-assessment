@@ -168,6 +168,7 @@ button {
     padding: 0.75rem 4rem;
 
     .tooltip-form {
+      z-index: 1;
       border-radius: 5px;
       background-color: #fff;
       color: #000;
