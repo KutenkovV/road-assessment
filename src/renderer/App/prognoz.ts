@@ -1,3 +1,6 @@
+import { concat } from "lodash";
+import { recommendations } from "./recommendations";
+
 export interface IForecastParameters {
     forecast_year: number, // На сколько лет делать прогноз
     current_year: number, // Текущий год эксплуатации
@@ -41,8 +44,9 @@ export function prognoz(
                 // J(Дефектность) берется среднее значение по двум полосам
                 J: (item.J = item.J - (Math.E ** -((t0 / n_j) ** B)) + (Math.E ** -((N / n_j) ** B))).toFixed(2),
                 // С(Сцепление) берется среднее значение по двум полосам
-                C: (item.C = item.C - (Math.E ** -((t0 / n_c) ** B)) + (Math.E ** -((N / n_c) ** B))).toFixed(2)
+                C: (item.C = item.C - (Math.E ** -((t0 / n_c) ** B)) + (Math.E ** -((N / n_c) ** B))).toFixed(2),
                 // в AVG находим среднее оценок по дорогам (IRI+J+C / 3) на участок + округляем до сотых
+                recommendations: generate_recommendation(item)
             })
 
         });
@@ -52,5 +56,24 @@ export function prognoz(
         })
     }
 
+    // recommendations(final_items);
+
+    console.log('see here');
+    console.log(final_items);
     return final_items
+}
+
+function generate_recommendation(item: any) {
+    let rec = []
+    if (item.IRI < 4.70) {
+        rec.push('Необходимо приведение продольной ровности в соответствие нормативным требованиям при проведении работ по реконструкции')
+    }
+    if (item.J < 4.70) {
+        rec.push('Необходимы ремонтые работы по устранению дефектов')
+    }
+    if (item.С < 4.90) {
+        rec.push('Необходимо проведение работ по ремонту и содержанию дорог и улиц')
+    }
+
+    return rec;
 }

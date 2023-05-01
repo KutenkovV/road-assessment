@@ -48,7 +48,7 @@ function Upload(this: any) {
     }
   }
 
-  function radio (event: any) {
+  function radio(event: any) {
     dispatch(set_radio_type(event.target.value))
   }
 
@@ -82,7 +82,7 @@ function Upload(this: any) {
                 <label>Капитальный</label>
               </div>
               <div className="radio-item">
-                <input id="r-1" type="radio" value="false" checked={radio_selected === 'false'} onChange={radio} name='name'/>
+                <input id="r-1" type="radio" value="false" checked={radio_selected === 'false'} onChange={radio} name='name' />
                 <label>Облегченный</label>
               </div>
             </div>

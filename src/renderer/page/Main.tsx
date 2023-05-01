@@ -11,6 +11,7 @@ import { Tooltip } from 'react-tooltip'
 import { set_progressBar, set_yearForecast, dataloadMain } from '../store/MainStore';
 import { useEffect, useState } from 'react';
 import { prognoz } from '../App/prognoz'
+import { recommendations } from 'renderer/App/recommendations';
 
 function Main(this: any) {
   const navigate = useNavigate();
@@ -20,10 +21,10 @@ function Main(this: any) {
   const dataList = useSelector((state: any) => state.mainStore.data_list);
   const datares = useSelector((state: any) => state.mainStore.data);
   const dispatch = useDispatch();
-  const [year, setYear] = useState<any>(0);
-  const [currentYear, setCurrentYear] = useState<any>(0);
-  const [traffic_intensity_actual, setTraffic_intensity_actual] = useState<any>(0);
-  const [traffic_intensity_design, setTraffic_intensity_design] = useState<any>(0);
+  const [year, setYear] = useState<any>(2);
+  const [currentYear, setCurrentYear] = useState<any>(1);
+  const [traffic_intensity_actual, setTraffic_intensity_actual] = useState<any>(12000);
+  const [traffic_intensity_design, setTraffic_intensity_design] = useState<any>(14000);
 
 
 
@@ -90,7 +91,7 @@ function Main(this: any) {
             render={({ activeAnchor }) => (
               <div>
                 <p>Участок номер № - {activeAnchor?.getAttribute('data-some-relevant-attr') || 'not set'}</p>
-                <p className='tooltip-avg-status'>Состояние(среднее): {activeAnchor?.getAttribute('data-avg') || 'not set'}
+                <p className='tooltip-avg-status'>Состояние (среднее): {activeAnchor?.getAttribute('data-avg') || 'not set'}
                   <div style={{ marginLeft: '0.45rem', width: '12px', height: '12px' }} id={activeAnchor?.getAttribute('data-avg-color') || 'not set'} />
                 </p>
                 <p>IRI (Ровность): {activeAnchor?.getAttribute('data-iri') || 'not set'}</p>
@@ -112,7 +113,18 @@ function Main(this: any) {
           <StepProgressBar />
         </div>
       </div>
+
       <div className="form__input">
+        <div>
+          {datares.map((item: any, index: number) => (
+            <div>
+              <p>Индекс дороги {index}: + {item.IRI} + {item.recommendations}</p>
+            </div>
+          ))}
+        </div>
+        <div>
+          <hr />
+        </div>
         <div className="prognoz-form">
           <div className='prognoz-form-item'>
             <p>На сколько лет делать прогноз</p>
@@ -156,8 +168,17 @@ function Main(this: any) {
               value={traffic_intensity_design}
               type="number" />
           </div>
+
+          <div className='prognoz-form-item'>
+            <p>Определить стартовый бюджет</p>
+            <input
+              type="number" />
+          </div>
         </div>
-        <button style={{ marginTop: '1rem' }} onClick={Submit}>Сделать прогноз</button>
+        <div>
+          <button style={{ marginTop: '1rem' }}>Отменить</button>
+          <button style={{ marginTop: '1rem' }} onClick={Submit}>Сделать прогноз</button>
+        </div>
       </div>
     </>
   );
