@@ -138,7 +138,7 @@ function Main(this: any) {
               <AccordionItem header={"Прогноз на " + (index) + " год"}>
                 {el.item.map((node: any, i: number) => (
                   <div>
-                    {i + 1} {node.recommendation}
+                    {node.recommendation}
                   </div>
                 ))}
               </AccordionItem>
