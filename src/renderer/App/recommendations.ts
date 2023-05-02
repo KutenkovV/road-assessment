@@ -30,7 +30,10 @@ function generate_recommendation(item: any) {
     }
     if (item.C < 4.90) {
         // rec.push('Необходимо проведение работ по ремонту и содержанию дорог и улиц')
-        rec.push('Капитальный ремнот по C')
+        rec.push('Капитальный ремонт по C')
+    }
+    else {
+        rec.push('всё хорошо')
     }
 
     return rec;

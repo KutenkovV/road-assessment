@@ -62,7 +62,7 @@ button {
 }
 
 .form__input {
-  border: 2px solid red;
+  // border: 2px solid red;
   display: flex;
   flex-direction: column;
   height: 200px auto;
@@ -72,7 +72,7 @@ button {
   box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
 
   .prognoz-form {
-    border: 2px solid green;
+    // border: 2px solid green;
     display: flex;
     // flex-direction: column;
     flex-wrap: wrap;

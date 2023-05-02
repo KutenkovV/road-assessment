@@ -2,10 +2,13 @@ import '../App/logic';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import StepProgressBar from 'renderer/components/StepProgressBar';
+import "../../styles/accordeon.scss"
 
 /// Для тултипов (https://react-tooltip.com/docs/getting-started)
 import 'react-tooltip/dist/react-tooltip.css'
 import { Tooltip } from 'react-tooltip'
+/// Для аккордеона (https://szhsin.github.io/react-accordion/docs/getting-started)
+import { Accordion, AccordionItem } from '@szhsin/react-accordion';
 ///
 
 import { set_progressBar, set_yearForecast, dataloadMain, recommendationsLoad } from '../store/MainStore';
@@ -121,12 +124,25 @@ function Main(this: any) {
       <div className="form__input">
         <div>
           {rec_dat.map((el: any, index: number) => (
-            <div>
-              <p>Индекс дороги {index + 1}</p>
-              {el.item.map((node: any, i: number) => (
-                <div>{i+1} {node.recommendation}</div>
-              ))}
-            </div>
+            // <div>
+            //   <p>Год прогноза {index}</p>
+            //   Рекомендуется
+            //   {el.item.map((node: any, i: number) => (
+            //     <div>
+            //       {i + 1} {node.recommendation}
+            //     </div>
+            //   ))}
+            //   <hr />
+            // </div>
+            <Accordion>
+              <AccordionItem header={"Прогноз на " + (index) + " год"}>
+                {el.item.map((node: any, i: number) => (
+                  <div>
+                    {i + 1} {node.recommendation}
+                  </div>
+                ))}
+              </AccordionItem>
+            </Accordion>
           ))}
         </div>
         <div>
