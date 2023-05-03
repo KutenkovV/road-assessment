@@ -1,5 +1,6 @@
 import '../styles/App.scss';
 import '../styles/global.scss';
+import '../styles/accordeon.scss';
 
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 import Titlebar from 'renderer/components/titlebar/Titlebar';
@@ -18,7 +19,7 @@ function App() {
             <Route path="/" element={<Upload />} />
             <Route path="/second" element={<Main />} />
           </Routes>
-        </div>  
+        </div>
       </Router>
     </>
   );

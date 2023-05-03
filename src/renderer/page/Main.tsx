@@ -8,7 +8,9 @@ import "../../styles/accordeon.scss"
 import 'react-tooltip/dist/react-tooltip.css'
 import { Tooltip } from 'react-tooltip'
 /// Для аккордеона (https://szhsin.github.io/react-accordion/docs/getting-started)
-import { Accordion, AccordionItem } from '@szhsin/react-accordion';
+import { Accordion, AccordionItem as Item } from "@szhsin/react-accordion";
+import chevronDown from "../chevron-down.svg";
+
 ///
 
 import { set_progressBar, set_yearForecast, dataloadMain, recommendationsLoad } from '../store/MainStore';
@@ -17,6 +19,18 @@ import { prognoz } from '../App/prognoz'
 import { recommendations } from 'renderer/App/recommendations';
 
 function Main(this: any) {
+  const AccordionItem = ({ header, ...rest }) => (
+    <Item
+      {...rest}
+      header={
+        <>
+          {header}
+          <img className="chevron-down" src={chevronDown} alt="Chevron Down" />
+        </>
+      }
+    />
+  );
+
   const navigate = useNavigate();
   var _ = require('lodash');
 
@@ -92,8 +106,7 @@ function Main(this: any) {
             </div>
           ))}
 
-          <Tooltip
-            className='tooltip-form'
+          <Tooltip className='tooltip-form' classNameArrow="tooltip-arrow"
             id="my-tooltip"
             render={({ activeAnchor }) => (
               <div>
@@ -124,29 +137,16 @@ function Main(this: any) {
       <div className="form__input">
         <div>
           {rec_dat.map((el: any, index: number) => (
-            // <div>
-            //   <p>Год прогноза {index}</p>
-            //   Рекомендуется
-            //   {el.item.map((node: any, i: number) => (
-            //     <div>
-            //       {i + 1} {node.recommendation}
-            //     </div>
-            //   ))}
-            //   <hr />
-            // </div>
-            <Accordion>
+            <Accordion transition transitionTimeout={200}>
               <AccordionItem header={"Прогноз на " + (index) + " год"}>
                 {el.item.map((node: any, i: number) => (
-                  <div>
-                    {node.recommendation}
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <p id='rectangle_bad' style={{ marginRight: '0.45rem', width: '12px', height: '12px' }} /> {node.recommendation}
                   </div>
                 ))}
               </AccordionItem>
             </Accordion>
           ))}
-        </div>
-        <div>
-          <hr />
         </div>
         <div className="prognoz-form">
           <div className='prognoz-form-item'>
@@ -198,8 +198,7 @@ function Main(this: any) {
               type="number" />
           </div>
         </div>
-        <div>
-          <button style={{ marginTop: '1rem' }}>Отменить</button>
+        <div className='prognoz-button'>
           <button style={{ marginTop: '1rem' }} onClick={Submit}>Сделать прогноз</button>
         </div>
       </div>

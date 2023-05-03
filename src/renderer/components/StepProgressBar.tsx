@@ -18,12 +18,7 @@ function StepProgressBar(this: any) {
 
   // Тут получаем текущее значение в ProgressBar
   function log(value: any) {
-    // console.log('value of data');
-    // console.log(data[value].items);
-    // console.log(_.values(data_final[value]));
-    // console.log(_.mapValues(_.keyBy(data_final, 'element')));
     dispatch(dataMain(data_final[value].items));
-    console.log(value);
   }
 
   return (

@@ -1,3 +1,4 @@
+// Global elements
 label {
   font-size: 16px;
 }
@@ -24,43 +25,9 @@ input {
   }
 }
 
-button {
-  cursor: pointer;
-  appearance: none;
-  padding: 1rem 3rem;
-  border: 0;
-  border-radius: 0.5rem;
-  font-size: 16px;
-
-  &:hover {
-    background: #ebf3ff;
-    transition: 0.3s;
-  }
-
-  &:focus {
-    outline: none;
-    box-shadow: 0 0 0 4px #f2f6fd;
-  }
-  &:active {
-    background-color: #d1e6ff;
-  }
-}
-
-.form__warning {
-  display: flex;
-  flex-direction: row;
-  border-radius: 5px;
-  margin-inline: 1rem;
-  padding: 0.85rem;
-  background-color: #fff6a5;
-
-  svg {
-    width: 1.7rem;
-    transition: 0.3s;
-    padding-left: 1rem;
-  }
-}
-
+/////////////////////////////////////////
+// block main
+/////////////////////////////////////////
 .form__input {
   // border: 2px solid red;
   display: flex;
@@ -71,19 +38,9 @@ button {
   border-radius: 11px;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
 
-  .prognoz-form {
-    // border: 2px solid green;
-    display: flex;
-    // flex-direction: column;
-    flex-wrap: wrap;
-
-    .prognoz-form-item {
-      margin-right: 1rem;
-      // border: 2px solid red;
-    }
-  }
-
+  // First element
   .input-file {
+    // border: 2px solid green;
     display: flex;
     flex-direction: column;
 
@@ -96,7 +53,9 @@ button {
     }
   }
 
+  // Second element
   .input-settings {
+    // border: 2px solid green;
     padding-top: 1rem;
     display: flex;
 
@@ -115,20 +74,20 @@ button {
         }
       }
     }
-
-    .settings__road-class {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-    }
   }
 
+  // third element
   .input-button {
     display: flex;
     justify-content: end;
     padding-top: 1rem;
   }
 
+  // // // // // // // //
+  // Main component styles down
+  // // // // // // // //
+
+  // first component
   .form-marker {
     .marker-item {
       display: flex;
@@ -161,6 +120,7 @@ button {
     }
   }
 
+  // second component
   .form-view {
     display: flex;
     justify-content: center;
@@ -176,6 +136,11 @@ button {
       font-size: 14px;
       box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
 
+      // стрелка на тултипе
+      .tooltip-arrow {
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 0px;
+      }
+
       p {
         margin: 0 0 0.5rem 0;
       }
@@ -187,48 +152,212 @@ button {
     }
   }
 
+  // third component
   .form-switch {
     display: flex;
     justify-content: space-between;
   }
 
-  #rectangle_best {
-    cursor: pointer;
-    width: 30px;
-    height: 30px;
-    border: 1px solid #d1d1d1;
-    background: #7bf69d;
+  // 4th component
+  .prognoz-form {
+    // border: 2px solid green;
+    display: flex;
+    // flex-direction: column;
+    flex-wrap: wrap;
 
-    &:hover {
-      box-shadow: 0px 0px 50px 0px rgba(255, 255, 255, 0.45) inset;
-      transition: all 0.1s;
-      transform: scale(1.2);
+    .prognoz-form-item {
+      margin-right: 1rem;
+      // border: 2px solid red;
     }
   }
-  #rectangle_good {
-    cursor: pointer;
-    width: 30px;
-    height: 30px;
-    border: 1px solid #d1d1d1;
-    background: #f3f67b;
 
-    &:hover {
-      box-shadow: 0px 0px 50px 0px rgba(255, 255, 255, 0.45) inset;
-      transition: all 0.1s;
-      transform: scale(1.2);
-    }
-  }
-  #rectangle_bad {
-    cursor: pointer;
-    width: 30px;
-    height: 30px;
-    border: 1px solid #d1d1d1;
-    background: #f67b7b;
+  // 5th component
+  .prognoz-button {
+    display: flex;
+    justify-content: center;
+    button {
+      cursor: pointer;
+      appearance: none;
+      padding: 1rem 3rem;
+      border: 0;
+      border-radius: 0.5rem;
+      font-size: 16px;
 
-    &:hover {
-      box-shadow: 0px 0px 50px 0px rgba(255, 255, 255, 0.45) inset;
-      transition: all 0.1s;
-      transform: scale(1.2);
+      // убрать эту штуку после норм вёрстки
+      width: 100%;
+
+      &:hover {
+        background: #ebf3ff;
+        transition: 0.3s;
+      }
+
+      &:focus {
+        outline: none;
+        box-shadow: 0 0 0 4px #f2f6fd;
+      }
+      &:active {
+        background-color: #d1e6ff;
+      }
     }
   }
 }
+
+///
+/////
+/////
+/////
+///
+#rectangle_best {
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #d1d1d1;
+  background: #7bf69d;
+
+  &:hover {
+    box-shadow: 0px 0px 50px 0px rgba(255, 255, 255, 0.45) inset;
+    transition: all 0.1s;
+    transform: scale(1.2);
+  }
+}
+#rectangle_good {
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #d1d1d1;
+  background: #f3f67b;
+
+  &:hover {
+    box-shadow: 0px 0px 50px 0px rgba(255, 255, 255, 0.45) inset;
+    transition: all 0.1s;
+    transform: scale(1.2);
+  }
+}
+#rectangle_bad {
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #d1d1d1;
+  background: #f67b7b;
+
+  &:hover {
+    box-shadow: 0px 0px 50px 0px rgba(255, 255, 255, 0.45) inset;
+    transition: all 0.1s;
+    transform: scale(1.2);
+  }
+}
+
+// .form__warning {
+//   display: flex;
+//   flex-direction: row;
+//   border-radius: 5px;
+//   margin-inline: 1rem;
+//   padding: 0.85rem;
+//   background-color: #fff6a5;
+
+//   svg {
+//     width: 1.7rem;
+//     transition: 0.3s;
+//     padding-left: 1rem;
+//   }
+// }
+
+// .form__input {
+//   // border: 2px solid red;
+//   display: flex;
+//   flex-direction: column;
+//   height: 200px auto;
+//   margin: 1rem;
+//   padding: 1rem 2.5rem;
+//   border-radius: 11px;
+//   box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+
+//   .prognoz-form {
+//     // border: 2px solid green;
+//     display: flex;
+//     // flex-direction: column;
+//     flex-wrap: wrap;
+
+//     .prognoz-form-item {
+//       margin-right: 1rem;
+//       // border: 2px solid red;
+//     }
+//   }
+
+//   .input-file {
+//     display: flex;
+//     flex-direction: column;
+
+//     input {
+//       cursor: pointer;
+//       padding: 0.35rem;
+//       border: 1px solid #d1d1d1;
+//       border-radius: 5px;
+//       -webkit-app-region: no-click;
+//     }
+//   }
+
+//   .input-settings {
+//     padding-top: 1rem;
+//     display: flex;
+
+//     .settings__road-type {
+//       width: 100%;
+
+//       .road-type__radio {
+//         display: flex;
+//         flex-direction: row;
+
+//         .radio-item {
+//           display: flex;
+//           align-items: center;
+//           padding-right: 1rem;
+//           padding-top: 0.5rem;
+//         }
+//       }
+//     }
+
+//     .settings__road-class {
+//       display: flex;
+//       flex-direction: column;
+//       width: 100%;
+//     }
+//   }
+
+//   .input-button {
+//     display: flex;
+//     justify-content: end;
+//     padding-top: 1rem;
+//   }
+
+//   .form-view {
+//     display: flex;
+//     justify-content: center;
+//     flex-wrap: wrap;
+//     padding: 0.75rem 4rem;
+
+//     .tooltip-form {
+//       z-index: 1;
+//       border-radius: 5px;
+//       background-color: #fff;
+//       color: #000;
+//       opacity: 1;
+//       font-size: 14px;
+//       box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+
+//       p {
+//         margin: 0 0 0.5rem 0;
+//       }
+
+//       .tooltip-avg-status {
+//         display: flex;
+//         align-items: center;
+//       }
+//     }
+//   }
+
+//   .form-switch {
+//     display: flex;
+//     justify-content: space-between;
+//   }
+// }

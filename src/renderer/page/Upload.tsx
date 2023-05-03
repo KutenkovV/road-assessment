@@ -1,9 +1,6 @@
-import { useState } from 'react';
 import Dropdown from '../components/dropdown/Dropdown';
-import Tabledata from '../components/Table/Tabledata';
 import { useNavigate } from 'react-router-dom';
 import { road_assessment, IRoad } from '../App/logic';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { dataload, setFile, dataloadAfter, set_radio_type } from '../store/UploadStore';
 
