@@ -1,23 +1,20 @@
-import { last } from 'lodash';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { set_progressBar, dataloadMain, dataMain } from '../store/MainStore';
-import { dataGet } from 'renderer/store/UploadStore';
-import { useEffect } from 'react';
+import { dataMain } from '../store/MainStore';
 
 function StepProgressBar(this: any) {
-  var _ = require('lodash');
   const dispatch = useDispatch();
   const items = useSelector((state: any) => state.mainStore.value);
-  const yearForecast = useSelector((state: any) => state.mainStore.yearForecast);
-  const data = useSelector((state: any) => state.data.value);
+  let yearForecast = useSelector((state: any) => state.mainStore.yearForecast);
   const data_final = useSelector((state: any) => state.mainStore.data_list);
 
   const style = { width: 200, margin: 0 };
 
   // Тут получаем текущее значение в ProgressBar
   function log(value: any) {
+    console.log(yearForecast);
+    console.log(value);
     dispatch(dataMain(data_final[value].items));
   }
 
@@ -31,7 +28,7 @@ function StepProgressBar(this: any) {
           max={yearForecast}
           marks={items}
           onChange={log}
-          step={null}
+          step={1}
           included={false}
           defaultValue={0}
         />
@@ -41,7 +38,4 @@ function StepProgressBar(this: any) {
 }
 
 export default StepProgressBar;
-// function dispatch(_arg0: any) {
-//   throw new Error('Function not implemented.');
-// }
 
