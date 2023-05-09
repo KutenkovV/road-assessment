@@ -34,10 +34,8 @@ function PrognozItem(this: any) {
 
     function Submit() {
         dispatch(dataloadMain(prognoz(year, currentYear, traffic_intensity_actual, traffic_intensity_design, dataCount)));
-        dispatch(recommendationsLoad(recommendations(dataList)));
 
         console.log(rec_dat);
-
 
         // Ниже магнум опус, его не трогаем!!!
         let data: {
@@ -54,6 +52,24 @@ function PrognozItem(this: any) {
 
         dispatch(set_yearForecast(year));
         dispatch(set_progressBar(_.mapValues(_.keyBy(data, 'index'), 'value')));
+        dispatch(recommendationsLoad(recommendations(dataList)));
+    };
+
+    function OnSubOptimization() {
+        let sum;
+        let repair_work = dataCount;
+
+        console.log(dataCount);
+        rec_dat.forEach((el: any) => {
+            el.item.forEach((item: any) => {
+                const index = item.index;
+                const node = dataCount[index]
+                console.log(node);
+            });
+        });
+
+        // dispatch(dataloadMain(prognoz(year, currentYear, traffic_intensity_actual, traffic_intensity_design, dataCount)));
+        // console.log("Денег за ремонт: " + sum);
     };
 
     return (
@@ -112,6 +128,9 @@ function PrognozItem(this: any) {
                     </div>
                     <div className='prognoz-button'>
                         <button style={{ marginTop: '1rem' }} onClick={Submit}>Сделать прогноз</button>
+                    </div>
+                    <div className='prognoz-button'>
+                        <button onClick={OnSubOptimization} style={{ marginTop: '1rem' }}>Оптимизировать</button>
                     </div>
                 </AccordionItem >
             </Accordion>

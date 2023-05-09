@@ -5,6 +5,7 @@ export function recommendations(data: any) {
     data.forEach((element: any) => {
         element.items.forEach((el: any, index: number) => {
             recommendations_items.push({
+                index: index,
                 recommendation: generate_recommendation(el, index)
             })
         });;

@@ -54,5 +54,6 @@ export function prognoz(
         })
     }
 
+    console.log(final_items);
     return final_items
 }

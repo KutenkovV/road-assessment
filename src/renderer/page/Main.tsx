@@ -1,6 +1,7 @@
 import '../App/logic';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import StepProgressBar from 'renderer/components/StepProgressBar';
 import PrognozItem from 'renderer/components/PrognozItem';
 import "../../styles/accordeon.scss"
@@ -12,12 +13,22 @@ import { Tooltip } from 'react-tooltip'
 /// Для аккордеона (https://szhsin.github.io/react-accordion/docs/getting-started)
 import { Accordion, AccordionItem as Item } from "@szhsin/react-accordion";
 import chevronDown from "../chevron-down.svg";
+import { dataMain } from 'renderer/store/MainStore';
 
 function Main(this: any) {
   const navigate = useNavigate();
-  var _ = require('lodash');
+  const dispatch = useDispatch();
+  const dataCount = useSelector((state: any) => state.data.value);
+
+
+  // Объекты цветной матрицы
   const datares = useSelector((state: any) => state.mainStore.data);
   const rec_dat = useSelector((state: any) => state.mainStore.recommendation_data);
+
+  useEffect(() => {
+    dispatch(dataMain(dataCount));
+  }, [])
+
 
   /* @ts-ignore */
   const AccordionItem = ({ header, ...rest }) => (

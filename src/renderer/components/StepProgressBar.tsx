@@ -13,8 +13,6 @@ function StepProgressBar(this: any) {
 
   // Тут получаем текущее значение в ProgressBar
   function log(value: any) {
-    console.log(yearForecast);
-    console.log(value);
     dispatch(dataMain(data_final[value].items));
   }
 

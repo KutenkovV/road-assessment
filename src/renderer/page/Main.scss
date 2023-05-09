@@ -14,3 +14,32 @@
         // margin: 0;
     }
 }
+
+#btn-optimization {
+    display: flex;
+    justify-content: center;
+    button {
+        cursor: pointer;
+        appearance: none;
+        padding: 1rem 3rem;
+        border: 0;
+        border-radius: 0.5rem;
+        font-size: 16px;
+
+        // убрать эту штуку после норм вёрстки
+        width: 100%;
+
+        &:hover {
+            background: #ebf3ff;
+            transition: 0.3s;
+        }
+
+        &:focus {
+            outline: none;
+            box-shadow: 0 0 0 4px #f2f6fd;
+        }
+        &:active {
+            background-color: #d1e6ff;
+        }
+    }
+}
