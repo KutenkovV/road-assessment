@@ -18,7 +18,7 @@ import { dataMain } from 'renderer/store/MainStore';
 function Main(this: any) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const dataCount = useSelector((state: any) => state.data.value);
+  const dataCount = useSelector((state: any) => state.uploadStore.value);
 
 
   // Объекты цветной матрицы
@@ -27,6 +27,7 @@ function Main(this: any) {
 
   useEffect(() => {
     dispatch(dataMain(dataCount));
+    console.log(dataCount);
   }, [])
 
 

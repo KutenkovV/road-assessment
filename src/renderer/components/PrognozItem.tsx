@@ -14,7 +14,7 @@ function PrognozItem(this: any) {
     const [traffic_intensity_actual, setTraffic_intensity_actual] = useState<any>(12000);
     const [traffic_intensity_design, setTraffic_intensity_design] = useState<any>(14000);
 
-    const dataCount = useSelector((state: any) => state.data.value);
+    const dataCount = useSelector((state: any) => state.uploadStore.value);
     const dataList = useSelector((state: any) => state.mainStore.data_list);
     const rec_dat = useSelector((state: any) => state.mainStore.recommendation_data);
 
@@ -34,7 +34,6 @@ function PrognozItem(this: any) {
 
     function Submit() {
         dispatch(dataloadMain(prognoz(year, currentYear, traffic_intensity_actual, traffic_intensity_design, dataCount)));
-
         console.log(rec_dat);
 
         // Ниже магнум опус, его не трогаем!!!

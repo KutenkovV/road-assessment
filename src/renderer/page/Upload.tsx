@@ -2,13 +2,13 @@ import Dropdown from '../components/dropdown/Dropdown';
 import { useNavigate } from 'react-router-dom';
 import { road_assessment, IRoad } from '../App/logic';
 import { useDispatch, useSelector } from 'react-redux';
-import { dataload, setFile, dataloadAfter, set_radio_type } from '../store/UploadStore';
+import { dataload, setFile, dataloadRAW, set_radio_type } from '../store/UploadStore';
 
 function Upload(this: any) {
-  const selected = useSelector((state: any) => state.data.road_class);
-  const filename = useSelector((state: any) => state.data.file);
-  const items = useSelector((state: any) => state.data.valueAfter);
-  const radio_selected = useSelector((state: any) => state.data.radio_type);
+  const selected = useSelector((state: any) => state.uploadStore.road_class);
+  const filename = useSelector((state: any) => state.uploadStore.file);
+  const items = useSelector((state: any) => state.uploadStore.valueRAW);
+  const radio_selected = useSelector((state: any) => state.uploadStore.radio_type);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -41,7 +41,7 @@ function Upload(this: any) {
     if (file) {
       let data = await window.electron.loadXls(file);
       dispatch(setFile(file));
-      dispatch(dataloadAfter(data));
+      dispatch(dataloadRAW(data));
     }
   }
 

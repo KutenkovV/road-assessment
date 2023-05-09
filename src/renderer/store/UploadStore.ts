@@ -4,7 +4,7 @@ export const data = createSlice({
   name: 'data',
   initialState: {
     value: [], // Данные с оценкой
-    valueAfter: [], // Сырые данные(до оценки)
+    valueRAW: [], // Сырые данные (до оценки)
     file: '', // Имя файла
     road_class: 'IA, IБ', // Класс дороги в выпадающем списке
     radio_type: 'true', // Тип дороги в радио-кнопках
@@ -19,12 +19,13 @@ export const data = createSlice({
     dataload: (state, action) => {
       state.value = action.payload;
     },
-    dataloadAfter: (state, action) => {
-      state.valueAfter = action.payload;
+    dataloadRAW: (state, action) => {
+      state.valueRAW = action.payload;
     },
     dataGet: (state) => {
       return state;
     },
+    // Задаем файл в хранилище
     setFile: (state, action) => {
         state.file = action.payload;
     },
@@ -34,5 +35,5 @@ export const data = createSlice({
   },
 });
 
-export const { dataload, dataGet, setFile, fileGet, dataloadAfter, selected_check, set_radio_type} = data.actions;
+export const { dataload, dataGet, setFile, fileGet, dataloadRAW, selected_check, set_radio_type} = data.actions;
 export default data.reducer;

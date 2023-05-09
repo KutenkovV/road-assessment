@@ -5,7 +5,7 @@ import mainStore from '../store/MainStore';
 
 export default configureStore({
   reducer: {
-    data: UploadStore,
+    uploadStore: UploadStore,
     mainStore: mainStore
   },
 });
