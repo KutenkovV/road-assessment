@@ -167,6 +167,9 @@ input {
 
     .prognoz-form-item {
       margin-right: 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
       // border: 2px solid red;
     }
   }

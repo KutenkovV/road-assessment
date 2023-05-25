@@ -27,15 +27,15 @@ function generate_recommendation(item: any, index: number) {
 
     if (item.IRI <= 2.00) {
         // rec.push('Необходимо приведение продольной ровности в соответствие нормативным требованиям при проведении работ по реконструкции')
-        recommendation.push('Участку № ' + (i) + ' - назначить: Капитальный ремонт по IRI')
+        recommendation.push('Участку № ' + (i) + ' - назначить: Капитальный ремонт по IRI ')
     }
-    if (item.J < 2.00) {
+    if (item.J <= 4.80) {
         // recommendation.push('Необходимы ремонтые работы по устранению дефектов')
-        recommendation.push('Участку № ' + (i) + ' - назначить: Капитальный ремонт по J')
+        recommendation.push('Участку № ' + (i) + ' - назначить: Капитальный ремонт по J ')
     }
-    if (item.C < 2.00) {
+    if (item.C <= 4.80) {
         // recommendation.push('Необходимо проведение работ по ремонту и содержанию дорог и улиц')
-        recommendation.push('Участку № ' + (i) + ' - назначить: Капитальный ремонт по C')
+        recommendation.push('Участку № ' + (i) + ' - назначить: Капитальный ремонт по C ')
     }
 
     return recommendation;

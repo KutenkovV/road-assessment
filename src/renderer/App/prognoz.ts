@@ -1,4 +1,4 @@
-import { concat } from "lodash";
+import { concat, get } from "lodash";
 import { recommendations } from "./recommendations";
 
 export interface IForecastParameters {
@@ -14,7 +14,17 @@ export function prognoz(
     current_year: number,
     traffic_intensity_actual: number,
     traffic_intensity_design: number,
-    data: any
+    data: any,
+    callback: any,
+    // remonts: {
+    //     [year_index: number]: {
+    //         [uchastok_id: number]: {
+    //             fix_iri: boolean,
+    //             fix_j: boolean,
+    //             fix_c: boolean,
+    //         }
+    //     }
+    // }
 ): any {
     ///
     const t0 = current_year; //1; // Текущий год эксплуатации
@@ -31,6 +41,7 @@ export function prognoz(
         items = [];
         let N = i + 1;
         data.forEach((item: any) => {
+            // let remont = _.get(remonts, `${i}.${item.index}`, {})
             items.push({
                 // Очень тупая строчка, нужно переписать
                 // в AVG находим среднее оценок по дорогам (IRI+J+C / 3) на участок + округляем до сотых
@@ -39,6 +50,7 @@ export function prognoz(
                     (item.C - (Math.E ** -((t0 / n_c) ** B)) + (Math.E ** -((N / n_c) ** B)))) / 3).toFixed(2),
 
                 // IRI(Ровность) берется среднее значение по двум полосам
+                // IRI: remont.fix_iri ? 5 : (item.IRI = item.IRI - (Math.E ** -((t0 / n_iri) ** B)) + (Math.E ** -((N / n_iri) ** B))).toFixed(2),
                 IRI: (item.IRI = item.IRI - (Math.E ** -((t0 / n_iri) ** B)) + (Math.E ** -((N / n_iri) ** B))).toFixed(2),
                 // J(Дефектность) берется среднее значение по двум полосам
                 J: (item.J = item.J - (Math.E ** -((t0 / n_j) ** B)) + (Math.E ** -((N / n_j) ** B))).toFixed(2),
@@ -46,7 +58,6 @@ export function prognoz(
                 C: (item.C = item.C - (Math.E ** -((t0 / n_c) ** B)) + (Math.E ** -((N / n_c) ** B))).toFixed(2),
                 // recommendations: generate_recommendation(item.IRI, item.J, item.C)
             })
-
         });
 
         final_items.push({
@@ -55,5 +66,6 @@ export function prognoz(
     }
 
     console.log(final_items);
+    callback(final_items);
     return final_items
 }

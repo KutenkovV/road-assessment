@@ -89,7 +89,7 @@ function Upload(this: any) {
             <Dropdown selected={selected} />
           </div>
         </div>
-        <div className="input-button">
+        <div className="input-button prognoz-button" style={{ paddingTop: "1rem" }}>
           <button onClick={onSubmit}>Оценить</button>
         </div>
       </div>
