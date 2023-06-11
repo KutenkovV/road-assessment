@@ -62,8 +62,8 @@ export function prognoz(
                 (item.C - (Math.E ** - ((t0 / n_c) ** B)) + (Math.E ** - ((N / n_c) ** B)))) / 3).toFixed(2),
 
             IRI: item.IRI = (item.IRI - (Math.E ** - ((t0 / n_iri) ** B)) + (Math.E ** - ((N / n_iri) ** B))),
-            J: (item.J = item.J - (Math.E ** - ((t0 / n_j) ** B)) + (Math.E ** - ((N / n_j) ** B))),
-            C: (item.C = item.C - (Math.E ** - ((t0 / n_c) ** B)) + (Math.E ** - ((N / n_c) ** B))),
+            J: item.J = (item.J - (Math.E ** - ((t0 / n_j) ** B)) + (Math.E ** - ((N / n_j) ** B))),
+            C: item.C = (item.C - (Math.E ** - ((t0 / n_c) ** B)) + (Math.E ** - ((N / n_c) ** B))),
         })
     });
 
@@ -83,9 +83,9 @@ export function prognoz(
                 // IRI: remont.fix_iri ? 5 : (item.IRI = item.IRI - (Math.E ** -((t0 / n_iri) ** B)) + (Math.E ** -((N / n_iri) ** B))).toFixed(2),
                 IRI: itemss[index].IRI = (itemss[index].IRI - (Math.E ** - ((t0 / n_iri) ** B)) + (Math.E ** - ((N / n_iri) ** B))),
                 // J(Дефектность) берется среднее значение по двум полосам
-                J: (item.J = item.J - (Math.E ** -((t0 / n_j) ** B)) + (Math.E ** - ((N / n_j) ** B))),
+                J: itemss[index].J = (itemss[index].J - (Math.E ** -((t0 / n_j) ** B)) + (Math.E ** - ((N / n_j) ** B))),
                 // С(Сцепление) берется среднее значение по двум полосам
-                C: (item.C = item.C - (Math.E ** -((t0 / n_c) ** B)) + (Math.E ** - ((N / n_c) ** B))),
+                C: itemss[index].C = (itemss[index].C - (Math.E ** -((t0 / n_c) ** B)) + (Math.E ** - ((N / n_c) ** B))),
                 // recommendations: generate_recommendation(item.IRI, item.J, item.C)
             })
 
