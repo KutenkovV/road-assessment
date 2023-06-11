@@ -21,7 +21,13 @@ export function recommendations(data: any) {
 }
 
 
-function generate_recommendation(item: any, index: number) {
+/**
+ * 
+ * @param item 
+ * @param index 
+ * @returns 
+ */
+function generate_recommendation(item: { IRI: number; J: number; C: number; }, index: number) {
     let recommendation = [];
     let i = index + 1;
 

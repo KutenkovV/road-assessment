@@ -22,7 +22,6 @@ function processRowWrapperFunc() {
   return (x: Row) => processRow(x);
 }
 
-// eslint-disable-next-line import/prefer-default-export
 export async function loadXls(filename: string): Promise<Array<Road_line>> {
   let workBook = new ExcelJS.Workbook(); // Создаем книгу
   await workBook.xlsx.readFile(filename); // Читаем файл

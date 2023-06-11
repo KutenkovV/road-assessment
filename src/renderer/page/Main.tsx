@@ -67,9 +67,9 @@ function Main(this: any) {
               data-tooltip-id='my-tooltip'
               data-avg={item.AVG}
               data-avg-color={roadStatus(item.AVG)}
-              data-iri={item.IRI}
-              data-j={item.J}
-              data-c={item.C}
+              data-iri={item.IRI.toFixed(2)}
+              data-j={item.J.toFixed(2)}
+              data-c={item.C.toFixed(2)}
               data-some-relevant-attr={index + 1}
               id={roadStatus(item.AVG)} key={index}>
               <a>{item.AVG}</a>

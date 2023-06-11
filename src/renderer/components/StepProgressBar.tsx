@@ -5,9 +5,9 @@ import { dataMain } from '../store/MainStore';
 
 function StepProgressBar(this: any) {
   const dispatch = useDispatch();
-  const items = useSelector((state: any) => state.mainStore.value);
+  var items = useSelector((state: any) => state.mainStore.value);
   let yearForecast = useSelector((state: any) => state.mainStore.yearForecast);
-  const data_final = useSelector((state: any) => state.mainStore.data_list);
+  var data_final = useSelector((state: any) => state.mainStore.data_list);
 
   const style = { width: 200, margin: 0 };
 

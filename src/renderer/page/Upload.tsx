@@ -4,6 +4,12 @@ import { road_assessment, IRoad } from '../App/logic';
 import { useDispatch, useSelector } from 'react-redux';
 import { dataload, setFile, dataloadRAW, set_radio_type } from '../store/UploadStore';
 
+/**
+ * Функция возвращает интерфейс для загрузки файла в систему и настройки параметров для формирования дальнейшей оценки
+ * @param this 
+ * @returns 
+ */
+
 function Upload(this: any) {
   const selected = useSelector((state: any) => state.uploadStore.road_class);
   const filename = useSelector((state: any) => state.uploadStore.file);
@@ -14,6 +20,10 @@ function Upload(this: any) {
   const navigate = useNavigate();
 
   // обработка клика кнопки "Оценить"
+  /**
+   * Обработчик кнопки
+   * @param e 
+   */
   const onSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
@@ -31,6 +41,10 @@ function Upload(this: any) {
     navigate('/second');
   };
 
+  /**
+   * функция выбирает и загружает файл
+   * @param defaultPath 
+   */
   // функция выбирает и загружает файл
   async function selectFile(defaultPath: string) {
     const file = await window.electron.openFile({

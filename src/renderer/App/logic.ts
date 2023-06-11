@@ -86,14 +86,15 @@ export function road_degradation1(param: any) {
 // Оценка C
 function c_score(road_grip_1: any, road_grip_2: any) {
   let C = (road_grip_1 + road_grip_2) / 2;
+  let C_score;
 
-  if (C >= 0.3) C = 5;
-  else if (C < 0.1) C = 1;
-  else if ((C = 0.1)) C = 2;
-  else if (C <= 0.2) C = 3;
-  else if (C <= 0.3) C = 4;
+  if (C > 0.3) C_score = 5;
+  else if (C <= 0.1) C_score = 1;
+  else if (C <= 0.2) C_score = 2;
+  else if (C <= 0.3) C_score = 3;
+  else if (C <= 0.3) C_score = 4;
 
-  return C;
+  return C_score;
 }
 
 // Оценка IRI
