@@ -52,6 +52,8 @@ export function prognoz(
     // var array = [...data];
     var _ = require('lodash');
 
+    // я такую камастура не побоюсь это сказать, сделал специально
+    // переназначение свойства внутри foreche не работает, поэтому так сделал
     data.forEach((item: any) => {
         let N = 1;
         itemss.push({
@@ -87,8 +89,6 @@ export function prognoz(
                 // recommendations: generate_recommendation(item.IRI, item.J, item.C)
             })
 
-            console.log(itemss[index].IRI);
-            // itemss[index].IRI = iri_p;
         });
 
         final_items.push({

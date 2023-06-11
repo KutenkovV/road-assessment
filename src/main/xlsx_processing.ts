@@ -37,9 +37,9 @@ export async function loadXls(filename: string): Promise<Array<Road_line>> {
     const firstCell = row.getCell(1);
 
     if (typeof firstCell.value === 'number') {
-      //console.log(row.values)
-      items = rows.map(processRowWrapperFunc());
+      console.log(row.values)
       rows.push(row);
+      items = rows.map(processRowWrapperFunc());
     }
   }
 
