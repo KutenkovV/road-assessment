@@ -109,11 +109,15 @@ function Main(this: any) {
           {rec_dat.map((el: any, index: number) => (
             <Accordion key={index} transition transitionTimeout={200}>
               <AccordionItem header={"Прогноз на " + (indexChech(index)) + " год"}>
-                {el.item.map((node: any, i: number) => (
-                  <div key={i} style={{ display: 'flex', alignItems: 'center' }}>
-                    <p id='rectangle_bad' style={{ marginRight: '0.45rem', width: '12px', height: '12px' }} /> {node.recommendation}
-                  </div>
-                ))}
+                {rec_dat[index].item.length === 0 ? (<div>Рекомендации отсутствуют</div>)
+                  : <>
+                    {el.item.map((node: any, i: number) => (
+                      <div key={i} style={{ display: 'flex', alignItems: 'center' }}>
+                        <p id='rectangle_bad' style={{ marginRight: '0.45rem', width: '12px', height: '12px' }} /> {node.recommendation}
+                      </div>
+                    ))}
+                  </>
+                }
               </AccordionItem>
             </Accordion>
           ))}
