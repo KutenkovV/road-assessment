@@ -8,7 +8,7 @@ export function recommendations(data: any) {
                 index: index,
                 recommendation: generate_recommendation(el, index)
             })
-        });;
+        });
         recommendations_data.push({
             // Фильтруем на пустые значения
             item: recommendations_items.filter((node: any, recommendation: any) => node.recommendation.length !== 0),

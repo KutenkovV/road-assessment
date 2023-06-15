@@ -1,5 +1,5 @@
 import '../App/logic';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import StepProgressBar from 'renderer/components/StepProgressBar';
@@ -13,20 +13,26 @@ import { Tooltip } from 'react-tooltip'
 /// Для аккордеона (https://szhsin.github.io/react-accordion/docs/getting-started)
 import { Accordion, AccordionItem as Item } from "@szhsin/react-accordion";
 import chevronDown from "../chevron-down.svg";
-import { dataMain } from 'renderer/store/MainStore';
+import { dataMain, set_dataRemont } from 'renderer/store/MainStore';
 
 function Main(this: any) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [index, setIndex] = useState(0)
   const dataCount = useSelector((state: any) => state.uploadStore.value);
 
 
   // Объекты цветной матрицы
   const datares = useSelector((state: any) => state.mainStore.data);
   const rec_dat = useSelector((state: any) => state.mainStore.recommendation_data);
+  var current_year = useSelector((state: any) => state.mainStore.current_year);
+  var data_list = useSelector((state: any) => state.mainStore.data_list);
+  var data_remont = useSelector((state: any) => state.mainStore.data_remont);
+
 
   useEffect(() => {
     dispatch(dataMain(dataCount));
+    console.log(datares);
     console.log(dataCount);
   }, [])
 
@@ -43,6 +49,58 @@ function Main(this: any) {
       }
     />
   );
+
+  function OnSubOptimization() {
+    console.log('индекс участка: ' + index);
+    console.log('год прогноза: ' + current_year);
+    // let res = data_list[current_year].items[index];
+
+    let remont_items: {}[] = []
+    let items_remont: {}[] = []
+
+    console.log(data_remont);
+    data_remont.forEach((el: any, index: number) => {
+      if (index === current_year) {
+        el.item.forEach((elem: any, inx: number) => {
+          if (inx === index) {
+            remont_items.push({
+              index: elem.index,
+              item: elem.item
+            })
+          }
+        })
+      }
+
+      items_remont.push({
+        item: remont_items
+      })
+      remont_items = [];
+    })
+
+    console.log(items_remont);
+
+
+    data_list.forEach((element: any, count: number) => {
+      if (count === current_year) {
+        element.items.forEach((el: any, i: number) => {
+          if (i === index) {
+            remont_items.push({
+              index: index,
+              item: 'Участку: ' + index + ' назначить ремонт'
+            })
+          }
+        });
+      }
+
+      items_remont.push({
+        item: remont_items
+      })
+      remont_items = [];
+    })
+
+    dispatch(set_dataRemont(items_remont))
+    console.log(items_remont);
+  }
 
   return (
     <>
@@ -63,7 +121,7 @@ function Main(this: any) {
         </div>
         <div className="form-view">
           {datares.map((item: any, index: number) => (
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+            <div onClick={() => setIndex(index)} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
               data-tooltip-id='my-tooltip'
               data-avg={item.AVG}
               data-avg-color={roadStatus(item.AVG)}
@@ -121,6 +179,9 @@ function Main(this: any) {
               </AccordionItem>
             </Accordion>
           ))}
+        </div>
+        <div className='prognoz-button'>
+          <button onClick={OnSubOptimization} style={{ marginTop: '1rem' }}>Оптимизировать</button>
         </div>
         <PrognozItem />
       </div>

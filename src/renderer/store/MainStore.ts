@@ -3,15 +3,25 @@ import { createSlice } from '@reduxjs/toolkit';
 export const mainStore = createSlice({
   name: 'mainStore',
   initialState: {
+    data_remont: [
+      // { items: []}
+    ],
     recommendation_data: [],
     data_list: [],
     data: [],
-    value: { 0: 0 }, // Данные с оценкой
+    marks_item: { 0: 0 },
     yearForecast: 0, // Кол-во лет на сколько делаем прогноз
+    current_year: 0,
   },
   reducers: {
+    set_dataRemont: (state, action) => {
+      state.data_remont = action.payload;
+    },
+    set_currentYear: (state, action) => {
+      state.current_year = action.payload;
+    },
     set_progressBar: (state, action) => {
-      state.value = action.payload;
+      state.marks_item = action.payload;
     },
     set_yearForecast: (state, action) => {
       state.yearForecast = action.payload;
@@ -29,5 +39,13 @@ export const mainStore = createSlice({
   },
 });
 
-export const { set_progressBar, set_yearForecast, dataloadMain, dataMain, recommendationsLoad } = mainStore.actions;
+export const {
+  set_progressBar,
+  set_yearForecast,
+  dataloadMain,
+  dataMain,
+  recommendationsLoad,
+  set_currentYear,
+  set_dataRemont
+} = mainStore.actions;
 export default mainStore.reducer;

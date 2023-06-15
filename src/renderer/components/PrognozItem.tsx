@@ -15,8 +15,10 @@ function PrognozItem(this: any) {
     const [traffic_intensity_design, setTraffic_intensity_design] = useState<any>(14000);
 
     var dataCount = useSelector((state: any) => state.uploadStore.value);
-    // const dataList = useSelector((state: any) => state.mainStore.data_list);
+    var dataList = useSelector((state: any) => state.mainStore.data);
     var rec_dat = useSelector((state: any) => state.mainStore.recommendation_data);
+    var year_forecast = useSelector((state: any) => state.mainStore.yearForecast);
+    var current_year = useSelector((state: any) => state.mainStore.current_year);
 
     // Для аккордеона
     /* @ts-ignore */
@@ -55,22 +57,24 @@ function PrognozItem(this: any) {
         })));
     };
 
-    function OnSubOptimization() {
-        let sum;
-        let repair_work = dataCount;
+    // function OnSubOptimization() {
+    //     console.log(current_year);
 
-        console.log(dataCount);
-        rec_dat.forEach((el: any) => {
-            el.item.forEach((item: any) => {
-                const index = item.index;
-                const node = dataCount[index]
-                console.log(node);
-            });
-        });
+    //     // let sum;
+    //     // let repair_work = dataCount;
 
-        // dispatch(dataloadMain(prognoz(year, currentYear, traffic_intensity_actual, traffic_intensity_design, dataCount)));
-        // console.log("Денег за ремонт: " + sum);
-    };
+    //     // console.log(dataCount);
+    //     // rec_dat.forEach((el: any) => {
+    //     //     el.item.forEach((item: any) => {
+    //     //         const index = item.index;
+    //     //         const node = dataCount[index]
+    //     //         console.log(node);
+    //     //     });
+    //     // });
+
+    //     // dispatch(dataloadMain(prognoz(year, currentYear, traffic_intensity_actual, traffic_intensity_design, dataCount)));
+    //     // console.log("Денег за ремонт: " + sum);
+    // };
 
     return (
         <>
@@ -129,9 +133,9 @@ function PrognozItem(this: any) {
                     <div className='prognoz-button'>
                         <button style={{ marginTop: '1rem' }} onClick={Submit}>Сделать прогноз</button>
                     </div>
-                    <div className='prognoz-button'>
+                    {/* <div className='prognoz-button'>
                         <button onClick={OnSubOptimization} style={{ marginTop: '1rem' }}>Оптимизировать</button>
-                    </div>
+                    </div> */}
                 </AccordionItem >
             </Accordion>
         </>

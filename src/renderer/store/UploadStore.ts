@@ -22,6 +22,7 @@ export const data = createSlice({
     dataloadRAW: (state, action) => {
       state.valueRAW = action.payload;
     },
+    // убрать
     dataGet: (state) => {
       return state;
     },
@@ -29,6 +30,7 @@ export const data = createSlice({
     setFile: (state, action) => {
         state.file = action.payload;
     },
+    // убрать
     fileGet: (state) => {
         return state
     }
