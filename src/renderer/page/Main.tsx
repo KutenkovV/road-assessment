@@ -13,7 +13,7 @@ import { Tooltip } from 'react-tooltip'
 /// Для аккордеона (https://szhsin.github.io/react-accordion/docs/getting-started)
 import { Accordion, AccordionItem as Item } from "@szhsin/react-accordion";
 import chevronDown from "../chevron-down.svg";
-import { dataMain, set_dataRemont } from 'renderer/store/MainStore';
+import { dataMain, set_dataRemont, set_remontList } from 'renderer/store/MainStore';
 import { data } from 'renderer/store/UploadStore';
 
 function Main(this: any) {
@@ -27,9 +27,8 @@ function Main(this: any) {
   const datares = useSelector((state: any) => state.mainStore.data);
   const rec_dat = useSelector((state: any) => state.mainStore.recommendation_data);
   var current_year = useSelector((state: any) => state.mainStore.current_year);
-  var data_list = useSelector((state: any) => state.mainStore.data_list);
   var data_remont = useSelector((state: any) => state.mainStore.data_remont);
-
+  var remont_list = useSelector((state: any) => state.mainStore.remont_list);
 
   useEffect(() => {
     dispatch(dataMain(dataCount));
@@ -51,49 +50,47 @@ function Main(this: any) {
     />
   );
 
-  // обработчик кнопки
   function OnSubOptimization() {
-    console.log('год прогноза: ' + current_year); // указывает на какой год назначать
-    console.log('индекс участка: ' + index); // указывает на индекс участка ссылаться в строчке ремонта
+    console.log('год прогноза: ' + current_year);
+    console.log('индекс участка: ' + index);
 
-    // Просто вынес логику в отдельную функцию
-    let res = remont(index, current_year, data_remont)
-    console.log(res);
+    remont(index, current_year, data_remont)
+    console.log(remont_list);
   }
 
-  // Назначение ремонта конкретному участку
   function remont(index: number, current_year: number, data: any) {
-    let remont_data: {}[] = [] // общий массив, который содержит всё
-    let remont_items: {}[] = [] // промежуточный массив для хранения участков по годам
+    let remont_data: {}[] = []
+    let remont_items: {}[] = []
+    let remont_final: {}[] = []
 
-    // data - это массив с хранилища у которого уже есть структура типа - 1ый год: 1...4 участки и их свойства, но пустые
     data.forEach((element: any, i: number) => {
-      // бегаю по годам
       element.item.forEach((el: any, idx: number) => {
-        // говорю - если год и индекс совпадают, то 
-        // добавь мне в промежуточное этот ремонт с ссылкой на индекс
+        remont_items.push({
+          index: idx,
+          remont: el.remont
+        })
         if (i === current_year && idx === index) {
           remont_items.push({
-            index: idx,
+            index: index,
             remont: 'капитальный ремонт: ' + index
           })
         }
-
       });
 
-      // Говорю, добавь мне промежуточные участки в общий массив
       remont_data.push({
         item: remont_items
-        // Фильтруем на пустые значения <-- это не читаем
-        //.filter((node: any, recommendation: any) => node.recommendation.length !== 0),
       })
-      
-      // чистим участки
+
+      remont_final.push({
+        item: remont_items.filter((item: any) => item.remont.length !== 0)
+      })
+
       remont_items = [];
     });
 
-    console.log(remont_data);
-    return remont_data;
+    dispatch(set_dataRemont(remont_data));
+    dispatch(set_remontList(remont_final))
+    return remont_final;
   }
 
   return (

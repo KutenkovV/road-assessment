@@ -3,9 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 export const mainStore = createSlice({
   name: 'mainStore',
   initialState: {
-    data_remont: [
-      // { items: []}
-    ],
+    remont_list: [],
+    data_remont: [],
     recommendation_data: [],
     data_list: [],
     data: [],
@@ -14,6 +13,9 @@ export const mainStore = createSlice({
     current_year: 0,
   },
   reducers: {
+    set_remontList: (state, action) => {
+      state.remont_list = action.payload;
+    },
     set_dataRemont: (state, action) => {
       state.data_remont = action.payload;
     },
@@ -46,6 +48,7 @@ export const {
   dataMain,
   recommendationsLoad,
   set_currentYear,
-  set_dataRemont
+  set_dataRemont,
+  set_remontList
 } = mainStore.actions;
 export default mainStore.reducer;

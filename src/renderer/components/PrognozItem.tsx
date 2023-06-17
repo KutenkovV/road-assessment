@@ -38,7 +38,6 @@ function PrognozItem(this: any) {
     function Submit() {
         dispatch(dataloadMain(prognoz(year, currentYear, traffic_intensity_actual, traffic_intensity_design, dataCount, (items: any) => {
             dispatch(recommendationsLoad(recommendations(items)));
-            console.log(rec_dat);
 
             // Ниже магнум опус, его не трогаем!!!
             var data: {
