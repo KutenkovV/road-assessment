@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Accordion, AccordionItem as Item } from "@szhsin/react-accordion";
 import chevronDown from "../chevron-down.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { set_progressBar, set_yearForecast, dataloadMain, recommendationsLoad } from '../store/MainStore';
+import { set_progressBar, set_yearForecast, dataloadMain, recommendationsLoad, set_dataRemont } from '../store/MainStore';
 import { prognoz } from '../App/prognoz'
 import { recommendations } from 'renderer/App/recommendations';
 
@@ -19,6 +19,7 @@ function PrognozItem(this: any) {
     var rec_dat = useSelector((state: any) => state.mainStore.recommendation_data);
     var year_forecast = useSelector((state: any) => state.mainStore.yearForecast);
     var current_year = useSelector((state: any) => state.mainStore.current_year);
+    var data_list = useSelector((state: any) => state.mainStore.data_list);
 
     // Для аккордеона
     /* @ts-ignore */
@@ -54,27 +55,30 @@ function PrognozItem(this: any) {
 
             dispatch(set_yearForecast(year));
             dispatch(set_progressBar(_.mapValues(_.keyBy(data, 'index'), 'value')));
+
+            // для ремонта
+            let remont_item: {}[] = []
+            let items_remont: {}[] = []
+            items.forEach((el: any, index: number) => {
+                el.items.forEach((el: any, i: number) => {
+                    remont_item.push({
+                        index: index,
+                        remont: []
+                    })
+                })
+
+                items_remont.push({
+                    item: remont_item
+                    // item: remont_item.filter((node: any, remont: any) => node.remont.length !== 0),
+                })
+
+                remont_item = []
+            })
+
+            console.log(items_remont);
+            dispatch(set_dataRemont(items_remont))
         })));
     };
-
-    // function OnSubOptimization() {
-    //     console.log(current_year);
-
-    //     // let sum;
-    //     // let repair_work = dataCount;
-
-    //     // console.log(dataCount);
-    //     // rec_dat.forEach((el: any) => {
-    //     //     el.item.forEach((item: any) => {
-    //     //         const index = item.index;
-    //     //         const node = dataCount[index]
-    //     //         console.log(node);
-    //     //     });
-    //     // });
-
-    //     // dispatch(dataloadMain(prognoz(year, currentYear, traffic_intensity_actual, traffic_intensity_design, dataCount)));
-    //     // console.log("Денег за ремонт: " + sum);
-    // };
 
     return (
         <>

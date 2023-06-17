@@ -47,13 +47,9 @@ export function prognoz(
     let items: {}[] = []
     let itemss: {}[] = []
 
-
     let final_items = []
     // var array = [...data];
     var _ = require('lodash');
-
-    // я такую камастура не побоюсь это сказать, сделал специально
-    // переназначение свойства внутри foreche не работает, поэтому так сделал
     data.forEach((item: any) => {
         let N = 1;
         itemss.push({

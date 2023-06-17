@@ -21,6 +21,7 @@ export function recommendations(data: any) {
 }
 
 
+
 function generate_recommendation(item: { IRI: number; J: number; C: number; }, index: number) {
     let recommendation = [];
     let i = index + 1;
