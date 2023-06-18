@@ -7,7 +7,12 @@ label {
   cursor: pointer;
 
   &:hover {
-    color: #3914b0;
+    cursor: pointer;
+    color: #307ae7;
+
+    svg {
+      fill: #307ae7;
+    }
   }
 }
 
@@ -129,18 +134,14 @@ input {
     padding: 0.75rem 4rem;
 
     .tooltip-form {
-      z-index: 1;
+      border: 2px soid red;
+      z-index: 0;
       border-radius: 5px;
       background-color: #fff;
       color: #000;
       opacity: 2;
       font-size: 14px;
       box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
-
-      // стрелка на тултипе
-      .tooltip-arrow {
-        box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 0px;
-      }
 
       p {
         margin: 0 0 0.5rem 0;
@@ -152,6 +153,7 @@ input {
       }
 
       .remont-item {
+        border-radius: 2px solid red;
         height: auto;
         width: auto;
         padding: 5px;
@@ -162,6 +164,7 @@ input {
         cursor: pointer;
 
         &:hover {
+          border-radius: 2px solid red;
           background: #f4f4f4;
         }
       }
