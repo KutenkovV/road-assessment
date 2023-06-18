@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Accordion, AccordionItem as Item } from "@szhsin/react-accordion";
 import chevronDown from "../chevron-down.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { set_progressBar, set_yearForecast, dataloadMain, recommendationsLoad, set_dataRemont } from '../store/MainStore';
+import { set_progressBar, set_yearForecast, dataloadMain, recommendationsLoad, set_dataRemont, set_currentYear } from '../store/MainStore';
 import { prognoz } from '../App/prognoz'
 import { recommendations } from 'renderer/App/recommendations';
 

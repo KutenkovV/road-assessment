@@ -50,7 +50,7 @@ export function prognoz(
     let final_items = []
     // var array = [...data];
     var _ = require('lodash');
-    data.forEach((item: any) => {
+    data.forEach((item: any, index: number) => {
         let N = 1;
         itemss.push({
             AVG: (((item.IRI - (Math.E ** - ((t0 / n_iri) ** B)) + (Math.E ** - ((N / n_iri) ** B))) +
@@ -60,6 +60,7 @@ export function prognoz(
             IRI: item.IRI = (item.IRI - (Math.E ** - ((t0 / n_iri) ** B)) + (Math.E ** - ((N / n_iri) ** B))),
             J: item.J = (item.J - (Math.E ** - ((t0 / n_j) ** B)) + (Math.E ** - ((N / n_j) ** B))),
             C: item.C = (item.C - (Math.E ** - ((t0 / n_c) ** B)) + (Math.E ** - ((N / n_c) ** B))),
+            recommendation: generate_recommendation(item.IRI, item.J, item.C, index)
         })
     });
 
@@ -82,7 +83,7 @@ export function prognoz(
                 J: itemss[index].J = (itemss[index].J - (Math.E ** -((t0 / n_j) ** B)) + (Math.E ** - ((N / n_j) ** B))),
                 // С(Сцепление) берется среднее значение по двум полосам
                 C: itemss[index].C = (itemss[index].C - (Math.E ** -((t0 / n_c) ** B)) + (Math.E ** - ((N / n_c) ** B))),
-                // recommendations: generate_recommendation(item.IRI, item.J, item.C)
+                recommendation: generate_recommendation(itemss[index].IRI, itemss[index].J, itemss[index].C, index)
             })
 
         });
@@ -95,4 +96,24 @@ export function prognoz(
     console.log(final_items);
     callback(final_items);
     return final_items
+}
+
+function generate_recommendation(IRI: number, J: number, C: number, index: number) {
+    let recommendation = [];
+    let i = index + 1;
+
+    if (IRI <= 2.00) {
+        // rec.push('Необходимо приведение продольной ровности в соответствие нормативным требованиям при проведении работ по реконструкции')
+        recommendation.push('Участку № ' + (i) + ' - назначить: Капитальный ремонт по IRI ')
+    }
+    if (J <= 2.00) {
+        // recommendation.push('Необходимы ремонтые работы по устранению дефектов')
+        recommendation.push('Участку № ' + (i) + ' - назначить: Капитальный ремонт по J ')
+    }
+    if (C <= 2.00) {
+        // recommendation.push('Необходимо проведение работ по ремонту и содержанию дорог и улиц')
+        recommendation.push('Участку № ' + (i) + ' - назначить: Капитальный ремонт по C ')
+    }
+
+    return recommendation;
 }

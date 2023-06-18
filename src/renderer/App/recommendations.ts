@@ -11,7 +11,7 @@ export function recommendations(data: any) {
         });
         recommendations_data.push({
             // Фильтруем на пустые значения
-            item: recommendations_items.filter((node: any, recommendation: any) => node.recommendation.length !== 0),
+            item: recommendations_items.filter((node: any) => node.recommendation.length !== 0),
         })
         recommendations_items = [];
     });
@@ -23,20 +23,20 @@ export function recommendations(data: any) {
 
 
 function generate_recommendation(item: { IRI: number; J: number; C: number; }, index: number) {
-    let recommendation = [];
+    let recommendation: {}[] = [];
     let i = index + 1;
 
     if (item.IRI <= 2.00) {
         // rec.push('Необходимо приведение продольной ровности в соответствие нормативным требованиям при проведении работ по реконструкции')
-        recommendation.push('Участку № ' + (i) + ' - назначить: Капитальный ремонт по IRI ')
+        recommendation.push('Участку № ' + (i) + ' - назначить: Капитальный ремонт по IRI')
     }
     if (item.J <= 2.00) {
         // recommendation.push('Необходимы ремонтые работы по устранению дефектов')
-        recommendation.push('Участку № ' + (i) + ' - назначить: Капитальный ремонт по J ')
+        recommendation.push('Участку № ' + (i) + ' - назначить: Капитальный ремонт по J')
     }
     if (item.C <= 2.00) {
         // recommendation.push('Необходимо проведение работ по ремонту и содержанию дорог и улиц')
-        recommendation.push('Участку № ' + (i) + ' - назначить: Капитальный ремонт по C ')
+        recommendation.push('Участку № ' + (i) + ' - назначить: Капитальный ремонт по C')
     }
 
     return recommendation;
