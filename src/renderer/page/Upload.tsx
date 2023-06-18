@@ -67,7 +67,7 @@ function Upload(this: any) {
     <>
       <div className="form__input">
         <div className="input-file">
-          <label>Выберите файл для загрузки</label>
+          <label style={{ paddingBottom: '0.5rem' }}>Выберите файл для загрузки</label>
           <input
             type="text"
             value={filename}
@@ -81,24 +81,23 @@ function Upload(this: any) {
           <div className="settings__road-type">
             <label>Выберите тип дорожной одежды</label>
             <div className="road-type__radio">
-              <div className="radio-item">
-                <input
+              <div onChange={radio} className="radio-item">
+                <input style={{ cursor: 'pointer' }}
                   id="r-1"
                   type="radio"
                   value="true"
                   checked={radio_selected === 'true'}
-                  onChange={radio}
                   name='name'
                 />
                 <label>Капитальный</label>
               </div>
               <div className="radio-item">
-                <input id="r-1" type="radio" value="false" checked={radio_selected === 'false'} onChange={radio} name='name' />
+                <input style={{ cursor: 'pointer' }} id="r-1" type="radio" value="false" checked={radio_selected === 'false'} onChange={radio} name='name' />
                 <label>Облегченный</label>
               </div>
             </div>
           </div>
-          <div className="settings__road-class">
+          <div style={{ width: '100%' }} className="settings__road-class">
             <label>Выберите класс дороги</label>
             <Dropdown selected={selected} />
           </div>

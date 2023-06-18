@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Accordion, AccordionItem as Item } from "@szhsin/react-accordion";
+import { Accordion, AccordionItem as Item, useAccordionState } from "@szhsin/react-accordion";
 import chevronDown from "../chevron-down.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { set_progressBar, set_yearForecast, dataloadMain, recommendationsLoad, set_dataRemont, set_currentYear } from '../store/MainStore';
@@ -59,7 +59,7 @@ function PrognozItem(this: any) {
             let remont_item: {}[] = []
             let items_remont: {}[] = []
             items.forEach((el: any, index: number) => {
-                el.items.forEach((el: any, i: number) => {
+                el.items.forEach(() => {
                     remont_item.push({
                         index: index,
                         remont: []
@@ -68,30 +68,28 @@ function PrognozItem(this: any) {
 
                 items_remont.push({
                     item: remont_item
-                    // item: remont_item.filter((node: any, remont: any) => node.remont.length !== 0),
                 })
 
                 remont_item = []
             })
 
-            console.log(items_remont);
             dispatch(set_dataRemont(items_remont))
         })));
     };
 
     return (
         <>
-            <Accordion className='prognoz-accordeon' transition transitionTimeout={200}>
-                <AccordionItem header='Сделать прогноз' initialEntered>
+            <Accordion className='prognoz-accordeon' initialEntered allowMultiple transition transitionTimeout={200}>
+                <AccordionItem  header='Сделать прогноз'>
                     <div className="prognoz-form">
                         <div className='prognoz-form-item'>
                             <p>На сколько лет делать прогноз</p>
                             <input
                                 id="years"
+                                value={year}
                                 onChange={(e) => {
                                     setYear(e.target.value)
                                 }}
-                                value={year}
                                 type="number"
                             />
                         </div>

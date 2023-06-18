@@ -4,6 +4,7 @@ label {
 }
 
 .lbl-button {
+  fill: #646464;
   cursor: pointer;
 
   &:hover {
@@ -33,12 +34,29 @@ input {
 /////////////////////////////////////////
 // block main
 /////////////////////////////////////////
+
+.scrollableContainer {
+  .list {
+    border: 1px solid #d1d1d1;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    max-height: 450px;
+    overflow-y: auto;
+    text-align: justify;
+  }
+
+  @media (max-height: 450px) {
+    border: 2px solid red;
+  }
+}
+
 .form__input {
   // border: 2px solid red;
   display: flex;
   flex-direction: column;
   height: 200px auto;
-  margin: 1rem;
+  margin: 0.25rem 1rem 1rem 1rem;
   padding: 1rem 2.5rem;
   border-radius: 11px;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
@@ -97,7 +115,6 @@ input {
     .marker-item {
       display: flex;
       align-items: center;
-      // padding-bottom: 1rem;
 
       #rectangle_best {
         width: 30px;
@@ -119,7 +136,7 @@ input {
       }
 
       p {
-        margin: 0.25rem;
+        margin: 0.15rem;
         margin-left: 1rem;
       }
     }
@@ -145,6 +162,10 @@ input {
 
       p {
         margin: 0 0 0.5rem 0;
+      }
+
+      .clickable {
+        pointer-events: auto;
       }
 
       .tooltip-avg-status {
@@ -383,3 +404,21 @@ input {
 //     justify-content: space-between;
 //   }
 // }
+
+::-webkit-scrollbar {
+  width: 1vw;
+  padding: 0.15rem;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f5f5f5;
+  box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(169, 168, 165);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #9d9c9c;
+}

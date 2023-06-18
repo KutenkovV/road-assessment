@@ -18,12 +18,10 @@ import { data } from 'renderer/store/UploadStore';
 import StudentMenu from 'renderer/components/StudentMenu/StudentMenu';
 
 function Main(this: any) {
-  var ReactDOMServer = require('react-dom/server');
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [index, setIndex] = useState(0)
   const dataCount = useSelector((state: any) => state.uploadStore.value);
-
 
   // Объекты цветной матрицы
   const datares = useSelector((state: any) => state.mainStore.data);
@@ -95,12 +93,10 @@ function Main(this: any) {
     return remont_final;
   }
 
-
-
   const [isOpen, setIsOpen] = useState(false)
   return (
     <>
-      <div className="form__input">
+      <div className="form__input list">
         <div className="form-marker">
           <div className="marker-item">
             <div id="rectangle_best"></div>
@@ -108,11 +104,11 @@ function Main(this: any) {
           </div>
           <div className="marker-item">
             <div id="rectangle_good" />
-            <p>Требуется ремонт</p>
+            <p>Требуется обслуживание</p>
           </div>
           <div className="marker-item">
             <div id="rectangle_bad" />
-            <p>Требуется Капитальный ремонт</p>
+            <p>Требуется капитальный ремонт</p>
           </div>
         </div>
         <div className="form-view">
@@ -131,10 +127,10 @@ function Main(this: any) {
             </div>
           ))}
 
-          <Tooltip style={{ width: '18rem' }} className='tooltip-form' classNameArrow="tooltip-arrow"
+          <Tooltip style={{ width: '20rem', zIndex: '100' }} className='tooltip-form' classNameArrow="tooltip-arrow"
             id="my-tooltip"
             render={({ activeAnchor }) => (
-              <div>
+              <div style={{ zIndex: '100' }}>
                 <p>Участок номер № - {activeAnchor?.getAttribute('data-some-relevant-attr') || 'not set'}</p>
                 <p className='tooltip-avg-status'>Состояние (среднее): {activeAnchor?.getAttribute('data-avg') || 'not set'}
                   <label style={{ marginLeft: '0.45rem', width: '12px', height: '12px' }} id={activeAnchor?.getAttribute('data-avg-color') || 'not set'} />
@@ -144,7 +140,7 @@ function Main(this: any) {
                 <p>C (Сцепление): {activeAnchor?.getAttribute('data-c') || 'not set'}</p>
                 <hr style={{ margin: '0' }} />
                 <label style={{ color: 'red', fontSize: '13px' }}>Рекомендуется</label>
-                <p style={{ display: 'flex', fontSize: '12px' }}>{activeAnchor?.getAttribute('data-recommendation')?.split(',').join('') || 'Рекомендаций нет'}</p>
+                <p style={{ display: 'flex', flexWrap: 'nowrap', fontSize: '12px' }}>{activeAnchor?.getAttribute('data-recommendation')?.split(',').join('') || 'Рекомендаций нет'}</p>
               </div>
             )}
           />
@@ -165,8 +161,8 @@ function Main(this: any) {
         </div>
       </div >
 
-      <div className="form__input">
-        <div>
+      <div className="form__input scrollableContainer">
+        <div className='list'>
           {rec_dat.map((el: any, index: number) => (
             <Accordion key={index} transition transitionTimeout={200}>
               <AccordionItem header={"Прогноз на " + (indexCheck(index)) + " год"}>

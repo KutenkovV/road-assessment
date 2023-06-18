@@ -11,7 +11,7 @@ function App() {
   return (
     <>
       <Router>
-        <header>
+        <header style={{ zIndex: '1' }}>
           <Titlebar />
         </header>
         <div className="container">
@@ -20,7 +20,7 @@ function App() {
             <Route path="/second" element={<Main />} />
           </Routes>
         </div>
-      </Router>
+      </Router >
     </>
   );
 }

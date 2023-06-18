@@ -23,7 +23,7 @@ function Dropdown({ selected }) {
   }, []);
 
   return (
-    <div className="dropdown">
+    <div style={{ paddingTop: '0.5rem' }} className="dropdown">
       <div
         className="dropdown-btn"
         ref={btnRef}
