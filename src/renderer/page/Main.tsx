@@ -6,6 +6,8 @@ import StepProgressBar from 'renderer/components/StepProgressBar';
 import PrognozItem from 'renderer/components/PrognozItem';
 import "../../styles/accordeon.scss"
 import "./Main.scss"
+import "../components/StudentMenu/StudentMenu.scss"
+
 
 /// Для тултипов (https://react-tooltip.com/docs/getting-started)
 import 'react-tooltip/dist/react-tooltip.css'
@@ -21,20 +23,42 @@ function Main(this: any) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [index, setIndex] = useState(0)
-  const dataCount = useSelector((state: any) => state.uploadStore.value);
 
+  const dataCount = useSelector((state: any) => state.uploadStore.value);
   // Объекты цветной матрицы
   const datares = useSelector((state: any) => state.mainStore.data);
   const rec_dat = useSelector((state: any) => state.mainStore.recommendation_data);
   var current_year = useSelector((state: any) => state.mainStore.current_year);
   var data_remont = useSelector((state: any) => state.mainStore.data_remont);
   var remont_list = useSelector((state: any) => state.mainStore.remont_list);
+  const btnRef = useRef();
+  const [isActive, setIsActive] = useState(false);
+  const [item, setItem] = useState([]);
+
+
 
   useEffect(() => {
     dispatch(dataMain(dataCount));
-    console.log(datares);
-    console.log(dataCount);
   }, [])
+
+  useEffect(() => {
+    console.log(item);
+    setItem(item)
+  }, [item])
+
+  // Обрабатываем мисклик
+  useEffect(() => {
+    const handler = (event: any) => {
+      if (btnRef.current && !btnRef.current.contains(event.target)) {
+        setIsActive(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handler);
+    return () => {
+      document.removeEventListener("mousedown", handler);
+    };
+  });
 
 
   /* @ts-ignore */
@@ -50,15 +74,18 @@ function Main(this: any) {
     />
   );
 
-  function OnSubOptimization() {
+  function OnSubOptimization(remont_recommendation: any) {
     console.log('год прогноза: ' + current_year);
     console.log('индекс участка: ' + index);
 
-    remont(index, current_year, data_remont)
+    console.log(item);
+
+    console.log(remont_recommendation);
+    remont(index, current_year, data_remont, remont_recommendation)
     console.log(remont_list);
   }
 
-  function remont(index: number, current_year: number, data: any) {
+  function remont(index: number, current_year: number, data: any, remont_recommendation: any) {
     let remont_data: {}[] = []
     let remont_items: {}[] = []
     let remont_final: {}[] = []
@@ -72,7 +99,7 @@ function Main(this: any) {
         if (i === current_year && idx === index) {
           remont_items.push({
             index: index,
-            remont: 'капитальный ремонт: ' + index
+            remont: remont_recommendation
           })
         }
       });
@@ -93,7 +120,6 @@ function Main(this: any) {
     return remont_final;
   }
 
-  const [isOpen, setIsOpen] = useState(false)
   return (
     <>
       <div className="form__input list">
@@ -113,7 +139,7 @@ function Main(this: any) {
         </div>
         <div className="form-view">
           {datares.map((item: any, index: number) => (
-            <div onMouseEnter={() => setIsOpen(true)} onClick={() => (setIndex(index), setIsOpen(!isOpen))} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+            <div className='road-item' onClick={() => { setItem(item.recommendation), setIndex(index), setIsActive(!isActive) }} style={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
               data-tooltip-id='my-tooltip'
               data-avg={item.AVG}
               data-avg-color={roadStatus(item.AVG)}
@@ -126,6 +152,29 @@ function Main(this: any) {
               <a>{item.AVG}</a>
             </div>
           ))}
+
+          <div className="studentMenu">
+            {isActive && (
+              <div ref={btnRef} className="studentMenu-content">
+                {
+                  item.length === 0 ? (<div>Назначать нечего</div>) : (
+                    <>
+                      {item.map((element: any, index: number) => (
+                        <div tabIndex={index} className='studentMenu-item'>
+                          {element}
+                        </div>
+                      ))}
+                      <div className="studentMenu-define">
+                        <button onClick={() => { OnSubOptimization(item) }} className="btn btn-primary">Определить</button>
+                      </div>
+                    </>
+                  )
+                }
+              </div>
+            )}
+          </div>
+
+          {/* <StudentMenu /> */}
 
           <Tooltip style={{ width: '20rem', zIndex: '100' }} className='tooltip-form' classNameArrow="tooltip-arrow"
             id="my-tooltip"
@@ -166,11 +215,26 @@ function Main(this: any) {
           {rec_dat.map((el: any, index: number) => (
             <Accordion key={index} transition transitionTimeout={200}>
               <AccordionItem header={"Прогноз на " + (indexCheck(index)) + " год"}>
+                {/* {remont_list[index].item.length === 0 ? (<div>Ремонт отсутствует</div>)
+                  : <>
+                    {remont_list.map((node: any, i: number) => (
+                      <p>{node[i]}</p>
+                      // node.remont.map((el: any, idx: number) => (
+                      //   <div key={idx} style={{ display: 'flex', alignItems: 'center' }}>
+                      //     <p style={{ marginRight: '0.45rem', width: '12px', height: '12px' }} />
+                      //     {el}
+                      //   </div>
+                      // ))
+                    ))}
+                  </>
+                } */}
+
+
                 {rec_dat[index].item.length === 0 ? (<div>Рекомендации отсутствуют</div>)
                   : <>
                     {el.item.map((node: any, i: number) => (
-                      node.recommendation.map((el: any) => (
-                        <div key={i} style={{ display: 'flex', alignItems: 'center' }}>
+                      node.recommendation.map((el: any, idx: number) => (
+                        <div key={idx} style={{ display: 'flex', alignItems: 'center' }}>
                           <p id='rectangle_bad' style={{ marginRight: '0.45rem', width: '12px', height: '12px' }} />
                           {el}
                         </div>
@@ -200,18 +264,6 @@ function roadStatus(IRI: number) {
 function indexCheck(index: number) {
   if (index === 0) return 'текущий'
   else return index;
-}
-
-function rem_gen(item: any) {
-  let a = (
-    <>
-      <div id="my-div">
-        <h4>This is a heading tag.</h4>
-        <p>This is a paragraph.</p>
-      </div>
-      <div id="output"></div>
-    </>
-  )
 }
 
 export default Main;

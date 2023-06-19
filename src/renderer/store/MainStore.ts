@@ -3,7 +3,9 @@ import { createSlice } from '@reduxjs/toolkit';
 export const mainStore = createSlice({
   name: 'mainStore',
   initialState: {
-    remont_list: [],
+    remont_list: [{
+      item: [{ remont: [] }]
+    }],
     data_remont: [],
     recommendation_data: [],
     data_list: [],

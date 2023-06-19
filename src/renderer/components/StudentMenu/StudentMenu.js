@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import "./StudentMenu.css";
+import ".StudentMenu.scss";
 
 function StudentMenu() {
   const [selected, setSelected] = useState();
@@ -26,18 +26,16 @@ function StudentMenu() {
   };
 
   return (
-    <form onSubmit={onSubmit}>
-      <div className="studentMenu">
-        {isActive && (
-          <div ref={btnRef} className="studentMenu-content">
-            жопа 1
-            <div className="studentMenu-define">
-              <button className="btn btn-primary">Определить</button>
-            </div>
+    <div onClick={onSubmit} className="studentMenu">
+      {isActive && (
+        <div ref={btnRef} className="studentMenu-content">
+          <p className="studentMenu-item">жопа 1</p>
+          <div className="studentMenu-define">
+            <button className="btn btn-primary">Определить</button>
           </div>
-        )}
-      </div>
-    </form>
+        </div>
+      )}
+    </div>
   );
 }
 
