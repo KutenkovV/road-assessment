@@ -26,6 +26,7 @@ export function road_assessment(param: any) {
       J: (item.road_defects_1 + item.road_defects_2) / 2,
       // С(Сцепление) берется среднее значение по двум полосам
       C: c_score(item.road_grip_1, item.road_grip_2),
+      recommendation: []
     });
   });
 

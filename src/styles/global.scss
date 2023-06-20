@@ -146,12 +146,111 @@ input {
   .form-view {
     display: flex;
     justify-content: center;
+    position: relative;
     flex-wrap: wrap;
     padding: 0.75rem 4rem;
 
     .road-item {
       position: relative;
-      border: 2px solid red;
+      &:focus {
+        .studentMenu-content {
+          position: absolute;
+          pointer-events: all;
+          visibility: visible;
+          opacity: 1;
+          z-index: 1;
+          padding: 5px;
+          background: #fff;
+          box-shadow: 1px 1px 5px 1px rgb(183, 183, 183);
+          color: #333;
+          border-radius: 5px;
+
+          button {
+            cursor: pointer;
+          }
+
+          .studentMenu-item {
+            font-size: 12px;
+            box-shadow: 1px 1px 5px 1px rgb(183, 183, 183);
+            // color: #9eadbd;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+
+            &:hover {
+              background: #f4f4f4;
+            }
+
+            &:focus {
+              background-color: #d1e6ff;
+            }
+          }
+        }
+      }
+
+      .studentMenu-content {
+        pointer-events: none;
+        visibility: hidden;
+        position: absolute;
+        z-index: 1;
+        padding: 5px;
+        background: #fff;
+        box-shadow: 1px 1px 5px 1px rgb(183, 183, 183);
+        color: #333;
+        border-radius: 5px;
+
+        .studentMenu-item {
+          font-size: 12px;
+          box-shadow: 1px 1px 5px 1px rgb(183, 183, 183);
+          // color: #9eadbd;
+          padding: 10px;
+          cursor: pointer;
+          transition: all 0.2s;
+
+          &:hover {
+            background: #f4f4f4;
+          }
+
+          &:focus {
+            background-color: #d1e6ff;
+          }
+        }
+
+        // &::before {
+        //   bottom: -20px;
+        //   content: " ";
+        //   display: block;
+        //   height: 20px;
+        //   left: 0;
+        //   position: absolute;
+        //   width: 100%;
+        // }
+
+        &:focus {
+          opacity: 1;
+        }
+
+        // &:hover {
+        //   opacity: 1;
+        // }
+
+        &:active {
+          opacity: 1;
+        }
+
+        // &::after {
+        //   border-left: solid transparent 10px;
+        //   border-right: solid transparent 10px;
+        //   border-top: solid #1496bb 10px;
+        //   bottom: -10px;
+        //   content: " ";
+        //   height: 0;
+        //   left: 50%;
+        //   margin-left: -13px;
+        //   position: absolute;
+        //   width: 0;
+        // }
+      }
     }
 
     .tooltip-form {

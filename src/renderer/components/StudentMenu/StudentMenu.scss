@@ -1,32 +1,31 @@
-.studentMenu {
-  .studentMenu-content {
-    position: absolute;
-    z-index: 1;
-    padding: 5px;
-    background: #fff;
+.studentMenu-content {
+  position: absolute;
+  z-index: 100;
+  padding: 5px;
+  background: #fff;
+  box-shadow: 1px 1px 5px 1px rgb(183, 183, 183);
+  color: #333;
+  border-radius: 5px;
+
+  .studentMenu-item {
+    position: relative;
+    font-size: 12px;
     box-shadow: 1px 1px 5px 1px rgb(183, 183, 183);
-    color: #333;
-    border-radius: 5px;
+    // color: #9eadbd;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
 
-    .studentMenu-item {
-      font-size: 12px;
-      box-shadow: 1px 1px 5px 1px rgb(183, 183, 183);
-      // color: #9eadbd;
-      padding: 10px;
-      cursor: pointer;
-      transition: all 0.2s;
+    &:hover {
+      background: #f4f4f4;
+    }
 
-      &:hover {
-        background: #f4f4f4;
-      }
+    &:focus {
+      background-color: #d1e6ff;
+    }
 
-      &:focus {
-        background-color: #d1e6ff;
-      }
-
-      &:active {
-        background-color: #d1e6ff;
-      }
+    &:active {
+      background-color: #d1e6ff;
     }
   }
 }

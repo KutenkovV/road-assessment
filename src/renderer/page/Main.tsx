@@ -6,7 +6,7 @@ import StepProgressBar from 'renderer/components/StepProgressBar';
 import PrognozItem from 'renderer/components/PrognozItem';
 import "../../styles/accordeon.scss"
 import "./Main.scss"
-import "../components/StudentMenu/StudentMenu.scss"
+// import "../components/StudentMenu/StudentMenu.scss"
 
 
 /// Для тултипов (https://react-tooltip.com/docs/getting-started)
@@ -18,6 +18,7 @@ import chevronDown from "../chevron-down.svg";
 import { dataMain, set_dataRemont, set_remontList } from 'renderer/store/MainStore';
 import { data } from 'renderer/store/UploadStore';
 import StudentMenu from 'renderer/components/StudentMenu/StudentMenu';
+import { on } from 'events';
 
 function Main(this: any) {
   const navigate = useNavigate();
@@ -49,6 +50,7 @@ function Main(this: any) {
   // Обрабатываем мисклик
   useEffect(() => {
     const handler = (event: any) => {
+      //@ts-ignore
       if (btnRef.current && !btnRef.current.contains(event.target)) {
         setIsActive(false);
       }
@@ -139,40 +141,43 @@ function Main(this: any) {
         </div>
         <div className="form-view">
           {datares.map((item: any, index: number) => (
-            <div className='road-item' onClick={() => { setItem(item.recommendation), setIndex(index), setIsActive(!isActive) }} style={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-              data-tooltip-id='my-tooltip'
-              data-avg={item.AVG}
-              data-avg-color={roadStatus(item.AVG)}
-              data-iri={item.IRI.toFixed(2)}
-              data-j={item.J.toFixed(2)}
-              data-c={item.C.toFixed(2)}
-              data-recommendation={item.recommendation}
-              data-some-relevant-attr={index + 1}
-              id={roadStatus(item.AVG)} key={index}>
-              <a>{item.AVG}</a>
-            </div>
-          ))}
-
-          <div className="studentMenu">
-            {isActive && (
-              <div ref={btnRef} className="studentMenu-content">
+            <div tabIndex={index} className='road-item'>
+              <div onClick={() => { setIndex(index) }} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                data-tooltip-id='my-tooltip'
+                data-avg={item.AVG}
+                data-avg-color={roadStatus(item.AVG)}
+                data-iri={item.IRI.toFixed(2)}
+                data-j={item.J.toFixed(2)}
+                data-c={item.C.toFixed(2)}
+                data-recommendation={item.recommendation}
+                data-some-relevant-attr={index + 1}
+                id={roadStatus(item.AVG)} key={index}>
+                <a>{item.AVG}</a>
+              </div>
+              {/* ниже блок с формой для назначения ремонта */}
+              <form className="studentMenu">
                 {
-                  item.length === 0 ? (<div>Назначать нечего</div>) : (
-                    <>
-                      {item.map((element: any, index: number) => (
-                        <div tabIndex={index} className='studentMenu-item'>
-                          {element}
-                        </div>
-                      ))}
+                  item.recommendation.length === 0 ? (<div className='studentMenu-content'>Назначать нечего</div>) : (
+                    //@ts-ignore //ref={btnRef}
+                    <div tabIndex={0} className="studentMenu-content">
+                      {
+                        item.recommendation.map((element: any, index: number) => (
+                          <div tabIndex={index} className='studentMenu-item'>
+                            {element}
+                          </div>
+                        ))
+                      }
                       <div className="studentMenu-define">
-                        <button onClick={() => { OnSubOptimization(item) }} className="btn btn-primary">Определить</button>
+                        <button onClick={() => {
+                          OnSubOptimization(item.recommendation), console.log('aboba');
+                        }} className="btn btn-primary">Определить</button>
                       </div>
-                    </>
+                    </div>
                   )
                 }
-              </div>
-            )}
-          </div>
+              </form>
+            </div>
+          ))}
 
           {/* <StudentMenu /> */}
 
