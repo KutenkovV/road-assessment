@@ -80,11 +80,13 @@ function Main(this: any) {
     console.log(item);
 
     console.log(remont_recommendation);
-    remont(index, current_year, data_remont, remont_recommendation)
-    console.log(remont_list);
+
+    dispatch(set_remontList(remont(index, current_year, data_remont, remont_recommendation, (items: any) => {
+      console.log(items);
+    })))
   }
 
-  function remont(index: number, current_year: number, data: any, remont_recommendation: any) {
+  function remont(index: number, current_year: number, data: any, remont_recommendation: any, callback: any,) {
     let remont_data: {}[] = []
     let remont_items: {}[] = []
     let remont_final: {}[] = []
@@ -115,7 +117,8 @@ function Main(this: any) {
     });
 
     dispatch(set_dataRemont(remont_data));
-    dispatch(set_remontList(remont_final))
+    // dispatch(set_remontList(remont_final))
+    callback(remont_final)
     return remont_final;
   }
 
