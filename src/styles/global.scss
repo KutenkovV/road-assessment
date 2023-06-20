@@ -152,109 +152,103 @@ input {
 
     .road-item {
       position: relative;
-      &:focus {
-        .studentMenu-content {
-          position: absolute;
-          pointer-events: all;
-          visibility: visible;
-          opacity: 1;
-          z-index: 1;
-          padding: 5px;
-          background: #fff;
-          box-shadow: 1px 1px 5px 1px rgb(183, 183, 183);
-          color: #333;
-          border-radius: 5px;
-
-          button {
-            cursor: pointer;
-          }
-
-          .studentMenu-item {
-            font-size: 12px;
-            box-shadow: 1px 1px 5px 1px rgb(183, 183, 183);
-            // color: #9eadbd;
-            padding: 10px;
-            cursor: pointer;
-            transition: all 0.2s;
-
-            &:hover {
-              background: #f4f4f4;
-            }
-
-            &:focus {
-              background-color: #d1e6ff;
-            }
-          }
-        }
-      }
 
       .studentMenu-content {
-        pointer-events: none;
-        visibility: hidden;
         position: absolute;
+        pointer-events: none;
+        // visibility: hidden;
+        opacity: 0;
+        display: flex;
+        flex-direction: column;
+        padding: 0.45rem;
         z-index: 1;
-        padding: 5px;
         background: #fff;
         box-shadow: 1px 1px 5px 1px rgb(183, 183, 183);
         color: #333;
         border-radius: 5px;
 
         .studentMenu-item {
-          font-size: 12px;
-          box-shadow: 1px 1px 5px 1px rgb(183, 183, 183);
-          // color: #9eadbd;
-          padding: 10px;
-          cursor: pointer;
+          display: flex;
+          align-items: center;
           transition: all 0.2s;
 
           &:hover {
-            background: #f4f4f4;
+            background: #dedddd;
+            border-radius: 5px;
           }
 
           &:focus {
             background-color: #d1e6ff;
+            border-radius: 5px;
+          }
+
+          &:active {
+            background-color: #d1e6ff;
           }
         }
+      }
 
-        // &::before {
-        //   bottom: -20px;
-        //   content: " ";
-        //   display: block;
-        //   height: 20px;
-        //   left: 0;
-        //   position: absolute;
-        //   width: 100%;
-        // }
-
-        &:focus {
+      &:focus {
+        .studentMenu-content {
+          margin-top: 0.7rem;
+          position: absolute;
+          pointer-events: all;
+          visibility: visible;
           opacity: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: end;
+          padding: 0.45rem;
+          z-index: 1;
+          background: #fff;
+          box-shadow: 1px 1px 5px 1px rgb(183, 183, 183);
+          color: #333;
+          border-radius: 5px;
+
+          &::after {
+            content: " ";
+            position: absolute;
+            bottom: 100%; /* At the top of the tooltip */
+            left: 5%;
+            margin-left: -5px;
+            border-width: 6px;
+            border-style: solid;
+            border-color: transparent transparent #fff transparent;
+          }
+
+          button {
+            background-color: #d6e5fa;
+            cursor: pointer;
+            padding: 0.25rem 0.75rem 0.25rem 0.75rem;
+            border: 0;
+            border-radius: 5px;
+            font-size: 14px;
+
+            &:hover {
+              background: #ebf3ff;
+              transition: 0.3s;
+            }
+
+            &:focus {
+              outline: none;
+              box-shadow: 0 0 0 4px #f2f6fd;
+            }
+            &:active {
+              background-color: #d1e6ff;
+            }
+          }
+
+          .studentMenu-item {
+            padding-left: 0;
+            padding: 0.45rem;
+            width: 25rem;
+            cursor: pointer;
+          }
         }
-
-        // &:hover {
-        //   opacity: 1;
-        // }
-
-        &:active {
-          opacity: 1;
-        }
-
-        // &::after {
-        //   border-left: solid transparent 10px;
-        //   border-right: solid transparent 10px;
-        //   border-top: solid #1496bb 10px;
-        //   bottom: -10px;
-        //   content: " ";
-        //   height: 0;
-        //   left: 50%;
-        //   margin-left: -13px;
-        //   position: absolute;
-        //   width: 0;
-        // }
       }
     }
 
     .tooltip-form {
-      border: 2px soid red;
       z-index: 0;
       border-radius: 5px;
       background-color: #fff;
