@@ -4,9 +4,13 @@ export const mainStore = createSlice({
   name: 'mainStore',
   initialState: {
     remont_list: [{
-      item: [{ remont: [] }]
+      item: [{ index: 0, remont: [] }]
     }],
-    data_remont: [],
+    data_remont: [
+      {
+        item: [{ index: 0, remont: [] }]
+      }
+    ],
     recommendation_data: [],
     data_list: [],
     data: [],

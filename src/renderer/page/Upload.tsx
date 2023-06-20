@@ -85,6 +85,7 @@ function Upload(this: any) {
                 <input style={{ cursor: 'pointer' }}
                   id="r-1"
                   type="radio"
+                  readOnly
                   value="true"
                   checked={radio_selected === 'true'}
                   name='name'

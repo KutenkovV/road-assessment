@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Accordion, AccordionItem as Item, useAccordionState } from "@szhsin/react-accordion";
 import chevronDown from "../chevron-down.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { set_progressBar, set_yearForecast, dataloadMain, recommendationsLoad, set_dataRemont, set_currentYear } from '../store/MainStore';
+import { set_progressBar, set_yearForecast, dataloadMain, recommendationsLoad, set_dataRemont, set_currentYear, set_remontList } from '../store/MainStore';
 import { prognoz } from '../App/prognoz'
 import { recommendations } from 'renderer/App/recommendations';
 
@@ -15,11 +15,6 @@ function PrognozItem(this: any) {
     const [traffic_intensity_design, setTraffic_intensity_design] = useState<any>(14000);
 
     var dataCount = useSelector((state: any) => state.uploadStore.value);
-    var dataList = useSelector((state: any) => state.mainStore.data);
-    var rec_dat = useSelector((state: any) => state.mainStore.recommendation_data);
-    var year_forecast = useSelector((state: any) => state.mainStore.yearForecast);
-    var current_year = useSelector((state: any) => state.mainStore.current_year);
-    var data_list = useSelector((state: any) => state.mainStore.data_list);
 
     // Для аккордеона
     /* @ts-ignore */
@@ -58,6 +53,8 @@ function PrognozItem(this: any) {
             // для ремонта
             let remont_item: {}[] = []
             let items_remont: {}[] = []
+            let remont_final: {}[] = []
+
             items.forEach((el: any, index: number) => {
                 el.items.forEach(() => {
                     remont_item.push({
@@ -70,9 +67,15 @@ function PrognozItem(this: any) {
                     item: remont_item
                 })
 
+                remont_final.push({
+                    item: remont_item.filter((item: any) => item.remont.length !== 0)
+                })
+
                 remont_item = []
             })
 
+            console.log(remont_final);
+            dispatch(set_remontList(remont_final))
             dispatch(set_dataRemont(items_remont))
         })));
     };
@@ -80,7 +83,7 @@ function PrognozItem(this: any) {
     return (
         <>
             <Accordion className='prognoz-accordeon' initialEntered allowMultiple transition transitionTimeout={200}>
-                <AccordionItem  header='Сделать прогноз'>
+                <AccordionItem header='Сделать прогноз'>
                     <div className="prognoz-form">
                         <div className='prognoz-form-item'>
                             <p>На сколько лет делать прогноз</p>

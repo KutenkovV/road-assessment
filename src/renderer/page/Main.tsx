@@ -39,10 +39,10 @@ function Main(this: any) {
     dispatch(dataMain(dataCount));
   }, [])
 
-  useEffect(() => {
-    console.log(item);
-    setItem(item)
-  }, [item])
+  // useEffect(() => {
+  //   console.log(item);
+  //   setItem(remont_list)
+  // }, [item])
 
   // Обрабатываем мисклик
   useEffect(() => {
@@ -74,11 +74,7 @@ function Main(this: any) {
   );
 
   function OnSubOptimization(remont_recommendation: any) {
-    console.log('год прогноза: ' + current_year);
-    console.log('индекс участка: ' + index);
-
     console.log(item);
-
     console.log(remont_recommendation);
 
     dispatch(set_remontList(remont(index, current_year, data_remont, remont_recommendation, (items: any) => {
@@ -86,6 +82,7 @@ function Main(this: any) {
     })))
   }
 
+  // Функция формирует массив ремонта
   function remont(index: number, current_year: number, data: any, remont_recommendation: any, callback: any,) {
     let remont_data: {}[] = []
     let remont_items: {}[] = []
@@ -117,7 +114,7 @@ function Main(this: any) {
     });
 
     dispatch(set_dataRemont(remont_data));
-    // dispatch(set_remontList(remont_final))
+    dispatch(set_remontList(remont_final))
     callback(remont_final)
     return remont_final;
   }
@@ -143,7 +140,7 @@ function Main(this: any) {
         </div>
         <div className="form-view">
           {datares.map((item: any, index: number) => (
-            <div tabIndex={index} className='road-item'>
+            <div key={index} tabIndex={index} className='road-item'>
               <div onClick={() => { setIndex(index) }} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
                 data-tooltip-id='my-tooltip'
                 data-avg={item.AVG}
@@ -153,7 +150,7 @@ function Main(this: any) {
                 data-c={item.C.toFixed(2)}
                 data-recommendation={item.recommendation}
                 data-some-relevant-attr={index + 1}
-                id={roadStatus(item.AVG)} key={index}>
+                id={roadStatus(item.AVG)}>
                 <a>{item.AVG}</a>
               </div>
               {/* ниже блок с формой для назначения ремонта */}
@@ -229,31 +226,35 @@ function Main(this: any) {
           {rec_dat.map((el: any, index: number) => (
             <Accordion key={index} transition transitionTimeout={200}>
               <AccordionItem header={"Прогноз на " + (indexCheck(index)) + " год"}>
-                {/* {remont_list[index].item.length === 0 ? (<div>Ремонт отсутствует</div>)
+                {rec_dat[index].item.length === 0 ? (<div><h3>Рекомендации отсутствуют</h3></div>)
                   : <>
-                    {remont_list.map((node: any, i: number) => (
-                      <p>{node[i]}</p>
-                      // node.remont.map((el: any, idx: number) => (
-                      //   <div key={idx} style={{ display: 'flex', alignItems: 'center' }}>
-                      //     <p style={{ marginRight: '0.45rem', width: '12px', height: '12px' }} />
-                      //     {el}
-                      //   </div>
-                      // ))
-                    ))}
+                    <div>
+                      <h3>Рекомендации</h3>
+                      {el.item.map((node: any, i: number) => (
+                        node.recommendation.map((el: any, idx: number) => (
+                          <div key={idx} style={{ display: 'flex', alignItems: 'center' }}>
+                            <p id='rectangle_bad' style={{ marginRight: '0.45rem', width: '12px', height: '12px' }} />
+                            {el}
+                          </div>
+                        ))
+                      ))}
+                    </div>
                   </>
-                } */}
+                }
 
-
-                {rec_dat[index].item.length === 0 ? (<div>Рекомендации отсутствуют</div>)
+                {remont_list[index].item.length === 0 ? (<div><h3>Ремонт не назначен</h3></div>)
                   : <>
-                    {el.item.map((node: any, i: number) => (
-                      node.recommendation.map((el: any, idx: number) => (
-                        <div key={idx} style={{ display: 'flex', alignItems: 'center' }}>
-                          <p id='rectangle_bad' style={{ marginRight: '0.45rem', width: '12px', height: '12px' }} />
-                          {el}
-                        </div>
-                      ))
-                    ))}
+                    <div>
+                      <h3>Ремонт</h3>
+                      {remont_list[index].item.map((node: any, i: number) => (
+                        node.remont.map((el: any, idx: number) => (
+                          <div key={idx} style={{ display: 'flex', alignItems: 'center' }}>
+                            <p id='rectangle_bad' style={{ marginRight: '0.45rem', width: '12px', height: '12px' }} />
+                            {el}
+                          </div>
+                        ))
+                      ))}
+                    </div>
                   </>
                 }
               </AccordionItem>
