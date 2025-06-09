@@ -1,51 +1,59 @@
 import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
-import { BrowserWindow } from '@electron/remote'
+import { BrowserWindow } from '@electron/remote';
 
 export type Channels = 'ipc-example';
 
-contextBridge.exposeInMainWorld('electron', {
-  // ipcRenderer: { ...ipcRenderer, on: ipcRenderer.on },
+type IpcHandler = (...args: unknown[]) => void;
 
+contextBridge.exposeInMainWorld('electron', {
   ipcRenderer: {
     sendMessage(channel: Channels, args: unknown[]) {
       ipcRenderer.send(channel, args);
     },
-    on(channel: Channels, func: (...args: unknown[]) => void) {
-      const subscription = (_event: IpcRendererEvent, ...args: unknown[]) =>
-        func(...args);
-      ipcRenderer.on(channel, subscription);
-
-      return () => ipcRenderer.removeListener(channel, subscription);
+    on(channel: Channels, handler: IpcHandler) {
+      const listener = (_event: IpcRendererEvent, ...args: unknown[]) =>
+        handler(...args);
+      ipcRenderer.on(channel, listener);
+      return () => ipcRenderer.removeListener(channel, listener);
     },
-    once(channel: Channels, func: (...args: unknown[]) => void) {
-      ipcRenderer.once(channel, (_event, ...args) => func(...args));
+    once(channel: Channels, handler: IpcHandler) {
+      ipcRenderer.once(channel, (_event, ...args) => handler(...args));
     },
   },
 
-  openFile(options: any) {
-    return ipcRenderer.invoke('dialog:openFile', options)
-  },
-  saveFile(options: any) {
-    return ipcRenderer.invoke('dialog:saveFile', options)
-  },
-  userRead() {
-    return ipcRenderer.invoke("user:read")
-  },
-  userWrite(config: any) {
-    return ipcRenderer.invoke("user:write", config)
-  },
-  loadXls(path: string) {
-    return ipcRenderer.invoke("roaddata:load", path)
+  dialog: {
+    openFile(options: any) {
+      return ipcRenderer.invoke('dialog:openFile', options);
+    },
+    saveFile(options: any) {
+      return ipcRenderer.invoke('dialog:saveFile', options);
+    },
   },
 
-  //////////////////
-  closeApp() {
-    ipcRenderer.send('closeApp');
+  user: {
+    read() {
+      return ipcRenderer.invoke('user:read');
+    },
+    write(config: any) {
+      return ipcRenderer.invoke('user:write', config);
+    },
   },
-  minimizeApp() {
-    ipcRenderer.send('minimizeApp');
+
+  roaddata: {
+    loadXls(path: string) {
+      return ipcRenderer.invoke('roaddata:load', path);
+    },
   },
-  maximizeApp() {
-    ipcRenderer.send('maximizeApp');
-  }
+
+  appControl: {
+    close() {
+      ipcRenderer.send('closeApp');
+    },
+    minimize() {
+      ipcRenderer.send('minimizeApp');
+    },
+    maximize() {
+      ipcRenderer.send('maximizeApp');
+    },
+  },
 });
